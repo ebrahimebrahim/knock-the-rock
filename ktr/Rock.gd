@@ -2,7 +2,7 @@ extends RigidBody2D
 
 var vertices = PoolVector2Array()
 var texture_uvs = PoolVector2Array()
-var texture : NoiseTexture
+var texture : ImageTexture
 
 # Called when the node enters the scene tree for the first time.
 func _ready():	
@@ -18,16 +18,20 @@ func _ready():
 	collision_shape.shape.points =  vertices
 
 func generate_texture():
-	texture = NoiseTexture.new()
-	texture.width = 8
-	texture.height  = 8
-	texture.noise = OpenSimplexNoise.new()
+	texture = ImageTexture.new()
+	var noise = OpenSimplexNoise.new()
+	noise.seed = randi()
+	noise.octaves = 6
+	noise.period = 256
+	noise.persistence = 1
+	noise.lacunarity = 2.54
+	var img = noise.get_image(16,16)
+	rockify_image(img)
+	texture.create_from_image(img)
 	texture.set_flags(texture.FLAGS_DEFAULT & ~(texture.FLAG_REPEAT))
-	texture.noise.seed = randi()
-	texture.noise.octaves = 6 # 5?
-	texture.noise.period = 256
-	texture.noise.persistence = 1
-	texture.noise.lacunarity = 2.54
+
+func rockify_image(img : Image) -> void:
+	pass
 
 func generate_polygon():
 	var r = rand_range(20,45)
@@ -45,7 +49,7 @@ func generate_polygon():
 		new_vert = new_vert.rotated(rot)
 		vertices.push_back(new_vert)
 		
-		texture_uvs.push_back(texture.width/2.0 * Vector2(cos(dt*i),sin(dt*i)))
+		texture_uvs.push_back(0.5*(Vector2(cos(dt*i),sin(dt*i)) + Vector2(1,1)))
 
 func _draw():
 	draw_polygon(vertices, [], texture_uvs, texture)
