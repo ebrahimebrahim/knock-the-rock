@@ -25,13 +25,17 @@ func generate_texture():
 	noise.period = 256
 	noise.persistence = 1
 	noise.lacunarity = 2.54
-	var img = noise.get_image(16,16)
+	var img = noise.get_image(32,32)
 	rockify_image(img)
 	texture.create_from_image(img)
 	texture.set_flags(texture.FLAGS_DEFAULT & ~(texture.FLAG_REPEAT))
 
 func rockify_image(img : Image) -> void:
-	pass
+	img.convert(img.FORMAT_L8) # convert to grayscale
+	for i in range(len(img.data["data"])):
+		img.data["data"][i] = (img.data["data"][i]/32)*32
+	
+	img.convert(img.FORMAT_RGB8) # convert back to RGB-8
 
 func generate_polygon():
 	var r = rand_range(20,45)
