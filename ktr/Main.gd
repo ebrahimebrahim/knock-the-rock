@@ -10,10 +10,11 @@ const Rock = preload("res://Rock.gd")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	for i in range(10):
+	randomize()
+	for i in range(20):
 		var rock : Rock = Rock.new()
 		add_child(rock)
-		rock.set_position(Vector2(rand_range(100,900),rand_range(0,100)))
+		rock.set_position(Vector2(rand_range(100,900),rand_range(0,300)))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
