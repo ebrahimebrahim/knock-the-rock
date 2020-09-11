@@ -10,6 +10,8 @@ func _ready():
 	modulate = generate_color()
 	generate_polygon()
 	
+	continuous_cd = CCD_MODE_CAST_RAY # might make this an option
+	bounce = 0.15
 	
 	var collision_shape : CollisionShape2D = CollisionShape2D.new()
 	add_child(collision_shape)
@@ -48,7 +50,6 @@ func generate_color() -> Color:
 	for i in range(3):
 		output_color = output_color.linear_interpolate(colors[randi()%colors.size()],randf())
 	return output_color
-	
 
 func generate_polygon():
 	var r = rand_range(20,45)
