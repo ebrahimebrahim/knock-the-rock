@@ -5,6 +5,7 @@ var texture_uvs = PoolVector2Array()
 var texture : ImageTexture
 
 var is_held : bool = false setget set_held
+var local_hold_point : Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():	
@@ -52,7 +53,7 @@ func generate_color() -> Color:
 				  Color("6f5e3f"),
 				  Color("7d7e57")]
 	var output_color = colors[randi()%colors.size()]
-	for i in range(3):
+	for _i in range(3):
 		output_color = output_color.linear_interpolate(colors[randi()%colors.size()],randf())
 	return output_color
 
@@ -97,10 +98,12 @@ func _input(event):
 			vertices_global.push_back(global_transform.xform(v))
 		if Geometry.is_point_in_polygon(event.position,vertices_global):
 			set_held(true)
+			local_hold_point = global_transform.xform_inv(event.position)
 	if is_held:
 		# on release, release rock
 		if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and not event.is_pressed():
 			set_held(false)
-		#on motion, move rock
+		# on motion, move rock
 		if event is InputEventMouseMotion:
-			position = event.position
+			# want global_transform.xform(local_hold_point) == event.position
+			position = global_transform.xform(global_transform.xform_inv(event.position) - local_hold_point)
