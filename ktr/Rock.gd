@@ -11,7 +11,11 @@ func _ready():
 	generate_polygon()
 	
 	continuous_cd = CCD_MODE_CAST_RAY # might make this an option
-	bounce = 0.15
+	var phys = PhysicsMaterial.new()
+	phys.bounce = 0.15
+	phys.friction = 1
+	phys.rough = true
+	set_physics_material_override(phys)
 	
 	var collision_shape : CollisionShape2D = CollisionShape2D.new()
 	add_child(collision_shape)
