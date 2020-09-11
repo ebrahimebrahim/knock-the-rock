@@ -3,7 +3,8 @@ extends RigidBody2D
 var vertices = PoolVector2Array()
 var texture_uvs = PoolVector2Array()
 var texture : ImageTexture
-var is_held = false
+
+var is_held : bool = false setget set_held
 
 # Called when the node enters the scene tree for the first time.
 func _ready():	
@@ -82,10 +83,22 @@ func _draw():
 	draw_polyline(vertices,Color(0.0,0.0,0.0),2.0,true)
 	draw_line(vertices[-1],vertices[0],Color(0.0,0.0,0.0),2.0,true)
 
+func set_held(val : bool) -> void:
+	is_held = val
+	mode = MODE_KINEMATIC if is_held else MODE_RIGID
+
 func _input(event):
+	# on click, hold rock
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.is_pressed():
-		is_held = true
+		var vertices_global = PoolVector2Array()
+		for v in vertices:
+			vertices_global.push_back(global_transform.xform(v))
+		if Geometry.is_point_in_polygon(event.position,vertices_global):
+			set_held(true)
 	if is_held:
+		# on release, release rock
+		if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and not event.is_pressed():
+			set_held(false)
 		#on motion, move rock
-		#on release, let go of rock
-		pass
+		if event is InputEventMouseMotion:
+			position = event.position
