@@ -7,8 +7,9 @@ var texture : ImageTexture
 # Called when the node enters the scene tree for the first time.
 func _ready():	
 	generate_texture()
-	
+	modulate = generate_color()
 	generate_polygon()
+	
 	
 	var collision_shape : CollisionShape2D = CollisionShape2D.new()
 	add_child(collision_shape)
@@ -36,6 +37,15 @@ func rockify_image(img : Image) -> void:
 		img.data["data"][i] = (img.data["data"][i]/32)*32
 	
 	img.convert(img.FORMAT_RGB8) # convert back to RGB-8
+
+func generate_color() -> Color:
+	var colors = [Color("565656"),
+				  Color("ffffff"),
+				  Color("635353"),
+				  Color("6f5e3f"),
+				  Color("7d7e57")]
+	return colors[rand_range(0,4)]
+	
 
 func generate_polygon():
 	var r = rand_range(20,45)
