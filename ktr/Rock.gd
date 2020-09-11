@@ -4,6 +4,12 @@ var vertices = PoolVector2Array()
 var texture_uvs = PoolVector2Array()
 var texture : ImageTexture
 
+const colors = [Color("565656"),
+				Color("ffffff"),
+				Color("635353"),
+				Color("6f5e3f"),
+				Color("7d7e57")]
+
 var is_held : bool = false setget set_held
 var local_hold_point : Vector2
 
@@ -47,11 +53,6 @@ func rockify_image(img : Image) -> void:
 		img.data["data"][i] = (img.data["data"][i]/32)*32
 
 func generate_color() -> Color:
-	var colors = [Color("565656"),
-				  Color("ffffff"),
-				  Color("635353"),
-				  Color("6f5e3f"),
-				  Color("7d7e57")]
 	var output_color = colors[randi()%colors.size()]
 	for _i in range(3):
 		output_color = output_color.linear_interpolate(colors[randi()%colors.size()],randf())
