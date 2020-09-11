@@ -12,10 +12,6 @@ func _ready():
 	generate_polygon()
 	mass = calculate_area()
 	
-	var area_label = Label.new()
-	add_child(area_label)
-	area_label.text = str(calculate_area())
-	
 	continuous_cd = CCD_MODE_CAST_RAY # might make this an option
 	var phys = PhysicsMaterial.new()
 	phys.bounce = 0.15
@@ -29,9 +25,6 @@ func _ready():
 	# make ConcavePolygonShape2D if most rocks concave
 	collision_shape.shape = ConvexPolygonShape2D.new()
 	collision_shape.shape.points = vertices
-
-func _process(delta):
-	get_child(0).set_rotation(-rotation)
 
 func generate_texture():
 	texture = ImageTexture.new()
