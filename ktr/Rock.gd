@@ -3,6 +3,7 @@ extends RigidBody2D
 var vertices = PoolVector2Array()
 var texture_uvs = PoolVector2Array()
 var texture : ImageTexture
+var is_held = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():	
@@ -22,7 +23,7 @@ func _ready():
 	
 	# make ConcavePolygonShape2D if most rocks concave
 	collision_shape.shape = ConvexPolygonShape2D.new()
-	collision_shape.shape.points =  vertices
+	collision_shape.shape.points = vertices
 
 func generate_texture():
 	texture = ImageTexture.new()
@@ -73,7 +74,18 @@ func generate_polygon():
 		
 		texture_uvs.push_back(0.5*(Vector2(cos(dt*i),sin(dt*i)) + Vector2(1,1)))
 
+func calculate_area(vertices):
+	pass
+
 func _draw():
 	draw_polygon(vertices, [], texture_uvs, texture)
 	draw_polyline(vertices,Color(0.0,0.0,0.0),2.0,true)
 	draw_line(vertices[-1],vertices[0],Color(0.0,0.0,0.0),2.0,true)
+
+func _input(event):
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.is_pressed():
+		is_held = true
+	if is_held:
+		#on motion, move rock
+		#on release, let go of rock
+		pass
