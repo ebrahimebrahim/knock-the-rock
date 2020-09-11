@@ -9,8 +9,9 @@ var is_held : bool = false setget set_held
 # Called when the node enters the scene tree for the first time.
 func _ready():	
 	generate_texture()
-	modulate = generate_color()
+	self_modulate = generate_color()
 	generate_polygon()
+	mass = calculate_area()
 	
 	continuous_cd = CCD_MODE_CAST_RAY # might make this an option
 	var phys = PhysicsMaterial.new()
@@ -43,8 +44,6 @@ func rockify_image(img : Image) -> void:
 	img.convert(img.FORMAT_L8) # convert to grayscale
 	for i in range(len(img.data["data"])):
 		img.data["data"][i] = (img.data["data"][i]/32)*32
-	
-	img.convert(img.FORMAT_RGB8) # convert back to RGB-8
 
 func generate_color() -> Color:
 	var colors = [Color("565656"),
@@ -75,8 +74,11 @@ func generate_polygon():
 		
 		texture_uvs.push_back(0.5*(Vector2(cos(dt*i),sin(dt*i)) + Vector2(1,1)))
 
-func calculate_area(vertices):
-	pass
+func calculate_area():
+	var area = 0
+	for i in range(len(vertices)):
+		area += vertices[i].cross(vertices[(i+1)%len(vertices)])/2
+	return area
 
 func _draw():
 	draw_polygon(vertices, [], texture_uvs, texture)
