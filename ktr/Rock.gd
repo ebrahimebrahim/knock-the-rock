@@ -44,7 +44,10 @@ func generate_color() -> Color:
 				  Color("635353"),
 				  Color("6f5e3f"),
 				  Color("7d7e57")]
-	return colors[rand_range(0,4)]
+	var output_color = colors[randi()%colors.size()]
+	for i in range(3):
+		output_color = output_color.linear_interpolate(colors[randi()%colors.size()],randf())
+	return output_color
 	
 
 func generate_polygon():
