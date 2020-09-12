@@ -25,7 +25,7 @@ func _ready():
 	generate_polygon()
 	mass = pow(calculate_area()/1000,1.5)
 	
-	continuous_cd = CCD_MODE_CAST_SHAPE # might make this an option
+	continuous_cd = CCD_MODE_CAST_RAY # might make this an option
 	var phys = PhysicsMaterial.new()
 	phys.bounce = 0.15
 	phys.friction = 1
@@ -104,10 +104,14 @@ func calculate_area():
 
 
 func generate_collision_shape():
-	var collision_shape = CollisionShape2D.new()
-	add_child(collision_shape)
-	collision_shape.shape = ConvexPolygonShape2D.new()
-	collision_shape.shape.points = vertices
+	var triangles : PoolIntArray = Geometry.triangulate_polygon(vertices)
+	assert(len(triangles)%3==0)
+	for i in range(len(triangles)/3):
+		var triangle = PoolVector2Array([vertices[triangles[3*i]],vertices[triangles[3*i+1]],vertices[triangles[3*i+2]]])
+		var c = CollisionShape2D.new()
+		add_child(c)
+		c.shape = ConvexPolygonShape2D.new()
+		c.shape.points = triangle
 
 
 func _draw():
