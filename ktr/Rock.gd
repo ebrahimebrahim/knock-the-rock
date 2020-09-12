@@ -45,7 +45,7 @@ func _ready():
 	
 	audio = AudioStreamPlayer2D.new()
 	add_child(audio)
-	audio.set_stream(knock_sounds[rand_range(0,len(knock_sounds))])
+	audio.set_stream(knock_sounds[randi() % len(knock_sounds)])
 	
 	audio_timer = Timer.new()
 	add_child(audio_timer)
@@ -78,7 +78,7 @@ func generate_color() -> Color:
 
 func generate_polygon():
 	var r = rand_range(20,45)
-	var n = rand_range(5,15)
+	var n = 5 + randi()%11
 	var dt = 2*PI/n
 	var mini_r = r*sin(dt/2)
 	var new_vert = Vector2(0,0)
