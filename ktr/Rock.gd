@@ -128,12 +128,11 @@ func _input(event):
 			position = global_transform.xform(global_transform.xform_inv(event.position) - local_hold_point)
 
 func _integrate_forces(state):
-	if state.get_contact_count()!=0:
+	if state.get_contact_count() != 0:
 		var obj = state.get_contact_collider_object(0)
-		if (not obj is RigidBody2D) or mass <= obj.mass:
+		if ((not obj is RigidBody2D) or mass <= obj.mass) and (obj is RigidBody2D or not is_held):
 			var impact_vel = abs((state.get_contact_collider_velocity_at_position(0)-linear_velocity).dot(state.get_contact_local_normal(0)))
 			if impact_vel > 70 :
-#				print(str((state.get_contact_collider_velocity_at_position(0)-linear_velocity).dot(state.get_contact_local_normal(0)))+"   "+str(linear_velocity.y))
 				var impact_pos = state.get_contact_collider_position(0)
 				knock(impact_vel,impact_pos,mass)
 
