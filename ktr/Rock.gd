@@ -23,9 +23,9 @@ func _ready():
 	generate_texture()
 	self_modulate = generate_color()
 	generate_polygon()
-	mass = pow(calculate_area(),1.5)
+	mass = pow(calculate_area()/1000,1.5)
 	
-	continuous_cd = CCD_MODE_CAST_RAY # might make this an option
+	continuous_cd = CCD_MODE_CAST_SHAPE # might make this an option
 	var phys = PhysicsMaterial.new()
 	phys.bounce = 0.15
 	phys.friction = 1
@@ -150,6 +150,6 @@ func knock(impact_vel,impact_pos,lighter_mass):
 	if audio_timer.is_stopped():
 		audio.position = impact_pos
 		audio.volume_db = min((impact_vel - 200)/50  -  20 , 18)
-		audio.pitch_scale = exp(-lighter_mass/1864  +  0.941944)
+		audio.pitch_scale = exp(-lighter_mass/12.7  +  0.48)
 		audio.play()
 		audio_timer.start()
