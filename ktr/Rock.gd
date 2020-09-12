@@ -15,7 +15,7 @@ var local_hold_point : Vector2
 
 var audio : AudioStreamPlayer2D
 var knock_sounds = [preload("res://sounds/knock01.wav"),preload("res://sounds/knock02.wav")]
-var timer : Timer
+var audio_timer : Timer
 
 signal knock(impact_vel,impact_pos,lighter_mass)
 
@@ -47,10 +47,10 @@ func _ready():
 	add_child(audio)
 	audio.set_stream(knock_sounds[rand_range(0,len(knock_sounds))])
 	
-	timer = Timer.new()
-	add_child(timer)
-	timer.one_shot = true
-	timer.wait_time = 0.2 # between audio clips
+	audio_timer = Timer.new()
+	add_child(audio_timer)
+	audio_timer.one_shot = true
+	audio_timer.wait_time = 0.2 # between audio clips
 
 func generate_texture():
 	texture = ImageTexture.new()
@@ -140,9 +140,9 @@ func _integrate_forces(state):
 				knock(impact_vel,impact_pos,mass)
 
 func knock(impact_vel,impact_pos,lighter_mass):
-	if timer.is_stopped():
+	if audio_timer.is_stopped():
 		audio.position = impact_pos
 		audio.volume_db = min((impact_vel - 200)/50  -  20 , 18)
 		audio.pitch_scale = exp(-lighter_mass/1864  +  0.941944)
 		audio.play()
-		timer.start()
+		audio_timer.start()
