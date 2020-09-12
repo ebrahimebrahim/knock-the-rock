@@ -17,7 +17,6 @@ var audio : AudioStreamPlayer2D
 var knock_sounds = [preload("res://sounds/knock01.wav"),preload("res://sounds/knock02.wav")]
 var audio_timer : Timer
 
-signal knock(impact_vel,impact_pos,lighter_mass)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():	
