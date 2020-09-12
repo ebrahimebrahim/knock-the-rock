@@ -110,6 +110,9 @@ func set_held(val : bool) -> void:
 	mode = MODE_KINEMATIC if is_held else MODE_RIGID
 
 func _input(event):
+	_on_input(event) # this step is necessary to allow Boulder to override this function
+
+func _on_input(event):
 	# on click, hold rock
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.is_pressed():
 		var vertices_global = PoolVector2Array()
