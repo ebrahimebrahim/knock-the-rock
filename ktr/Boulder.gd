@@ -68,3 +68,5 @@ func generate_polygon():
 	vertices.push_back(bottom_right)
 	texture_uvs.push_back(Vector2(1,0))
 	
+func generate_collision_shape():
+	pass

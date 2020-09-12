@@ -3,6 +3,7 @@ extends RigidBody2D
 var vertices = PoolVector2Array()
 var texture_uvs = PoolVector2Array()
 var texture : ImageTexture
+var collision_shape : CollisionShape2D
 
 const colors = [Color("565656"),
 				Color("ffffff"),
@@ -32,12 +33,7 @@ func _ready():
 	phys.rough = true
 	set_physics_material_override(phys)
 	
-	var collision_shape : CollisionShape2D = CollisionShape2D.new()
-	add_child(collision_shape)
-	
-	# make ConcavePolygonShape2D if most rocks concave
-	collision_shape.shape = ConvexPolygonShape2D.new()
-	collision_shape.shape.points = vertices
+	generate_collision_shape()
 	
 	contact_monitor = true
 	contacts_reported = 1
@@ -106,6 +102,14 @@ func calculate_area():
 	for i in range(len(vertices)):
 		area += vertices[i].cross(vertices[(i+1)%len(vertices)])/2
 	return area
+
+
+func generate_collision_shape():
+	collision_shape = CollisionShape2D.new()
+	add_child(collision_shape)
+	collision_shape.shape = ConvexPolygonShape2D.new()
+	collision_shape.shape.points = vertices
+
 
 func _draw():
 	draw_polygon(vertices, [], texture_uvs, texture)
