@@ -44,7 +44,7 @@ func generate_polygon():
 	var n = 1+randi()%8
 	var left_side_vec : Vector2 = top_left - bottom_left
 	var left_side_vec_n : Vector2 = left_side_vec.normalized()
-	var rad_size : float = left_side_vec.length()/(2*n)
+	var rad_size : float = min(left_side_vec.length()/(2*n),top_length/2.0)
 	for i in range(n):
 		var center : Vector2 = bottom_left + (rad_size + 2*rad_size*i)*left_side_vec_n
 		vertices.push_back(random_point_in_disk(center,0.75*rad_size))
