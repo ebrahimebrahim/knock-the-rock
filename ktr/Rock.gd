@@ -13,6 +13,8 @@ const colors = [Color("565656"),
 var is_held : bool = false setget set_held
 var local_hold_point : Vector2
 
+signal knock(impact_vel,impact_pos,total_mass)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():	
 	generate_texture()
@@ -33,6 +35,9 @@ func _ready():
 	# make ConcavePolygonShape2D if most rocks concave
 	collision_shape.shape = ConvexPolygonShape2D.new()
 	collision_shape.shape.points = vertices
+	
+	contact_monitor = true
+	contacts_reported = 1
 
 func generate_texture():
 	texture = ImageTexture.new()
@@ -108,3 +113,14 @@ func _input(event):
 		if event is InputEventMouseMotion:
 			# want global_transform.xform(local_hold_point) == event.position
 			position = global_transform.xform(global_transform.xform_inv(event.position) - local_hold_point)
+
+
+func _integrate_forces(state):
+	if state.get_contact_count()!=0:
+		var impact_vel = state.get_contact_collider_velocity_at_position(0).dot(state.get_contact_local_normal(0))
+		if impact_vel > 100 :
+			var impact_pos = state.get_contact_collider_position(0)
+			var obj = state.get_contact_collider_object(0)
+			var total_mass = mass
+			if obj is RigidBody2D : total_mass += obj.mass
+			emit_signal("knock",impact_vel,impact_pos,total_mass)
