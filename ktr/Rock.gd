@@ -24,7 +24,7 @@ func _ready():
 	generate_texture()
 	self_modulate = generate_color()
 	generate_polygon()
-	mass = calculate_area()
+	mass = pow(calculate_area(),1.5)
 	
 	continuous_cd = CCD_MODE_CAST_RAY # might make this an option
 	var phys = PhysicsMaterial.new()
