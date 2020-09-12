@@ -44,22 +44,25 @@ func generate_polygon():
 	var dt = 2*PI/n
 	var mini_r = r*sin(dt/2)
 	var new_vert = Vector2(0,0)
-	var stretch = exp(rand_range(0.5,0.6)) # boulders are always stretched
 #	var rot = rand_range(0,2*PI) -- unlike rocks, boulders do not get a random rotation
 	for i in range(n):
-		var mini_c = r*Vector2(cos(dt*(i+0.5)),sin(dt*(i+0.5))) # the -0.5 on the i rotates the minicircles to put pairs on top and bottom
+		var mini_c = r*Vector2(cos(dt*(i-0.5)+(PI/2)),sin(dt*(i-0.5)+(PI/2))) # the -0.5 on the i rotates the minicircles to put pairs on top and bottom
 		while(new_vert.distance_to(mini_c) >= mini_r):
 			new_vert = Vector2(rand_range(mini_c.x-mini_r,mini_c.x+mini_r),rand_range(mini_c.y-mini_r,mini_c.y+mini_r))
-		new_vert.y *= stretch # boulders are stretched in the y direction
-#		new_vert = new_vert.rotated(rot) -- unlike rocks, boulders do not get a random rotation
 		vertices.push_back(new_vert)
 	
-	vertices[0].y += 3*mini_r*stretch
+#	vertices[0].y -= 2*mini_r
 	vertices[1].y = vertices[0].y
-	vertices[0].x += 3*mini_r
-	vertices[1].x -= 3*mini_r
-	vertices[-1].y -= 3*mini_r*stretch
-	vertices[-2].y = vertices[-1].y
+	
+#	vertices[0].x += mini_r
+#	vertices[1].x -= 3*mini_r
+	
+#	vertices[n/2+1].y += mini_r
+	vertices[n/2].y = vertices[n/2+1].y
+	
+	var stretch = exp(rand_range(0.5,0.7)) # boulders are always stretched
+	for i in range(len(vertices)):
+		vertices[i].y *= stretch
 	
 	for i in range(n):
 		texture_uvs.push_back(0.5*(Vector2(cos(dt*(i-0.5)),sin(dt*(i-0.5))) + Vector2(1,1))) # -0.5 on i matches as above
