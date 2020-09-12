@@ -13,7 +13,7 @@ const colors = [Color("565656"),
 var is_held : bool = false setget set_held
 var local_hold_point : Vector2
 
-signal knock(impact_vel,impact_pos,total_mass)
+signal knock(impact_vel,impact_pos,lighter_mass)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():	
@@ -117,10 +117,11 @@ func _input(event):
 
 func _integrate_forces(state):
 	if state.get_contact_count()!=0:
-		var impact_vel = state.get_contact_collider_velocity_at_position(0).dot(state.get_contact_local_normal(0))
-		if impact_vel > 100 :
-			var impact_pos = state.get_contact_collider_position(0)
-			var obj = state.get_contact_collider_object(0)
-			var total_mass = mass
-			if obj is RigidBody2D : total_mass += obj.mass
-			emit_signal("knock",impact_vel,impact_pos,total_mass)
+		var obj = state.get_contact_collider_object(0)
+		if (not obj is RigidBody2D) or mass <= obj.mass:
+			var impact_vel = abs((state.get_contact_collider_velocity_at_position(0)-linear_velocity).dot(state.get_contact_local_normal(0)))
+			if impact_vel > 100 :
+				print(str((state.get_contact_collider_velocity_at_position(0)-linear_velocity).dot(state.get_contact_local_normal(0)))+"   "+str(linear_velocity.y))
+				var impact_pos = state.get_contact_collider_position(0)
+				emit_signal("knock",impact_vel,impact_pos,mass)
+				
