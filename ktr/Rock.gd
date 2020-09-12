@@ -65,10 +65,12 @@ func generate_texture():
 	texture.create_from_image(img)
 	texture.set_flags(texture.FLAGS_DEFAULT & ~(texture.FLAG_REPEAT))
 
+
 func rockify_image(img : Image) -> void:
 	img.convert(img.FORMAT_L8) # convert to grayscale
 	for i in range(len(img.data["data"])):
 		img.data["data"][i] = (img.data["data"][i]/32)*32
+
 
 func generate_color() -> Color:
 	var output_color = colors[randi()%colors.size()]
@@ -76,23 +78,29 @@ func generate_color() -> Color:
 		output_color = output_color.linear_interpolate(colors[randi()%colors.size()],randf())
 	return output_color
 
+
+func random_point_in_disk(center : Vector2, radius : float):
+	var output = center+100*Vector2(radius,0)
+	while(output.distance_to(center) >= radius):
+		output = Vector2(rand_range(center.x-radius,center.x+radius),rand_range(center.y-radius,center.y+radius))
+	return output
+
+
 func generate_polygon():
 	var r = rand_range(20,45)
 	var n = 5 + randi()%11
 	var dt = 2*PI/n
 	var mini_r = r*sin(dt/2)
-	var new_vert = Vector2(0,0)
 	var stretch = exp(rand_range(-0.5,0.5))
 	var rot = rand_range(0,2*PI)
 	for i in range(n):
-		var mini_c = r*Vector2(cos(dt*i),sin(dt*i))
-		while(new_vert.distance_to(mini_c) >= mini_r):
-			new_vert = Vector2(rand_range(mini_c.x-mini_r,mini_c.x+mini_r),rand_range(mini_c.y-mini_r,mini_c.y+mini_r))
+		var new_vert = random_point_in_disk(r*Vector2(cos(dt*i),sin(dt*i)),mini_r)
 		new_vert.x *= stretch
 		new_vert = new_vert.rotated(rot)
 		vertices.push_back(new_vert)
 		
 		texture_uvs.push_back(0.5*(Vector2(cos(dt*i),sin(dt*i)) + Vector2(1,1)))
+
 
 func calculate_area():
 	var area = 0
