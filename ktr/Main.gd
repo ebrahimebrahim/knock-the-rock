@@ -6,7 +6,7 @@ const Boulder = preload("res://Boulder.gd")
 func _ready():
 	randomize()
 	put_rock(8)
-	put_boulder(Vector2(500,300))
+	put_boulder(Vector2(300,400))
 
 func put_rock(num : int, pos = null) -> void:
 		for _i in range(num):

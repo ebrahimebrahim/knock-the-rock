@@ -69,4 +69,12 @@ func generate_polygon():
 	texture_uvs.push_back(Vector2(1,0))
 	
 func generate_collision_shape():
-	pass
+	var triangles : PoolIntArray = Geometry.triangulate_polygon(vertices)
+	assert(len(triangles)%3==0)
+	for i in range(len(triangles)/3):
+		var triangle = PoolVector2Array([vertices[triangles[3*i]],vertices[triangles[3*i+1]],vertices[triangles[3*i+2]]])
+		var c = CollisionShape2D.new()
+		add_child(c)
+		c.shape = ConvexPolygonShape2D.new()
+		c.shape.points = triangle
+	

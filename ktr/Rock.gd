@@ -3,7 +3,6 @@ extends RigidBody2D
 var vertices = PoolVector2Array()
 var texture_uvs = PoolVector2Array()
 var texture : ImageTexture
-var collision_shape : CollisionShape2D
 
 const colors = [Color("565656"),
 				Color("ffffff"),
@@ -105,7 +104,7 @@ func calculate_area():
 
 
 func generate_collision_shape():
-	collision_shape = CollisionShape2D.new()
+	var collision_shape = CollisionShape2D.new()
 	add_child(collision_shape)
 	collision_shape.shape = ConvexPolygonShape2D.new()
 	collision_shape.shape.points = vertices
