@@ -13,6 +13,10 @@ const colors = [Color("565656"),
 var is_held : bool = false setget set_held
 var local_hold_point : Vector2
 
+var audio : AudioStreamPlayer2D
+var knock_sounds = [preload("res://sounds/knock01.wav"),preload("res://sounds/knock02.wav")]
+var timer : Timer
+
 signal knock(impact_vel,impact_pos,lighter_mass)
 
 # Called when the node enters the scene tree for the first time.
@@ -38,6 +42,15 @@ func _ready():
 	
 	contact_monitor = true
 	contacts_reported = 1
+	
+	audio = AudioStreamPlayer2D.new()
+	add_child(audio)
+	audio.set_stream(knock_sounds[rand_range(0,len(knock_sounds))])
+	
+	timer = Timer.new()
+	add_child(timer)
+	timer.one_shot = true
+	timer.wait_time = 0.2 # between audio clips
 
 func generate_texture():
 	texture = ImageTexture.new()
@@ -114,14 +127,20 @@ func _input(event):
 			# want global_transform.xform(local_hold_point) == event.position
 			position = global_transform.xform(global_transform.xform_inv(event.position) - local_hold_point)
 
-
 func _integrate_forces(state):
 	if state.get_contact_count()!=0:
 		var obj = state.get_contact_collider_object(0)
 		if (not obj is RigidBody2D) or mass <= obj.mass:
 			var impact_vel = abs((state.get_contact_collider_velocity_at_position(0)-linear_velocity).dot(state.get_contact_local_normal(0)))
-			if impact_vel > 100 :
-				print(str((state.get_contact_collider_velocity_at_position(0)-linear_velocity).dot(state.get_contact_local_normal(0)))+"   "+str(linear_velocity.y))
+			if impact_vel > 70 :
+#				print(str((state.get_contact_collider_velocity_at_position(0)-linear_velocity).dot(state.get_contact_local_normal(0)))+"   "+str(linear_velocity.y))
 				var impact_pos = state.get_contact_collider_position(0)
-				emit_signal("knock",impact_vel,impact_pos,mass)
-				
+				knock(impact_vel,impact_pos,mass)
+
+func knock(impact_vel,impact_pos,lighter_mass):
+	if timer.is_stopped():
+		audio.position = impact_pos
+		audio.volume_db = min((impact_vel - 200)/50  -  20 , 18)
+		audio.pitch_scale = exp(-lighter_mass/1864  +  0.941944)
+		audio.play()
+		timer.start()
