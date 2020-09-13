@@ -15,7 +15,7 @@ var bottom_left : Vector2
 var bottom_right : Vector2
 
 
-func _ready():
+func _init():
 	mode = MODE_STATIC
 
 

@@ -18,8 +18,7 @@ var knock_sounds = [preload("res://sounds/knock01.wav"),preload("res://sounds/kn
 var audio_timer : Timer
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():	
+func _init():
 	generate_texture()
 	self_modulate = generate_color()
 	generate_polygon()
