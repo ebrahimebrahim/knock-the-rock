@@ -143,6 +143,9 @@ func _on_input(event):
 		if event is InputEventMouseMotion:
 			# want global_transform.xform(local_hold_point) == event.position
 			position = global_transform.xform(global_transform.xform_inv(event.position) - local_hold_point)
+	
+	if event is InputEventMouseButton and event.button_index == BUTTON_RIGHT and event.is_pressed() and is_held:
+		flat_bottom()
 
 func _integrate_forces(state):
 	if state.get_contact_count() != 0:
@@ -160,3 +163,19 @@ func knock(impact_vel,impact_pos,lighter_mass):
 		audio.pitch_scale = exp(-lighter_mass/12.7  +  0.48)
 		audio.play()
 		audio_timer.start()
+
+
+# Rotate the rock so that its bottom is a long flat edge
+# Return vertical distance from rock origin to that flat edge
+func flat_bottom() -> float:
+	var edge_lengths = []
+	for i in range(len(vertices)):
+		edge_lengths.push_back((vertices[i] - vertices[(i+1)%len(vertices)]).length_squared())
+	var max_edge_length : float = edge_lengths.max()
+	var argmax : int = edge_lengths.find(max_edge_length)
+	var v : Vector2 = vertices[argmax] - vertices[(argmax+1)%len(vertices)]
+	rotation = -v.angle()
+	
+	var u : Vector2 = v.normalized()
+	return (vertices[argmax] - vertices[argmax].dot(u)*u).length()
+	
