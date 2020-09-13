@@ -118,13 +118,16 @@ func _draw():
 	draw_polygon(vertices, [], texture_uvs, texture)
 	draw_polyline(vertices,Color(0.0,0.0,0.0),2.0,true)
 	draw_line(vertices[-1],vertices[0],Color(0.0,0.0,0.0),2.0,true)
+	
 
 func set_held(val : bool) -> void:
 	is_held = val
 	mode = MODE_KINEMATIC if is_held else MODE_RIGID
 
+
 func _input(event):
 	_on_input(event) # this step is necessary to allow Boulder to override this function
+
 
 func _on_input(event):
 	# on click, hold rock
@@ -147,6 +150,7 @@ func _on_input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_RIGHT and event.is_pressed() and is_held:
 		flat_bottom()
 
+
 func _integrate_forces(state):
 	if state.get_contact_count() != 0:
 		var obj = state.get_contact_collider_object(0)
@@ -155,6 +159,7 @@ func _integrate_forces(state):
 			if impact_vel > 70 :
 				var impact_pos = state.get_contact_collider_position(0)
 				knock(impact_vel,impact_pos,mass)
+
 
 func knock(impact_vel,impact_pos,lighter_mass):
 	if audio_timer.is_stopped():
@@ -179,3 +184,14 @@ func flat_bottom() -> float:
 	var u : Vector2 = v.normalized()
 	return (vertices[argmax] - vertices[argmax].dot(u)*u).length()
 	
+
+# Returns the center of mass, aka centroid, of the polygon in local coords
+func center_of_mass() -> Vector2:
+	var x : float = 0
+	var y : float = 0
+	for i in range(len(vertices)):
+		var vi = vertices[i]
+		var vi1 = vertices[(i+1)%len(vertices)]
+		x += (vi.x + vi1.x)*(vi.x * vi1.y - vi1.x * vi.y)
+		y += (vi.y + vi1.y)*(vi.x * vi1.y - vi1.x * vi.y) 
+	return 1/(6 * calculate_area()) * Vector2(x,y)
