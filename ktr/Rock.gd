@@ -117,7 +117,12 @@ func _draw():
 	draw_polygon(vertices, [], texture_uvs, texture)
 	draw_polyline(vertices,Color(0.0,0.0,0.0),2.0,true)
 	draw_line(vertices[-1],vertices[0],Color(0.0,0.0,0.0),2.0,true)
-	
+
+
+func _process(delta):
+	if position.y > get_tree().get_root().get_size_override().y + 400:
+		queue_free()
+
 
 func set_held(val : bool) -> void:
 	is_held = val
