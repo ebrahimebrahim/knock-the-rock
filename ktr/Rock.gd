@@ -199,3 +199,22 @@ func center_of_mass() -> Vector2:
 		x += (vi.x + vi1.x)*(vi.x * vi1.y - vi1.x * vi.y)
 		y += (vi.y + vi1.y)*(vi.x * vi1.y - vi1.x * vi.y) 
 	return 1/(6 * calculate_area()) * Vector2(x,y)
+
+
+# Returns the global coords of the vertex that is leftmost in global coords
+func leftmost_vertex() -> Vector2:
+	var xs = []
+	for v in vertices:
+		xs.push_back(global_transform.xform(v).x)
+	var argmin = xs.find(xs.min())
+	return global_transform.xform(vertices[argmin])
+
+
+# Returns the global coords of the vertex that is rightmost in global coords
+func rightmost_vertex() -> Vector2:
+	var xs = []
+	for v in vertices:
+		xs.push_back(global_transform.xform(v).x)
+	var argmax = xs.find(xs.max())
+	return global_transform.xform(vertices[argmax])
+
