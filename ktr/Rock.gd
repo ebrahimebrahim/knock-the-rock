@@ -150,9 +150,6 @@ func _on_input(event):
 		if event is InputEventMouseMotion:
 			# want global_transform.xform(local_hold_point) == event.position
 			position = global_transform.xform(global_transform.xform_inv(event.position) - local_hold_point)
-	
-	if event is InputEventMouseButton and event.button_index == BUTTON_RIGHT and event.is_pressed() and is_held:
-		flat_bottom()
 
 
 func _integrate_forces(state):
