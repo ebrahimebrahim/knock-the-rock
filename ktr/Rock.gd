@@ -13,8 +13,12 @@ const colors = [Color("565656"),
 var is_held : bool = false setget set_held
 var local_hold_point : Vector2
 
-var audio : AudioStreamPlayer2D
-var knock_sounds = [preload("res://sounds/knock01.wav"),preload("res://sounds/knock02.wav")]
+enum KnockType {ROCK, GRASS}
+var audio = {} # dict mapping KnockType to AudioStreamPlayer2D
+const audio_resources = {
+	KnockType.ROCK  : [preload("res://sounds/knock01.wav"),preload("res://sounds/knock02.wav")],
+	KnockType.GRASS : [preload("res://sounds/pff01.wav"),preload("res://sounds/pff02.wav")]
+}
 var audio_timer : Timer
 
 
@@ -36,9 +40,11 @@ func _init():
 	contact_monitor = true
 	contacts_reported = 1
 	
-	audio = AudioStreamPlayer2D.new()
-	add_child(audio)
-	audio.set_stream(knock_sounds[randi() % len(knock_sounds)])
+	for knock_type in audio_resources.keys():
+		var audio_player = AudioStreamPlayer2D.new()
+		audio_player.set_stream(audio_resources[knock_type][randi() % len(audio_resources[knock_type])])
+		add_child(audio_player)
+		audio[knock_type] = audio_player
 	
 	audio_timer = Timer.new()
 	add_child(audio_timer)
@@ -155,19 +161,21 @@ func _on_input(event):
 func _integrate_forces(state):
 	if state.get_contact_count() != 0:
 		var obj = state.get_contact_collider_object(0)
-		if ((not obj is RigidBody2D) or mass <= obj.mass) and (obj is RigidBody2D or not is_held):
-			var impact_vel = abs((state.get_contact_collider_velocity_at_position(0)-linear_velocity).dot(state.get_contact_local_normal(0)))
-			if impact_vel > 70 :
-				var impact_pos = state.get_contact_collider_position(0)
-				knock(impact_vel,impact_pos,mass)
+		var impact_vel = abs((state.get_contact_collider_velocity_at_position(0)-linear_velocity).dot(state.get_contact_local_normal(0)))
+		var impact_pos = state.get_contact_collider_position(0)
+		if impact_vel > 70 :
+			if (obj is RigidBody2D) and (mass <= obj.mass):
+				knock(impact_vel,impact_pos,mass,KnockType.ROCK)
+			if (obj is StaticBody2D) and not is_held:
+				knock(impact_vel,impact_pos,mass,KnockType.GRASS)
 
 
-func knock(impact_vel,impact_pos,lighter_mass):
+func knock(impact_vel : float, impact_pos : Vector2, lighter_mass : float, knock_type):
 	if audio_timer.is_stopped():
-		audio.position = impact_pos
-		audio.volume_db = (20.0/log(10.0)) * log(impact_vel/200.0)
-		audio.pitch_scale = exp(-lighter_mass/12.7  +  0.48)
-		audio.play()
+		audio[knock_type].position = impact_pos
+		audio[knock_type].volume_db = (20.0/log(10.0)) * log(impact_vel/200.0)
+		audio[knock_type].pitch_scale = exp(-lighter_mass/12.7  +  0.48)
+		audio[knock_type].play()
 		audio_timer.start()
 
 

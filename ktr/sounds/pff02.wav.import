@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/pff02.wav-c214826a07f54e2341f3c034ae59909f.sample"
+
+[deps]
+
+source_file="res://sounds/pff02.wav"
+dest_files=[ "res://.import/pff02.wav-c214826a07f54e2341f3c034ae59909f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
