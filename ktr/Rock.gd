@@ -162,17 +162,15 @@ func _integrate_forces(state):
 	if state.get_contact_count() != 0:
 		var obj = state.get_contact_collider_object(0)
 		var impact_vel = abs((state.get_contact_collider_velocity_at_position(0)-linear_velocity).dot(state.get_contact_local_normal(0)))
-		var impact_pos = state.get_contact_collider_position(0)
 		if impact_vel > 70 :
 			if (obj is RigidBody2D) and (mass <= obj.mass):
-				knock(impact_vel,impact_pos,mass,KnockType.ROCK)
+				knock(impact_vel,mass,KnockType.ROCK)
 			if (obj is StaticBody2D) and not is_held:
-				knock(impact_vel,impact_pos,mass,KnockType.GRASS)
+				knock(impact_vel,mass,KnockType.GRASS)
 
 
-func knock(impact_vel : float, impact_pos : Vector2, lighter_mass : float, knock_type):
+func knock(impact_vel : float, lighter_mass : float, knock_type):
 	if audio_timer.is_stopped():
-		audio[knock_type].position = impact_pos
 		audio[knock_type].volume_db = (20.0/log(10.0)) * log(impact_vel/200.0)
 		audio[knock_type].pitch_scale = exp(-lighter_mass/12.7  +  0.48)
 		audio[knock_type].play()
