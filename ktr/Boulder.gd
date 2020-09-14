@@ -36,6 +36,10 @@ func generate_polygon():
 	top_left = bottom_left + Vector2(top_shift,-height)
 	top_right = top_left + Vector2(top_length,0)
 	
+	#interior angles of trapezoid in bottom left and right
+	var bottom_left_angle = -(top_left - bottom_left).angle()
+	var bottom_right_angle = PI + (top_right - bottom_right).angle()
+	
 	
 	vertices.push_back(bottom_left)
 	texture_uvs.push_back(Vector2(0,0))
@@ -44,10 +48,11 @@ func generate_polygon():
 	var n = 1+randi()%8
 	var left_side_vec : Vector2 = top_left - bottom_left
 	var left_side_vec_n : Vector2 = left_side_vec.normalized()
-	var rad_size : float = min(left_side_vec.length()/(2*n),top_length/2.0)
+	var step : float = min(left_side_vec.length()/(2*n),top_length/2.0)
+	var radius : float = step*sin(bottom_left_angle)
 	for i in range(n):
-		var center : Vector2 = bottom_left + (rad_size + 2*rad_size*i)*left_side_vec_n
-		vertices.push_back(random_point_in_disk(center,0.75*rad_size))
+		var center : Vector2 = bottom_left + (step + 2*step*i)*left_side_vec_n
+		vertices.push_back(random_point_in_disk(center,radius))
 		texture_uvs.push_back(Vector2(0,float(1+i)/(n+1)))
 
 	vertices.push_back(top_left)
@@ -59,10 +64,11 @@ func generate_polygon():
 #	n = 1+randi()%8
 	var right_side_vec : Vector2 = bottom_right - top_right
 	var right_side_vec_n : Vector2 = right_side_vec.normalized()
-	rad_size = right_side_vec.length()/(2*n)
+	step = right_side_vec.length()/(2*n)
+	radius = step*sin(bottom_right_angle)
 	for i in range(n):
-		var center : Vector2 = top_right + (rad_size + 2*rad_size*i)*right_side_vec_n
-		vertices.push_back(random_point_in_disk(center,0.75*rad_size))
+		var center : Vector2 = top_right + (step + 2*step*i)*right_side_vec_n
+		vertices.push_back(random_point_in_disk(center,radius))
 		texture_uvs.push_back(Vector2(1,1-float(1+i)/(n+1)))
 	
 	vertices.push_back(bottom_right)
