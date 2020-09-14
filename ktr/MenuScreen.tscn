@@ -16,6 +16,9 @@ __meta__ = {
 position = Vector2( 533, 494 )
 scale = Vector2( 0.521, 0.521 )
 texture = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="LogoZone" type="CenterContainer" parent="."]
 margin_right = 1066.0
@@ -55,29 +58,41 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="ReferenceRect" type="ReferenceRect" parent="MenuZone/Menu"]
+[node name="SdbxButton" type="Button" parent="MenuZone/Menu"]
 margin_right = 355.0
-margin_bottom = 52.0
+margin_bottom = 39.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+text = "Sandbox"
 
-[node name="ReferenceRect2" type="ReferenceRect" parent="MenuZone/Menu"]
-margin_top = 62.0
+[node name="ChlgButton" type="Button" parent="MenuZone/Menu"]
+margin_top = 49.0
 margin_right = 355.0
-margin_bottom = 114.0
+margin_bottom = 88.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+text = "Challenge"
 
-[node name="ReferenceRect3" type="ReferenceRect" parent="MenuZone/Menu"]
-margin_top = 124.0
+[node name="SettingsButton" type="Button" parent="MenuZone/Menu"]
+margin_top = 98.0
 margin_right = 355.0
-margin_bottom = 176.0
+margin_bottom = 137.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+text = "Settings"
 
-[node name="ReferenceRect4" type="ReferenceRect" parent="MenuZone/Menu"]
-margin_top = 186.0
+[node name="HelpButton" type="Button" parent="MenuZone/Menu"]
+margin_top = 147.0
+margin_right = 355.0
+margin_bottom = 186.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Help"
+
+[node name="ExitButton" type="Button" parent="MenuZone/Menu"]
+margin_top = 196.0
 margin_right = 355.0
 margin_bottom = 238.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+text = "Exit"
