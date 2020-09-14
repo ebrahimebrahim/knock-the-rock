@@ -37,4 +37,6 @@ func _input(event):
 		add_child(rock)
 		rock.flat_bottom()
 		rock.position = rock.global_transform.xform(-rock.center_of_mass() + rock.global_transform.xform_inv(event.position))
+	if event.is_action_pressed("restart"):
+		get_tree().reload_current_scene()
 
