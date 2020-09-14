@@ -26,7 +26,7 @@ func _on_input(event):
 func generate_polygon():
 	var bottom_length = rand_range(100,400)
 	var top_length = rand_range(50,bottom_length)/2
-	var height = rand_range(200,300)
+	var height = rand_range(80,300)
 	
 	# How far the top will be shifted to the right
 	var top_shift = rand_range(0,bottom_length-top_length)
