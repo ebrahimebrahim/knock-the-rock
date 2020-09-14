@@ -9,7 +9,6 @@ const colors = [Color("565656"),
 				Color("635353"),
 				Color("6f5e3f"),
 				Color("7d7e57")]
-const vol_params = PoolRealArray([200.0,165.582,0.2,20.0/log(10.0)])
 
 var is_held : bool = false setget set_held
 var local_hold_point : Vector2
@@ -166,7 +165,7 @@ func _integrate_forces(state):
 func knock(impact_vel,impact_pos,lighter_mass):
 	if audio_timer.is_stopped():
 		audio.position = impact_pos
-		audio.volume_db = vol_params[3] * log((vol_params[2]*impact_vel+vol_params[1])/(vol_params[2]*vol_params[0]+vol_params[1]))
+		audio.volume_db = (20.0/log(10.0)) * log(impact_vel/200.0)
 		audio.pitch_scale = exp(-lighter_mass/12.7  +  0.48)
 		audio.play()
 		audio_timer.start()
