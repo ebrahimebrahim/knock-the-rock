@@ -1,0 +1,110 @@
+[gd_scene format=2]
+
+[node name="Help" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 263.0
+margin_top = 63.441
+margin_right = -270.0
+margin_bottom = -75.559
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+margin_right = 533.0
+margin_bottom = 461.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Panel"]
+margin_left = 236.865
+margin_top = 12.9763
+margin_right = 298.865
+margin_bottom = 60.9763
+text = "-- HELP --"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TopText" type="Label" parent="Panel"]
+margin_top = 62.9763
+margin_right = 533.0
+margin_bottom = 144.976
+text = "The simple goal of Knock the Rock is to knock one rock down by the throw of
+another rock. It has been hypothesized that Knock the Rock may have been
+ the first game ever played by humans! However, there is no evidence to
+support this theory."
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BottomText" type="Label" parent="Panel"]
+margin_top = 342.02
+margin_right = 533.0
+margin_bottom = 424.02
+text = "Press (R) to restart in either mode.
+Open this help at anytime by pressing (H) in-game."
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeftText" type="Label" parent="Panel"]
+margin_left = 10.0
+margin_top = 151.0
+margin_right = 258.0
+margin_bottom = 285.0
+text = "SANDBOX MODE
+
+Right click to spawn rocks. You can
+set rocks up manually and knock
+them with other rocks, or you can do
+whatever else you want with the rocks."
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightText" type="Label" parent="Panel"]
+margin_left = 278.0
+margin_top = 168.0
+margin_right = 523.0
+margin_bottom = 318.0
+text = "CHALLENGE MODE
+
+You will start with 10 rocks, and you
+can only interact with these rocks
+on your side of the screen. Target
+rocks will be set up on the boulder on
+the opposite side of the screen, being
+replaced when you knock them.
+See how many rocks you can knock!"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MidLine" type="Line2D" parent="Panel"]
+position = Vector2( -16.4814, 0 )
+points = PoolVector2Array( 285, 160, 285, 350 )
+width = 2.0
+default_color = Color( 1, 1, 1, 1 )
+
+[node name="HideButton" type="Button" parent="Panel"]
+margin_left = 219.0
+margin_top = 410.0
+margin_right = 319.0
+margin_bottom = 445.0
+text = "(H)ide Help"
+__meta__ = {
+"_edit_use_anchors_": false
+}
