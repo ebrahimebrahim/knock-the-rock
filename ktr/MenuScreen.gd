@@ -20,4 +20,4 @@ func _on_help():
 	print("help peup")
 
 func _on_exit():
-	print("exit peup")
+	get_tree().quit()
