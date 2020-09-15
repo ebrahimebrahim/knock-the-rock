@@ -10,8 +10,8 @@ func random_point_on_line(line : Line2D):
 func _ready():
 	randomize()
 	var beuld : Boulder = Boulder.new()
-	add_child(beuld)
-	beuld.set_position(random_point_on_line($BoulderBotRight)-beuld.bottom_right)
+	$bg.add_child(beuld)
+	beuld.set_global_position(random_point_on_line($BoulderBotRight)-beuld.bottom_right)
 
 	var rocks = []
 	for _i in range(2):
