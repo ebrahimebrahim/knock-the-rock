@@ -1,5 +1,8 @@
 extends VBoxContainer
 
+var scrolling_bg : bool = false
+var change_scene_to : String
+
 func _ready():
 	$MenuZone/Menu/SdbxButton.connect("button_up",self,"_on_sdbx")
 	$MenuZone/Menu/ChlgButton.connect("button_up",self,"_on_chlg")
@@ -8,7 +11,7 @@ func _ready():
 	$MenuZone/Menu/ExitButton.connect("button_up",self,"_on_exit")
 
 func _on_sdbx():
-	get_tree().change_scene("res://GameSandbox.tscn")
+	scroll_bg("res://GameSandbox.tscn")
 
 func _on_chlg():
 	print("chlg peup")
@@ -21,3 +24,17 @@ func _on_help():
 
 func _on_exit():
 	get_tree().quit()
+
+func scroll_bg(scene):
+	$LogoZone.hide()
+	$MenuZone.hide()
+	scrolling_bg = true
+	change_scene_to = scene
+
+func _process(delta):
+	if scrolling_bg:
+		if $bg.position.y > 176:
+			$bg.position.y -= 200*delta
+		else:
+			scrolling_bg = false
+			get_tree().change_scene(change_scene_to)
