@@ -79,7 +79,7 @@ __meta__ = {
 [node name="CloseLabel" type="Label" parent="HUDZone/CloseRect"]
 margin_right = 144.0
 margin_bottom = 35.0
-text = "(C)lose HUD"
+text = "(T)oggle HUD"
 align = 1
 valign = 1
 __meta__ = {
