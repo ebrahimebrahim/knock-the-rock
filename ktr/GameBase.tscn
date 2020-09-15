@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://images/bg.png" type="Texture" id=1]
+[ext_resource path="res://HUDZone.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 553, 200 )
@@ -29,6 +30,7 @@ shape = SubResource( 1 )
 margin_left = 902.0
 margin_right = 1066.0
 margin_bottom = 135.0
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true,
