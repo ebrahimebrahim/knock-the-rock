@@ -1,0 +1,2 @@
+extends "res://GameBase.gd"
+

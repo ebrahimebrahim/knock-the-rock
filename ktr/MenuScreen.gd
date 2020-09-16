@@ -15,7 +15,7 @@ func _on_sdbx():
 	scroll_bg("res://GameSandbox.tscn")
 
 func _on_chlg():
-	print("chlg peup")
+	scroll_bg("res://GameChallenge.tscn")
 
 func _on_settings():
 	print("settings peup")
