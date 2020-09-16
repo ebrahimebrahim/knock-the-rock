@@ -16,15 +16,15 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Floor" type="StaticBody2D" parent="bg"]
-position = Vector2( 0, 1168.91 )
-scale = Vector2( 1.91939, 1.91939 )
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2( 533, 785.002 )
+scale = Vector2( 1, 1 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="bg/Floor"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
 shape = SubResource( 1 )
 
 [node name="HUDZone" type="Control" parent="."]
