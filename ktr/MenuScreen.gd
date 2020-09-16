@@ -9,6 +9,7 @@ func _ready():
 	$MenuZone/Menu/SettingsButton.connect("button_up",self,"_on_settings")
 	$MenuZone/Menu/HelpButton.connect("button_up",self,"_on_help")
 	$MenuZone/Menu/ExitButton.connect("button_up",self,"_on_exit")
+	$HelpOverlay/Help.connect("hide_help",self,"_on_help")
 
 func _on_sdbx():
 	scroll_bg("res://GameSandbox.tscn")
@@ -20,7 +21,7 @@ func _on_settings():
 	print("settings peup")
 
 func _on_help():
-	print("help peup")
+	$HelpOverlay.visible = not $HelpOverlay.visible
 
 func _on_exit():
 	get_tree().quit()
@@ -42,3 +43,5 @@ func _process(delta):
 func _input(event):
 	if event.is_action_pressed("return_to_menu") and not scrolling_bg:
 		_on_exit()
+	if event.is_action_pressed("open_help") and not scrolling_bg:
+		_on_help()

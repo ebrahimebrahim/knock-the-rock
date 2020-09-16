@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://images/bg.png" type="Texture" id=2]
 [ext_resource path="res://MenuScreen.gd" type="Script" id=3]
+[ext_resource path="res://Help.tscn" type="PackedScene" id=4]
 
 [node name="MenuScreen" type="VBoxContainer"]
 anchor_right = 1.0
@@ -98,3 +99,16 @@ margin_bottom = 238.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Exit"
+
+[node name="HelpOverlay" type="Node2D" parent="."]
+visible = false
+position = Vector2( 533, 278.303 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Help" parent="HelpOverlay" instance=ExtResource( 4 )]
+margin_left = -304.5
+margin_top = -246.0
+margin_right = 304.5
+margin_bottom = 246.0
