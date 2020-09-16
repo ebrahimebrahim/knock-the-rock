@@ -13,7 +13,7 @@ const colors = [Color("565656"),
 func _ready():
 	randomize()
 	generate_texture()
-	self_modulate = generate_color()
+	modulate = generate_color()
 	generate_polygon()
 
 func generate_texture():

@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
+[ext_resource path="res://theme.tres" type="Theme" id=1]
 [ext_resource path="res://images/bg.png" type="Texture" id=2]
 [ext_resource path="res://MenuScreen.gd" type="Script" id=3]
 [ext_resource path="res://Help.tscn" type="PackedScene" id=4]
@@ -56,7 +57,7 @@ __meta__ = {
 }
 
 [node name="yRadius" type="Position2D" parent="LogoZone/Logo"]
-position = Vector2( 0, -100 )
+position = Vector2( 0, -110 )
 __meta__ = {
 "_gizmo_extents_": 19.7
 }
@@ -107,6 +108,7 @@ margin_right = 355.0
 margin_bottom = 39.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource( 1 )
 text = "Sandbox"
 
 [node name="ChlgButton" type="Button" parent="MenuZone/Menu"]
@@ -115,6 +117,7 @@ margin_right = 355.0
 margin_bottom = 88.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource( 1 )
 text = "Challenge"
 
 [node name="SettingsButton" type="Button" parent="MenuZone/Menu"]
@@ -123,6 +126,7 @@ margin_right = 355.0
 margin_bottom = 137.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource( 1 )
 text = "Settings"
 
 [node name="HelpButton" type="Button" parent="MenuZone/Menu"]
@@ -131,6 +135,7 @@ margin_right = 355.0
 margin_bottom = 186.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource( 1 )
 text = "Help"
 
 [node name="ExitButton" type="Button" parent="MenuZone/Menu"]
@@ -139,6 +144,7 @@ margin_right = 355.0
 margin_bottom = 238.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource( 1 )
 text = "Exit"
 
 [node name="HelpOverlay" type="Node2D" parent="."]
