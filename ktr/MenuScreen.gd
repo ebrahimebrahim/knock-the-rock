@@ -38,3 +38,7 @@ func _process(delta):
 		else:
 			scrolling_bg = false
 			get_tree().change_scene(change_scene_to)
+
+func _input(event):
+	if event.is_action_pressed("return_to_menu") and not scrolling_bg:
+		_on_exit()
