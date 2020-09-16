@@ -174,4 +174,19 @@ text = "(H)ide Help"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Credits" type="Label" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -121.796
+margin_top = 5.49605
+margin_right = 113.204
+margin_bottom = 36.496
+rect_scale = Vector2( 0.5, 0.5 )
+text = "Game by Ebrahim and Yusuf Ebrahim
+Background art by Meryem Aswad"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="button_up" from="MarginContainer/VBoxContainer/HelpButtonZone/HideButton" to="." method="_on_HideButton_button_up"]
