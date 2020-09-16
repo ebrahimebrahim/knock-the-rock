@@ -14,12 +14,21 @@ const audio_resources = {
 }
 var audio_timer : Timer
 
+# This is in units of force per distance, like a "spring constant"
+# It's the strength of the player holding the rock, in some sense
+const hold_strength : float = 2000.0
+
+# This will be determined based on mass to ensure critical damping
+# (i.e. put just enough "friction" in the "spring" to stop oscillations)
+var hold_damping : float
+
 
 func _init():
 	rock_polygon = generate_rock_polygon()
 	add_child(rock_polygon)
 	
 	mass = pow(rock_polygon.calculate_area()/1000,1.5)
+	hold_damping = 2*sqrt(hold_strength * mass)
 	
 	continuous_cd = CCD_MODE_CAST_RAY # might make this an option
 	var phys = PhysicsMaterial.new()
@@ -43,6 +52,8 @@ func _init():
 	add_child(audio_timer)
 	audio_timer.one_shot = true
 	audio_timer.wait_time = 0.2 # between audio clips
+	
+	set_can_sleep(false) # TODO delete this! 
 
 
 func generate_rock_polygon():
@@ -69,7 +80,7 @@ func _process(delta):
 
 func set_held(val : bool) -> void:
 	is_held = val
-	mode = MODE_KINEMATIC if is_held else MODE_RIGID
+	gravity_scale = 0.0 if is_held else 1.0
 
 
 func _input(event):
@@ -89,20 +100,23 @@ func _on_input(event):
 		# on release, release rock
 		if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and not event.is_pressed():
 			set_held(false)
-		# on motion, move rock
-		if event is InputEventMouseMotion:
-			# want global_transform.xform(local_hold_point) == event.position
-			position = global_transform.xform(global_transform.xform_inv(event.position) - local_hold_point)
+
+
+
 
 
 func _integrate_forces(state):
+	if is_held:
+#		var target_pos = global_transform.xform(get_viewport().get_mouse_position() - local_hold_point)
+		apply_central_impulse(state.get_step() * hold_strength * (get_viewport().get_mouse_position() - position))
+		apply_central_impulse(- state.get_step() * hold_damping * linear_velocity)
 	if state.get_contact_count() != 0:
 		var obj = state.get_contact_collider_object(0)
 		var impact_vel = abs((state.get_contact_collider_velocity_at_position(0)-linear_velocity).dot(state.get_contact_local_normal(0)))
 		if impact_vel > 70 :
 			if (obj is RigidBody2D) and (mass <= obj.mass):
 				knock(impact_vel,mass,KnockType.ROCK)
-			if (obj is StaticBody2D) and not is_held:
+			if (obj is StaticBody2D):
 				knock(impact_vel,mass,KnockType.GRASS)
 
 
