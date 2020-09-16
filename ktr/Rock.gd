@@ -53,7 +53,6 @@ func _init():
 	audio_timer.one_shot = true
 	audio_timer.wait_time = 0.2 # between audio clips
 	
-	set_can_sleep(false) # TODO delete this! 
 
 
 func generate_rock_polygon():
@@ -81,6 +80,7 @@ func _process(delta):
 func set_held(val : bool) -> void:
 	is_held = val
 	gravity_scale = 0.0 if is_held else 1.0
+	if is_held: sleeping = false # wake up object if it just got held
 
 
 func _input(event):
