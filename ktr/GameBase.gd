@@ -21,6 +21,7 @@ func _input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT: update_cursor()
 
 func _on_return():
+	if scrolling_bg : get_tree().quit() # allows double tap esc to quit
 	scroll_bg("res://MenuScreen.tscn")
 
 func _on_restart():
