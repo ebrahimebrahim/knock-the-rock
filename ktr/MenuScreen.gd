@@ -41,7 +41,8 @@ func _process(delta):
 			get_tree().change_scene(change_scene_to)
 
 func _input(event):
-	if event.is_action_pressed("return_to_menu") and not scrolling_bg:
-		_on_exit()
-	if event.is_action_pressed("open_help") and not scrolling_bg:
-		_on_help()
+	if not scrolling_bg:
+		if event.is_action_pressed("return_to_menu"):
+			_on_exit()
+		if event.is_action_pressed("open_help"):
+			_on_help()
