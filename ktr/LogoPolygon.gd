@@ -25,7 +25,7 @@ func random_point_in_disk_and_outside_disk(center_in : Vector2, radius_in : floa
 
 func generate_polygon():
 	var r = y_radius
-	var n = 5 + randi()%11
+	var n = 9 + randi()%11
 	var dt = 2*PI/n
 	var mini_r = r*sin(dt/2)
 	var stretch = x_radius / y_radius
