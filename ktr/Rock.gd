@@ -121,7 +121,12 @@ func _integrate_forces(state):
 #		var target_pos = global_transform.xform(get_viewport().get_mouse_position() - local_hold_point)
 		var restore_impulse = state.get_step() * hold_strength * (get_viewport().get_mouse_position() - position)
 		var damp_impulse = - state.get_step() * hold_damping * linear_velocity
-		apply_central_impulse(restore_impulse + damp_impulse)
+		var total_impulse = restore_impulse + damp_impulse
+		# The following line is a tweak for low masses. Change the 1.0 to change threshold before tweak kicks in.
+		# The idea is that when mass is below 1.0, we pass an impulse vector that has been pre-scaled by mass
+		# This means we are effectively treating the mass as 1.0 for the sake of determining acceleration
+		total_impulse *= min(mass , 1.0) 
+		apply_central_impulse(total_impulse)
 	if state.get_contact_count() != 0:
 		var obj = state.get_contact_collider_object(0)
 		var impact_vel = abs((state.get_contact_collider_velocity_at_position(0)-linear_velocity).dot(state.get_contact_local_normal(0)))
@@ -131,6 +136,7 @@ func _integrate_forces(state):
 				knock(impact_vel,mass,KnockType.ROCK)
 			if (obj is StaticBody2D):
 				knock(impact_vel,mass,KnockType.GRASS)
+
 
 
 func knock(impact_vel : float, lighter_mass : float, knock_type):
