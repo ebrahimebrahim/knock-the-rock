@@ -34,7 +34,7 @@ func scroll_bg(scene):
 func _process(delta):
 	if scrolling_bg:
 		if $bg.position.y > 176:
-			$bg.position.y -= 200*delta
+			$bg.position.y -= 400*delta
 		else:
 			scrolling_bg = false
 			get_tree().change_scene(change_scene_to)

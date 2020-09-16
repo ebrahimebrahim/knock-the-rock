@@ -36,7 +36,7 @@ func scroll_bg(scene):
 func _process(delta):
 	if scrolling_bg:
 		if get_node("/root/Game/bg").position.y < 494:
-			get_node("/root/Game/bg").position.y += 200*delta
+			get_node("/root/Game/bg").position.y += 1200*delta
 		else:
 			scrolling_bg = false
 			get_tree().change_scene(change_scene_to)
