@@ -1,4 +1,4 @@
-extends Node2D
+extends "res://GameBase.gd"
 
 const Rock = preload("res://Rock.gd")
 const Boulder = preload("res://Boulder.gd")

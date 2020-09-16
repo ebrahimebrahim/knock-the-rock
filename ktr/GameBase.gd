@@ -1,13 +1,13 @@
-extends Control
+extends Node2D
 
 var scrolling_bg : bool = false
 var change_scene_to : String
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$ReturnButton.connect("button_up",self,"_on_return")
-	$RestartButton.connect("button_up",self,"_on_restart")
-	$HelpButton.connect("button_up",self,"_on_help")
+	$HUDZone/ReturnButton.connect("button_up",self,"_on_return")
+	$HUDZone/RestartButton.connect("button_up",self,"_on_restart")
+	$HUDZone/HelpButton.connect("button_up",self,"_on_help")
 
 func _input(event):
 	if event.is_action_pressed("return_to_menu"): _on_return()
@@ -25,18 +25,19 @@ func _on_help():
 	print("help peup")
 
 func _on_toggle():
-	if visible: hide()
-	else: show()
+	if $HUDZone.visible: $HUDZone.hide()
+	else: $HUDZone.show()
 
 func scroll_bg(scene):
-	hide()
+	for child in get_children():
+		if child.name != "bg": child.queue_free()
 	scrolling_bg = true
 	change_scene_to = scene
 
 func _process(delta):
 	if scrolling_bg:
-		if get_node("/root/Game/bg").position.y < 494:
-			get_node("/root/Game/bg").position.y += 1200*delta
+		if $bg.position.y < 494:
+			$bg.position.y += 1200*delta
 		else:
 			scrolling_bg = false
 			get_tree().change_scene(change_scene_to)
