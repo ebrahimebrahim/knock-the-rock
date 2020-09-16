@@ -108,8 +108,9 @@ func _on_input(event):
 func _integrate_forces(state):
 	if is_held:
 #		var target_pos = global_transform.xform(get_viewport().get_mouse_position() - local_hold_point)
-		apply_central_impulse(state.get_step() * hold_strength * (get_viewport().get_mouse_position() - position))
-		apply_central_impulse(- state.get_step() * hold_damping * linear_velocity)
+		var restore_impulse = state.get_step() * hold_strength * (get_viewport().get_mouse_position() - position)
+		var damp_impulse = - state.get_step() * hold_damping * linear_velocity
+		apply_central_impulse(restore_impulse + damp_impulse)
 	if state.get_contact_count() != 0:
 		var obj = state.get_contact_collider_object(0)
 		var impact_vel = abs((state.get_contact_collider_velocity_at_position(0)-linear_velocity).dot(state.get_contact_local_normal(0)))
