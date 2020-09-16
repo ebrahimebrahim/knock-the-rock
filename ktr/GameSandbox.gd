@@ -11,7 +11,7 @@ func _ready():
 	randomize()
 	var beuld : Boulder = Boulder.new()
 	add_child(beuld)
-	beuld.set_position(random_point_on_line($BoulderBotRight)-beuld.bottom_right)
+	beuld.set_position(random_point_on_line($BoulderBotRight)-beuld.bottom_right())
 
 	var rocks = []
 	for _i in range(2):

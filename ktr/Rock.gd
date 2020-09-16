@@ -16,7 +16,7 @@ var audio_timer : Timer
 
 
 func _init():
-	rock_polygon = RockPolygon.new()
+	rock_polygon = generate_rock_polygon()
 	add_child(rock_polygon)
 	
 	mass = pow(rock_polygon.calculate_area()/1000,1.5)
@@ -43,6 +43,10 @@ func _init():
 	add_child(audio_timer)
 	audio_timer.one_shot = true
 	audio_timer.wait_time = 0.2 # between audio clips
+
+
+func generate_rock_polygon():
+	return RockPolygon.new()
 
 
 func generate_collision_shape():
