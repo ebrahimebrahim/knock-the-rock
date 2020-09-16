@@ -1,9 +1,17 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://images/bg.png" type="Texture" id=2]
 [ext_resource path="res://MenuScreen.gd" type="Script" id=3]
 [ext_resource path="res://Help.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Logo.gd" type="Script" id=5]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://fonts/Avara.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 40
+outline_color = Color( 0, 0, 0, 1 )
+font_data = SubResource( 1 )
 
 [node name="MenuScreen" type="VBoxContainer"]
 anchor_right = 1.0
@@ -58,10 +66,11 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -29.5
-margin_top = -26.0
-margin_right = 29.5
-margin_bottom = 26.0
+margin_left = -88.0
+margin_top = -82.5
+margin_right = 88.0
+margin_bottom = 82.5
+custom_fonts/font = SubResource( 2 )
 text = "KNOCK
 THE
 ROCK"
