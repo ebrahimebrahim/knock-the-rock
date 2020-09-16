@@ -14,13 +14,18 @@ const audio_resources = {
 }
 var audio_timer : Timer
 
+
+
 # This is in units of force per distance, like a "spring constant"
 # It's the strength of the player holding the rock, in some sense
-const hold_strength : float = 2000.0
 
+const hold_strength : float = 2000.0
 # This will be determined based on mass to ensure critical damping
 # (i.e. put just enough "friction" in the "spring" to stop oscillations)
 var hold_damping : float
+# A timer that starts when the rock is grabbed
+# After the time is up, any collisions will release the rock
+var held_collision_immunity_timer : Timer
 
 
 func _init():
@@ -29,6 +34,10 @@ func _init():
 	
 	mass = pow(rock_polygon.calculate_area()/1000,1.5)
 	hold_damping = 2*sqrt(hold_strength * mass)
+	held_collision_immunity_timer = Timer.new()
+	add_child(held_collision_immunity_timer)
+	held_collision_immunity_timer.one_shot = true
+	held_collision_immunity_timer.wait_time = 0.5
 	
 	continuous_cd = CCD_MODE_CAST_RAY # might make this an option
 	var phys = PhysicsMaterial.new()
@@ -80,7 +89,9 @@ func _process(delta):
 func set_held(val : bool) -> void:
 	is_held = val
 	gravity_scale = 0.0 if is_held else 1.0
-	if is_held: sleeping = false # wake up object if it just got held
+	if is_held:
+		sleeping = false # wake up object if it just got held
+		held_collision_immunity_timer.start()
 
 
 func _input(event):
@@ -115,6 +126,7 @@ func _integrate_forces(state):
 		var obj = state.get_contact_collider_object(0)
 		var impact_vel = abs((state.get_contact_collider_velocity_at_position(0)-linear_velocity).dot(state.get_contact_local_normal(0)))
 		if impact_vel > 70 :
+			if held_collision_immunity_timer.is_stopped(): set_held(false)
 			if (obj is RigidBody2D) and (mass <= obj.mass):
 				knock(impact_vel,mass,KnockType.ROCK)
 			if (obj is StaticBody2D):
