@@ -18,7 +18,7 @@ var bottom_right : Vector2
 # For some reason we need to have an _init defined if we want BoulderPolygon's properties to persist
 # This doesn't override RockPolygon's init; in fact it does nothing.
 # I don't understand why this is needed and it's really bothering me
-func _init():
+func _init().(true):
 	pass
 
 

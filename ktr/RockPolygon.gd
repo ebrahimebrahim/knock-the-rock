@@ -11,10 +11,15 @@ const colors = [Color("565656"),
 				Color("7d7e57")]
 
 
-func _init():
+# The generate_polygons parameter can be optionally set to hold back polygon generation
+# This is useful for subclasses of RockPolygon that want to delay polygon generation until
+# they are ready. See the weird "_init().(blah)" notation here: 
+# https://docs.godotengine.org/en/3.2/getting_started/scripting/gdscript/gdscript_basics.html#class-constructor
+func _init(generate_polygons = true):
 	generate_texture()
 	self_modulate = generate_color()
-	generate_polygon()
+	if generate_polygons:
+		generate_polygon()
 	
 
 func generate_texture():
