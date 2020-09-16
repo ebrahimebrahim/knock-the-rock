@@ -44,11 +44,11 @@ func _process(delta):
 			get_tree().change_scene(change_scene_to)
 
 func _input(event):
-	if not scrolling_bg:
-		if event.is_action_pressed("return_to_menu"):
-			_on_exit()
-		if event.is_action_pressed("open_help"):
-			_on_help()
+	if event.is_action_pressed("return_to_menu"):
+		if scrolling_bg: get_tree().reload_current_scene()
+		else: _on_exit()
+	if event.is_action_pressed("open_help") and not scrolling_bg:
+		_on_help()
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT: update_cursor()
 
 func update_cursor():
