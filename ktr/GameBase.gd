@@ -3,6 +3,9 @@ extends Node2D
 var scrolling_bg : bool = false
 var change_scene_to : String
 
+var open_hand = preload("res://images/open_hand.png")
+var closed_hand = preload("res://images/closed_hand.png")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$HUDZone/ReturnButton.connect("button_up",self,"_on_return")
@@ -15,6 +18,7 @@ func _input(event):
 	if event.is_action_pressed("restart"): _on_restart()
 	if event.is_action_pressed("open_help"): _on_help()
 	if event.is_action_pressed("toggle_hud"): _on_toggle()
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT: update_cursor()
 
 func _on_return():
 	scroll_bg("res://MenuScreen.tscn")
@@ -42,3 +46,7 @@ func _process(delta):
 		else:
 			scrolling_bg = false
 			get_tree().change_scene(change_scene_to)
+
+func update_cursor():
+	if Input.is_action_pressed("click"): Input.set_custom_mouse_cursor(closed_hand,Input.CURSOR_ARROW,Vector2(21,27))
+	else: Input.set_custom_mouse_cursor(open_hand,Input.CURSOR_ARROW,Vector2(21,27))
