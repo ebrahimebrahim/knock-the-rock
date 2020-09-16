@@ -8,6 +8,7 @@ func _ready():
 	$HUDZone/ReturnButton.connect("button_up",self,"_on_return")
 	$HUDZone/RestartButton.connect("button_up",self,"_on_restart")
 	$HUDZone/HelpButton.connect("button_up",self,"_on_help")
+	$HelpOverlay/Help.connect("hide_help",self,"_on_help")
 
 func _input(event):
 	if event.is_action_pressed("return_to_menu"): _on_return()
@@ -22,7 +23,7 @@ func _on_restart():
 	get_tree().reload_current_scene()
 
 func _on_help():
-	print("help peup")
+	$HelpOverlay.visible = not $HelpOverlay.visible
 
 func _on_toggle():
 	if $HUDZone.visible: $HUDZone.hide()
