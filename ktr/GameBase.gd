@@ -12,6 +12,7 @@ func _ready():
 	$HUDZone/RestartButton.connect("button_up",self,"_on_restart")
 	$HUDZone/HelpButton.connect("button_up",self,"_on_help")
 	$HelpOverlay/Help.connect("hide_help",self,"_on_help")
+	Input.set_custom_mouse_cursor(open_hand,Input.CURSOR_ARROW,Vector2(21,27))
 
 func _input(event):
 	if event.is_action_pressed("return_to_menu"): _on_return()

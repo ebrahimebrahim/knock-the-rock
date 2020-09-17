@@ -3,8 +3,6 @@ extends VBoxContainer
 var scrolling_bg : bool = false
 var change_scene_to : String
 
-var open_hand = preload("res://images/open_hand.png")
-var closed_hand = preload("res://images/closed_hand.png")
 var pointing_hand = preload("res://images/pointing_hand.png")
 var settings_config : Resource
 
@@ -62,8 +60,3 @@ func _input(event):
 		else: _on_exit()
 	if event.is_action_pressed("open_help") and not scrolling_bg:
 		_on_help()
-	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT: update_cursor()
-
-func update_cursor():
-	if Input.is_action_pressed("click"): Input.set_custom_mouse_cursor(closed_hand,Input.CURSOR_ARROW,Vector2(21,27))
-	else: Input.set_custom_mouse_cursor(open_hand,Input.CURSOR_ARROW,Vector2(21,27))
