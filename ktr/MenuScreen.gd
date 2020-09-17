@@ -5,6 +5,7 @@ var change_scene_to : String
 
 var open_hand = preload("res://images/open_hand.png")
 var closed_hand = preload("res://images/closed_hand.png")
+var pointing_hand = preload("res://images/pointing_hand.png")
 var settings_config : Resource
 
 
@@ -18,6 +19,7 @@ func _ready():
 	$Overlays/Help.connect("hide_help",self,"_on_help")
 	$Overlays/Settings.connect("back",self,"_on_settings")
 	$Overlays/Settings.connect("apply",self,"reload_scene")
+	Input.set_custom_mouse_cursor(pointing_hand,Input.CURSOR_ARROW,Vector2(16,6))
 	
 	print("Here's a setting that was loaded: ",$Overlays/Settings.get_example_setting())
 	
