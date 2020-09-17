@@ -8,9 +8,6 @@ var closed_hand = preload("res://images/closed_hand.png")
 var settings_config : Resource
 
 
-func _init():
-	settings_config = load("settings.tres")
-	print(settings_config.an_example_setting)
 
 func _ready():
 	$MenuZone/Menu/SdbxButton.connect("button_up",self,"_on_sdbx")
@@ -20,6 +17,9 @@ func _ready():
 	$MenuZone/Menu/ExitButton.connect("button_up",self,"_on_exit")
 	$Overlays/Help.connect("hide_help",self,"_on_help")
 	$Overlays/Settings.connect("back",self,"_on_settings")
+	$Overlays/Settings.connect("apply",self,"reload_scene")
+	
+	print("Here's a setting that was loaded: ",$Overlays/Settings.get_example_setting())
 	
 
 func _on_sdbx():
@@ -36,6 +36,9 @@ func _on_help():
 
 func _on_exit():
 	get_tree().quit()
+
+func reload_scene():
+	get_tree().reload_current_scene()
 
 func scroll_bg(scene):
 	$LogoZone.hide()
