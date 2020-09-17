@@ -5,6 +5,12 @@ var change_scene_to : String
 
 var open_hand = preload("res://images/open_hand.png")
 var closed_hand = preload("res://images/closed_hand.png")
+var settings_config : Resource
+
+
+func _init():
+	settings_config = load("settings.tres")
+	print(settings_config.an_example_setting)
 
 func _ready():
 	$MenuZone/Menu/SdbxButton.connect("button_up",self,"_on_sdbx")
@@ -13,6 +19,7 @@ func _ready():
 	$MenuZone/Menu/HelpButton.connect("button_up",self,"_on_help")
 	$MenuZone/Menu/ExitButton.connect("button_up",self,"_on_exit")
 	$HelpOverlay/Help.connect("hide_help",self,"_on_help")
+	
 
 func _on_sdbx():
 	scroll_bg("res://GameSandbox.tscn")
