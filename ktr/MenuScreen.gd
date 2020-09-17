@@ -18,7 +18,8 @@ func _ready():
 	$MenuZone/Menu/SettingsButton.connect("button_up",self,"_on_settings")
 	$MenuZone/Menu/HelpButton.connect("button_up",self,"_on_help")
 	$MenuZone/Menu/ExitButton.connect("button_up",self,"_on_exit")
-	$HelpOverlay/Help.connect("hide_help",self,"_on_help")
+	$Overlays/Help.connect("hide_help",self,"_on_help")
+	$Overlays/Settings.connect("back",self,"_on_settings")
 	
 
 func _on_sdbx():
@@ -28,10 +29,10 @@ func _on_chlg():
 	scroll_bg("res://GameChallenge.tscn")
 
 func _on_settings():
-	print("settings peup")
+	$Overlays/Settings.visible = not $Overlays/Settings.visible
 
 func _on_help():
-	$HelpOverlay.visible = not $HelpOverlay.visible
+	$Overlays/Help.visible = not $Overlays/Help.visible
 
 func _on_exit():
 	get_tree().quit()

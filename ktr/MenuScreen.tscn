@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://theme.tres" type="Theme" id=1]
 [ext_resource path="res://images/bg.png" type="Texture" id=2]
 [ext_resource path="res://MenuScreen.gd" type="Script" id=3]
 [ext_resource path="res://Help.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Logo.gd" type="Script" id=5]
+[ext_resource path="res://Settings.tscn" type="PackedScene" id=6]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://fonts/Avara.ttf"
@@ -148,15 +149,18 @@ size_flags_vertical = 3
 theme = ExtResource( 1 )
 text = "Exit"
 
-[node name="HelpOverlay" type="Node2D" parent="."]
-visible = false
+[node name="Overlays" type="Node2D" parent="."]
 position = Vector2( 533, 278.303 )
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Help" parent="HelpOverlay" instance=ExtResource( 4 )]
+[node name="Help" parent="Overlays" instance=ExtResource( 4 )]
+visible = false
 margin_left = -304.5
 margin_top = -246.0
 margin_right = 304.5
 margin_bottom = 246.0
+
+[node name="Settings" parent="Overlays" instance=ExtResource( 6 )]
+visible = false

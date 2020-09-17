@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://theme.tres" type="Theme" id=1]
+[ext_resource path="res://Settings.gd" type="Script" id=2]
 
 [node name="Settings" type="Panel"]
 anchor_left = 0.5
@@ -11,6 +12,7 @@ margin_left = -266.5
 margin_top = -230.5
 margin_right = 266.5
 margin_bottom = 230.5
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -118,3 +120,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 theme = ExtResource( 1 )
 text = "Restore Defaults"
+[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/ApplyButton" to="." method="_on_ApplyButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/DefaultsButton" to="." method="_on_DefaultsButton_pressed"]
