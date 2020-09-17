@@ -6,13 +6,6 @@
 [node name="Game" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
-[node name="BoulderBotRight" type="Line2D" parent="." index="2"]
-visible = false
-points = PoolVector2Array( 850, 590, 1066, 590 )
-__meta__ = {
-"_editor_description_": "Spawn range for bottom right of default boulder"
-}
-
 [node name="RockSpawnLine" type="Line2D" parent="." index="3"]
 visible = false
 points = PoolVector2Array( 100, 300, 500, 300 )

@@ -39,6 +39,13 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
 shape = SubResource( 1 )
 
+[node name="BoulderBotRight" type="Line2D" parent="."]
+visible = false
+points = PoolVector2Array( 850, 590, 1066, 590 )
+__meta__ = {
+"_editor_description_": "Spawn range for bottom right of default boulder"
+}
+
 [node name="HUDZone" type="VBoxContainer" parent="."]
 margin_left = 880.0
 margin_right = 1066.0
