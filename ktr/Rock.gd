@@ -4,6 +4,7 @@ const RockPolygon = preload("res://RockPolygon.gd")
 
 var rock_polygon : RockPolygon
 var is_held : bool = false setget set_held
+var holdable : bool = true
 var local_hold_point : Vector2
 
 enum KnockType {ROCK, GRASS}
@@ -87,6 +88,7 @@ func _process(delta):
 
 
 func set_held(val : bool) -> void:
+	if val : assert(holdable)
 	is_held = val
 	gravity_scale = 0.0 if is_held else 1.0
 	if is_held:
@@ -104,7 +106,7 @@ func _on_input(event):
 		var vertices_global = PoolVector2Array()
 		for v in rock_polygon.vertices:
 			vertices_global.push_back(global_transform.xform(v))
-		if Geometry.is_point_in_polygon(event.position,vertices_global):
+		if Geometry.is_point_in_polygon(event.position,vertices_global) and holdable:
 			set_held(true)
 			local_hold_point = global_transform.xform_inv(event.position)
 	if is_held:
