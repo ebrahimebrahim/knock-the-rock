@@ -13,18 +13,25 @@ func _ready():
 	place_new_target_rock()
 
 
+func _process(delta):
+	if not target_rock_on_boulder() and $Timers/DelayTillSpawnTarget.is_stopped():
+		$Timers/DelayTillSpawnTarget.start()
+		print("started tiemr!")
+
+
 func target_rock_on_boulder() -> bool:
-	return target_rock.position.y < beuld_topmid.y
+	return is_instance_valid(target_rock) and target_rock.position.y < beuld_topmid.y
 
 
 func set_all_throwing_holdable(holdable : bool):
 	for rock in throwing_rocks:
-		rock.holdable = holdable
+		if is_instance_valid(rock):
+			rock.holdable = holdable
 
 func place_new_target_rock():
 	spawn_new_target_rock()
 	set_all_throwing_holdable(false)
-	$TargetRockPlacementTimer.start()
+	$Timers/TargetRockPlacement.start()
 
 
 func spawn_new_target_rock():
