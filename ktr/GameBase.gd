@@ -1,6 +1,7 @@
 extends Node2D
 
 const Boulder = preload("res://Boulder.gd")
+const Rock = preload("res://Rock.gd")
 
 var scrolling_bg : bool = false
 var change_scene_to : String
@@ -28,6 +29,25 @@ func _input(event):
 	if event.is_action_pressed("open_help"): _on_help()
 	if event.is_action_pressed("toggle_hud"): _on_toggle()
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT: update_cursor()
+
+func spawn_rocks(num_rocks : int, spawn_line : Line2D):
+	var rocks = []
+	for _i in range(num_rocks):
+		var rock : Rock = Rock.new()
+		add_child(rock)
+		while true:
+			rock.set_position(random_point_on_line(spawn_line))
+			var rock_intersects_some_other_rock = false
+			for other in rocks:
+				var r_l = rock.leftmost_vertex().x
+				var r_r = rock.rightmost_vertex().x
+				var o_l = other.leftmost_vertex().x
+				var o_r = other.rightmost_vertex().x
+				if r_r > o_l and o_r > r_l:
+					rock_intersects_some_other_rock = true
+			if not rock_intersects_some_other_rock:
+				break
+		rocks.append(rock)
 
 func random_point_on_line(line : Line2D):
 	assert(len(line.points)==2)
