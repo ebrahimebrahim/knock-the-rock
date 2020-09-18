@@ -32,22 +32,27 @@ shape = SubResource( 1 )
 [node name="RockSpawnLines" type="Node" parent="." index="4"]
 
 [node name="RockSpawnLine1" type="Line2D" parent="RockSpawnLines" index="0"]
+visible = false
 position = Vector2( 0, -250 )
 points = PoolVector2Array( 25, 300, 250, 300 )
 
 [node name="RockSpawnLine2" type="Line2D" parent="RockSpawnLines" index="1"]
+visible = false
 position = Vector2( 0, -150 )
 points = PoolVector2Array( 25, 300, 250, 300 )
 
 [node name="RockSpawnLine3" type="Line2D" parent="RockSpawnLines" index="2"]
+visible = false
 position = Vector2( 0, -50 )
 points = PoolVector2Array( 25, 300, 250, 300 )
 
 [node name="RockSpawnLine4" type="Line2D" parent="RockSpawnLines" index="3"]
+visible = false
 position = Vector2( 0, 50 )
 points = PoolVector2Array( 25, 300, 250, 300 )
 
 [node name="RockSpawnLine5" type="Line2D" parent="RockSpawnLines" index="4"]
+visible = false
 position = Vector2( 0, 150 )
 points = PoolVector2Array( 25, 300, 250, 300 )
 
