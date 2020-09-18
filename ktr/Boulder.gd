@@ -25,7 +25,17 @@ func bottom_right():
 	# We do expect rock_polygon.transform to be identity but juuuust in case...
 	return rock_polygon.transform.xform(rock_polygon.bottom_right)
 
+func top_left():
+	return rock_polygon.transform.xform(rock_polygon.top_left)
+
+func top_right():
+	return rock_polygon.transform.xform(rock_polygon.top_right)
+
+
 # Return centerpoint of boulder's shelf in boulder coordinates
 func top_mid():
 	var top_mid_in_rock_polygon_coords = (rock_polygon.top_left + rock_polygon.top_right) / 2
 	return rock_polygon.transform.xform(top_mid_in_rock_polygon_coords)
+	
+
+

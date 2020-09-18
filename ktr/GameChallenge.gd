@@ -19,12 +19,18 @@ func _ready():
 func _process(delta):
 	if scrolling_bg : return
 	if not target_rock_on_boulder() and $DelayTillSpawnTarget.is_stopped():
-		if target_rock_has_been_touched: increment_score()
+		if target_rock_has_been_touched:
+			increment_score()
+#			target_rock.mode=RigidBody2D.MODE_STATIC  # Uncomment this to observe the moment a rock is counted as knocked off
 		$DelayTillSpawnTarget.start()
 
 
 func target_rock_on_boulder() -> bool:
-	return is_instance_valid(target_rock) and target_rock.position.y < beuld_topmid.y
+	if not is_instance_valid(target_rock) : 
+		return false
+	return target_rock.position.y < beuld_topmid.y and\
+		   target_rock.rightmost_vertex().x > beuld.global_transform.xform(beuld.top_left()).x and\
+		   target_rock.leftmost_vertex().x < beuld.global_transform.xform(beuld.top_right()).x
 
 
 func increment_score():
