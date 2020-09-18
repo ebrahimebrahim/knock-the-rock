@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://GameBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://GameChallenge.gd" type="Script" id=2]
 [ext_resource path="res://images/crappy_wire_basket.png" type="Texture" id=3]
+[ext_resource path="res://theme.tres" type="Theme" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2.79635, 38.2724 )
@@ -49,3 +50,18 @@ points = PoolVector2Array( 25, 300, 250, 300 )
 [node name="RockSpawnLine5" type="Line2D" parent="RockSpawnLines" index="4"]
 position = Vector2( 0, 150 )
 points = PoolVector2Array( 25, 300, 250, 300 )
+
+[node name="ScoreLabelLayer" type="CanvasLayer" parent="." index="7"]
+
+[node name="ScoreLabel" type="Label" parent="ScoreLabelLayer" index="0"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -159.0
+margin_top = -35.0
+theme = ExtResource( 4 )
+text = "Rocks Knocked: 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
