@@ -51,7 +51,7 @@ func spawn_rocks(num_rocks : int, spawn_line : Line2D):
 
 func random_point_on_line(line : Line2D):
 	assert(len(line.points)==2)
-	return line.points[0]+randf()*(line.points[1] - line.points[0])
+	return (line.points[0]+randf()*(line.points[1] - line.points[0]))-line.global_position
 
 func _on_return():
 	if scrolling_bg : get_tree().quit() # allows double tap esc to quit
