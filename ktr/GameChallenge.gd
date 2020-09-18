@@ -1,11 +1,12 @@
 extends "res://GameBase.gd"
 
 var target_rock : Rock
+var throwing_rocks = [] # list of Rocks that can be thrown-- some items in list will have been deleted at times
 var beuld_topmid : Vector2
 
 func _ready():
 	for spawn_line in $RockSpawnLines.get_children():
-		spawn_rocks((10/$RockSpawnLines.get_child_count()),spawn_line)
+		throwing_rocks += spawn_rocks((10/$RockSpawnLines.get_child_count()),spawn_line)
 		
 	beuld_topmid = beuld.global_transform.xform(beuld.top_mid())
 		
