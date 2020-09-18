@@ -4,8 +4,10 @@ const RockPolygon = preload("res://RockPolygon.gd")
 
 var rock_polygon : RockPolygon
 var is_held : bool = false setget set_held
-var holdable : bool = true
+var holdable : bool = true setget set_holdable
 var local_hold_point : Vector2
+
+signal became_unholdable;
 
 enum KnockType {ROCK, GRASS}
 var audio = {} # dict mapping KnockType to AudioStreamPlayer2D
@@ -95,6 +97,9 @@ func set_held(val : bool) -> void:
 		sleeping = false # wake up object if it just got held
 		held_collision_immunity_timer.start()
 
+func set_holdable(val : bool) -> void:
+	if holdable and not val : emit_signal("became_unholdable")
+	holdable = val
 
 func _input(event):
 	_on_input(event) # this step is necessary to allow Boulder to override this function

@@ -10,7 +10,11 @@ var score : int = 0
 func _ready():
 	for spawn_line in $RockSpawnLines.get_children():
 		throwing_rocks += spawn_rocks((10/$RockSpawnLines.get_child_count()),spawn_line)
-		
+	
+	for rock in throwing_rocks:
+		rock.connect("tree_exiting",self,"check_endgame_condition")
+		rock.connect("became_unholdable",self,"check_endgame_condition")
+	
 	beuld_topmid = beuld.global_transform.xform(beuld.top_mid())
 		
 	place_new_target_rock()
@@ -55,3 +59,6 @@ func _on_target_rock_contact(body):
 	if body is Boulder or not (body is Rock): return # We only care about non-boulder rocks
 	if body in throwing_rocks:
 		target_rock_has_been_touched = true
+
+func check_endgame_condition():
+	pass
