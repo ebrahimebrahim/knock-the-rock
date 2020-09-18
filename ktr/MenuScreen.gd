@@ -19,7 +19,6 @@ func _ready():
 	$Overlays/Settings.connect("apply",self,"reload_scene")
 	Input.set_custom_mouse_cursor(pointing_hand,Input.CURSOR_ARROW,Vector2(16,6))
 	
-	print("Here's a setting that was loaded: ",$Overlays/Settings.get_example_setting())
 	
 
 func _on_sdbx():

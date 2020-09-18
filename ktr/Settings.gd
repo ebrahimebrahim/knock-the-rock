@@ -10,7 +10,6 @@ signal apply
 
 func _init():
 	settings_config = ResourceLoader.load("settings.tres","",true) # no_cache = true
-	print("Loaded settings from file, got: ",settings_config.an_example_setting)
 
 func _ready():
 	$VBoxContainer/VBoxContainer/HBoxContainer/SpinBox.value = get_example_setting()
