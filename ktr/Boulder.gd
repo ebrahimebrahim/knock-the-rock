@@ -22,9 +22,10 @@ func _on_input(event):
 # Return position of bottom right vertex of the boulder trapezoid, in boulder coords
 func bottom_right():
 	# Note that rock_polygon is a BoulderPolygon
-	# We do expect rock_polygon.position to be (0,0) but juuuust in case...
-	return rock_polygon.bottom_right - rock_polygon.position
+	# We do expect rock_polygon.transform to be identity but juuuust in case...
+	return rock_polygon.transform.xform(rock_polygon.bottom_right)
 
-# Return centerpoint of boulder's shelf
+# Return centerpoint of boulder's shelf in boulder coordinates
 func top_mid():
-	return (rock_polygon.top_left + rock_polygon.top_right) / 2
+	var top_mid_in_rock_polygon_coords = (rock_polygon.top_left + rock_polygon.top_right) / 2
+	return rock_polygon.transform.xform(top_mid_in_rock_polygon_coords)
