@@ -32,6 +32,9 @@ func _input(event):
 	if event.is_action_pressed("toggle_hud"): _on_toggle()
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT: update_cursor()
 
+# Spawn a number of non-intersecting rocks along the given line segment
+# The line should have exactly two points
+# Returns a list of the spawned rocks
 func spawn_rocks(num_rocks : int, spawn_line : Line2D):
 	var rocks = []
 	for _i in range(num_rocks):
@@ -50,6 +53,7 @@ func spawn_rocks(num_rocks : int, spawn_line : Line2D):
 			if not rock_intersects_some_other_rock:
 				break
 		rocks.append(rock)
+	return rocks
 
 # returns random point on given line, in global coords
 func random_point_on_line(line : Line2D):
