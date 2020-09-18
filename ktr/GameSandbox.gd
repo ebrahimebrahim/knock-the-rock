@@ -8,4 +8,4 @@ func _input(event):
 		var rock : Rock = Rock.new()
 		add_child(rock)
 		rock.flat_bottom()
-		rock.position = rock.global_transform.xform(-rock.center_of_mass() + rock.global_transform.xform_inv(event.position))
+		rock.position += event.position  - rock.global_transform.xform(rock.center_of_mass())
