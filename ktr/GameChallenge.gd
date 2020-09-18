@@ -4,6 +4,7 @@ var target_rock : Rock
 var target_rock_has_been_touched : bool
 var throwing_rocks = [] # list of Rocks that can be thrown-- some items in list will have been deleted at times
 var beuld_topmid : Vector2
+var score : int = 0
 
 
 func _ready():
@@ -18,11 +19,17 @@ func _ready():
 func _process(delta):
 	if scrolling_bg : return
 	if not target_rock_on_boulder() and $DelayTillSpawnTarget.is_stopped():
+		if target_rock_has_been_touched: increment_score()
 		$DelayTillSpawnTarget.start()
 
 
 func target_rock_on_boulder() -> bool:
 	return is_instance_valid(target_rock) and target_rock.position.y < beuld_topmid.y
+
+
+func increment_score():
+	score += 1
+	$ScoreLabelLayer/ScoreLabel.text = "Rocks Knocked: " + str(score)
 
 
 func place_new_target_rock():
