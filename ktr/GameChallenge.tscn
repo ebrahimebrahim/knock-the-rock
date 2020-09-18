@@ -56,7 +56,11 @@ visible = false
 position = Vector2( 0, 150 )
 points = PoolVector2Array( 25, 300, 250, 300 )
 
-[node name="ScoreLabelLayer" type="CanvasLayer" parent="." index="7"]
+[node name="TargetRockPlacementTimer" type="Timer" parent="." index="6"]
+wait_time = 2.0
+one_shot = true
+
+[node name="ScoreLabelLayer" type="CanvasLayer" parent="." index="8"]
 
 [node name="ScoreLabel" type="Label" parent="ScoreLabelLayer" index="0"]
 anchor_left = 1.0
@@ -70,3 +74,4 @@ text = "Rocks Knocked: 0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="timeout" from="TargetRockPlacementTimer" to="." method="_on_TargetRockPlacementTimer_timeout"]
