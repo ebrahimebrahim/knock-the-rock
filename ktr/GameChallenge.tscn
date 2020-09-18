@@ -13,6 +13,7 @@ script = ExtResource( 2 )
 [node name="crappy_wire_basket" type="Sprite" parent="." index="1"]
 position = Vector2( 149.477, 482.976 )
 scale = Vector2( 3.99182, 3.04443 )
+z_index = 1
 texture = ExtResource( 3 )
 
 [node name="LeftWall" type="StaticBody2D" parent="crappy_wire_basket" index="0"]
