@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://theme.tres" type="Theme" id=1]
 [ext_resource path="res://images/bg.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Help.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Logo.gd" type="Script" id=5]
 [ext_resource path="res://Settings.tscn" type="PackedScene" id=6]
+[ext_resource path="res://SettingsConfig.gd" type="Script" id=7]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://fonts/Avara.ttf"
@@ -14,6 +15,10 @@ font_path = "res://fonts/Avara.ttf"
 size = 40
 outline_color = Color( 0, 0, 0, 1 )
 font_data = SubResource( 1 )
+
+[sub_resource type="Resource" id=3]
+script = ExtResource( 7 )
+an_example_setting = 8
 
 [node name="MenuScreen" type="VBoxContainer"]
 anchor_right = 1.0
@@ -164,3 +169,4 @@ margin_bottom = 246.0
 
 [node name="Settings" parent="Overlays" instance=ExtResource( 6 )]
 visible = false
+default_settings = SubResource( 3 )
