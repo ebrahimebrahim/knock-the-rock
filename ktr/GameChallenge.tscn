@@ -71,13 +71,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Timers" type="Node" parent="." index="8"]
-
-[node name="TargetRockPlacement" type="Timer" parent="Timers" index="0"]
-wait_time = 2.0
+[node name="DelayTillSpawnTarget" type="Timer" parent="." index="8"]
 one_shot = true
-
-[node name="DelayTillSpawnTarget" type="Timer" parent="Timers" index="1"]
-one_shot = true
-[connection signal="timeout" from="Timers/TargetRockPlacement" to="." method="_on_TargetRockPlacementTimer_timeout"]
-[connection signal="timeout" from="Timers/DelayTillSpawnTarget" to="." method="place_new_target_rock"]
+__meta__ = {
+"_editor_description_": "How long to wait after target rock is knocked off before spawning a new target rock"
+}
+[connection signal="timeout" from="DelayTillSpawnTarget" to="." method="place_new_target_rock"]
