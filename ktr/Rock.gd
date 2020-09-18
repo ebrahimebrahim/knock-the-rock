@@ -98,8 +98,9 @@ func set_held(val : bool) -> void:
 		held_collision_immunity_timer.start()
 
 func set_holdable(val : bool) -> void:
-	if holdable and not val : emit_signal("became_unholdable")
+	var was_holdable = holdable
 	holdable = val
+	if was_holdable and not holdable : emit_signal("became_unholdable")
 
 func _input(event):
 	_on_input(event) # this step is necessary to allow Boulder to override this function
