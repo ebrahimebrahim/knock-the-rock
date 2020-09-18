@@ -16,4 +16,3 @@ func _ready():
 		pebble_polygon.scale = pebble_scale * Vector2(1,1)
 		add_child(pebble_polygon)
 		pebble_polygon.position = points[0] + float(i)/(num_pebbles-1) * (points[1]-points[0])
-		print("put pebble at ", pebble_polygon.position)
