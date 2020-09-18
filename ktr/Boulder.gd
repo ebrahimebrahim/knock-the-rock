@@ -24,3 +24,7 @@ func bottom_right():
 	# Note that rock_polygon is a BoulderPolygon
 	# We do expect rock_polygon.position to be (0,0) but juuuust in case...
 	return rock_polygon.bottom_right - rock_polygon.position
+
+# Return centerpoint of boulder's shelf
+func top_mid():
+	return (rock_polygon.top_left + rock_polygon.top_right) / 2

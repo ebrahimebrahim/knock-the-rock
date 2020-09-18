@@ -9,6 +9,8 @@ var change_scene_to : String
 var open_hand = preload("res://images/open_hand.png")
 var closed_hand = preload("res://images/closed_hand.png")
 
+var beuld : Boulder
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
@@ -19,7 +21,7 @@ func _ready():
 	$HelpOverlay/Help.connect("hide_help",self,"_on_help")
 	Input.set_custom_mouse_cursor(open_hand,Input.CURSOR_ARROW,Vector2(21,27))
 	
-	var beuld : Boulder = Boulder.new()
+	beuld = Boulder.new()
 	add_child(beuld)
 	beuld.set_position(random_point_on_line($BoulderBotRight)-beuld.bottom_right())
 
