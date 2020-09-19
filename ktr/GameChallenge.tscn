@@ -1,13 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://GameBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://GameChallenge.gd" type="Script" id=2]
-[ext_resource path="res://images/crappy_wire_basket.png" type="Texture" id=3]
 [ext_resource path="res://theme.tres" type="Theme" id=4]
 [ext_resource path="res://LineOfPebbles.gd" type="Script" id=5]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 2.79635, 38.2724 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 430.518, 705.9 )
@@ -15,52 +11,12 @@ extents = Vector2( 430.518, 705.9 )
 [node name="GameChallenge" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
-[node name="crappy_wire_basket" type="Sprite" parent="." index="1"]
-position = Vector2( 149.477, 482.976 )
-scale = Vector2( 3.99182, 3.04443 )
-z_index = 1
-texture = ExtResource( 3 )
-
-[node name="LeftWall" type="StaticBody2D" parent="crappy_wire_basket" index="0"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="crappy_wire_basket/LeftWall" index="0"]
-position = Vector2( -33.7452, -2.32418 )
-shape = SubResource( 1 )
-
-[node name="RightWall" type="StaticBody2D" parent="crappy_wire_basket" index="1"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="crappy_wire_basket/RightWall" index="0"]
-position = Vector2( 31.9884, -3.1393 )
-shape = SubResource( 1 )
-
-[node name="RockSpawnLines" type="Node" parent="." index="4"]
-
-[node name="RockSpawnLine1" type="Line2D" parent="RockSpawnLines" index="0"]
-visible = false
-position = Vector2( 0, -250 )
-points = PoolVector2Array( 25, 300, 250, 300 )
-
-[node name="RockSpawnLine2" type="Line2D" parent="RockSpawnLines" index="1"]
-visible = false
-position = Vector2( 0, -150 )
-points = PoolVector2Array( 25, 300, 250, 300 )
-
-[node name="RockSpawnLine3" type="Line2D" parent="RockSpawnLines" index="2"]
-visible = false
-position = Vector2( 0, -50 )
-points = PoolVector2Array( 25, 300, 250, 300 )
-
-[node name="RockSpawnLine4" type="Line2D" parent="RockSpawnLines" index="3"]
+[node name="RockSpawnLine" type="Line2D" parent="." index="3"]
 visible = false
 position = Vector2( 0, 50 )
 points = PoolVector2Array( 25, 300, 250, 300 )
 
-[node name="RockSpawnLine5" type="Line2D" parent="RockSpawnLines" index="4"]
-visible = false
-position = Vector2( 0, 150 )
-points = PoolVector2Array( 25, 300, 250, 300 )
-
-[node name="LineOfPebbles" type="Line2D" parent="." index="6"]
+[node name="LineOfPebbles" type="Line2D" parent="." index="5"]
 points = PoolVector2Array( 420, 600, 420, 545 )
 width = 5.0
 default_color = Color( 0.909804, 0.0666667, 0.956863, 1 )
@@ -75,9 +31,24 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LineOfPebbles/ThrowZone" index="0"]
 shape = SubResource( 2 )
 
-[node name="ScoreLabelLayer" type="CanvasLayer" parent="." index="8"]
+[node name="LabelsLayer" type="CanvasLayer" parent="." index="7"]
 
-[node name="ScoreLabel" type="Label" parent="ScoreLabelLayer" index="0"]
+[node name="ThrowingRocksRemainingLabel" type="Label" parent="LabelsLayer" index="0"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -261.275
+margin_top = -60.0
+margin_right = -14.275
+margin_bottom = -25.0
+theme = ExtResource( 4 )
+text = "Throwing Rocks Remaining: 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreLabel" type="Label" parent="LabelsLayer" index="1"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -90,18 +61,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DelayTillSpawnTarget" type="Timer" parent="." index="9"]
+[node name="DelayTillSpawnTarget" type="Timer" parent="." index="8"]
 one_shot = true
 __meta__ = {
 "_editor_description_": "How long to wait after target rock is knocked off before spawning a new target rock"
 }
 
-[node name="DelayTillEndGame" type="Timer" parent="." index="10"]
+[node name="DelayTillEndGame" type="Timer" parent="." index="9"]
 wait_time = 2.0
 one_shot = true
 __meta__ = {
 "_editor_description_": "How long to wait after player is out of rocks before actually ending the game-- we wait to give the last target rock a chance to finish falling."
 }
+[connection signal="rock_lost" from="LineOfPebbles" to="." method="_on_LineOfPebbles_rock_lost"]
 [connection signal="body_exited" from="LineOfPebbles/ThrowZone" to="LineOfPebbles" method="_on_ThrowZone_body_exited"]
 [connection signal="timeout" from="DelayTillSpawnTarget" to="." method="place_new_target_rock"]
 [connection signal="timeout" from="DelayTillEndGame" to="." method="_on_DelayTillEndGame_timeout"]

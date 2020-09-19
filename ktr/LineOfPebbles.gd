@@ -7,6 +7,8 @@ const pebble_scale = 0.1
 
 var num_pebbles : int
 
+signal rock_lost
+
 
 func _ready():
 	self_modulate = Color(0,0,0,0) # Make line not visible w/o hiding child pebbles
@@ -23,7 +25,9 @@ func _ready():
 
 func _on_ThrowZone_body_exited(body):
 	if body is Rock:
-		body.holdable=false
+		if body.holdable:
+			body.holdable=false
+			emit_signal("rock_lost")
 		if body.is_held:
 			Input.set_custom_mouse_cursor(preload("res://images/splayed_hand.png"),Input.CURSOR_ARROW,Vector2(21,27))
 			body.set_held(false)

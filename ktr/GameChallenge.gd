@@ -3,17 +3,14 @@ extends "res://GameBase.gd"
 var target_rock : Rock
 var target_rock_has_been_touched : bool
 var throwing_rocks = [] # list of Rocks that can be thrown-- some items in list will have been deleted at times
+var throwing_rocks_remaining : int = 10
 var beuld_topmid : Vector2
 var score : int = 0
 
 
 func _ready():
-	for spawn_line in $RockSpawnLines.get_children():
-		throwing_rocks += spawn_rocks((10/$RockSpawnLines.get_child_count()),spawn_line)
-	
-	for rock in throwing_rocks:
-		rock.connect("tree_exited",self,"check_endgame_condition")
-		rock.connect("became_unholdable",self,"check_endgame_condition")
+	for _i in range(2):
+		place_new_throwing_rock()
 	
 	beuld_topmid = beuld.global_transform.xform(beuld.top_mid())
 		
@@ -39,7 +36,19 @@ func target_rock_on_boulder() -> bool:
 
 func increment_score():
 	score += 1
-	$ScoreLabelLayer/ScoreLabel.text = "Rocks Knocked: " + str(score)
+	$LabelsLayer/ScoreLabel.text = "Rocks Knocked: " + str(score)
+
+
+func place_new_throwing_rock():
+	var rock = spawn_rocks(1,$RockSpawnLine)
+	rock[0].connect("tree_exited",self,"check_endgame_condition")
+	rock[0].connect("became_unholdable",self,"check_endgame_condition")
+	throwing_rocks += rock
+	decrement_throwing_rocks_remaining()
+
+func decrement_throwing_rocks_remaining():
+	throwing_rocks_remaining -= 1
+	$LabelsLayer/ThrowingRocksRemainingLabel.text = "Throwing Rocks Remaining: " + str(throwing_rocks_remaining)
 
 
 func place_new_target_rock():
@@ -62,12 +71,18 @@ func _on_target_rock_contact(body):
 
 
 func check_endgame_condition():
-	if not is_inside_tree(): return # if check was triggered by a scene restart, for example
+	if not is_inside_tree(): return false # if check was triggered by a scene restart, for example
 	for rock in throwing_rocks:
 		if is_instance_valid(rock) and rock.is_inside_tree() and rock.holdable:
-			return
+			return false
 	$DelayTillEndGame.start()
+	return true
 
 
 func _on_DelayTillEndGame_timeout():
 	print("game has ended with score of ",score) # placeholder
+
+
+func _on_LineOfPebbles_rock_lost():
+	if throwing_rocks_remaining:
+		place_new_throwing_rock()
