@@ -49,19 +49,19 @@ margin_right = 533.0
 margin_bottom = 24.0
 
 [node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
-margin_left = 142.0
+margin_left = 201.0
 margin_top = 5.0
 margin_right = 264.0
 margin_bottom = 19.0
 size_flags_horizontal = 14
-text = "an example setting"
+text = "fullscreen"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SpinBox" type="SpinBox" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
-margin_left = 363.0
-margin_right = 437.0
+[node name="FullscreenCheckbox" type="CheckBox" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 388.0
+margin_right = 412.0
 margin_bottom = 24.0
 size_flags_horizontal = 6
 size_flags_vertical = 4

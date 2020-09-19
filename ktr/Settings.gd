@@ -8,11 +8,21 @@ signal back
 signal apply
 
 
+# transfer data from settings panel controls to settings_config
+func panel_knobs_to_resource():
+	settings_config.fullscreen = $VBoxContainer/VBoxContainer/HBoxContainer/FullscreenCheckbox.pressed
+
+
+# transfer data from settings_config to settings panel controls
+func resource_to_panel_knobs():
+	$VBoxContainer/VBoxContainer/HBoxContainer/FullscreenCheckbox.pressed = settings_config.fullscreen
+
+
 func _init():
 	settings_config = ResourceLoader.load("settings.tres","",true) # no_cache = true
 
 func _ready():
-	$VBoxContainer/VBoxContainer/HBoxContainer/SpinBox.value = get_example_setting()
+	resource_to_panel_knobs()
 
 func get_example_setting():
 	return settings_config.an_example_setting
@@ -21,9 +31,8 @@ func _on_BackButton_pressed():
 	emit_signal("back")
 
 
-
 func _on_ApplyButton_pressed():
-	settings_config.an_example_setting = $VBoxContainer/VBoxContainer/HBoxContainer/SpinBox.value
+	panel_knobs_to_resource()
 	apply_settings(settings_config)
 
 

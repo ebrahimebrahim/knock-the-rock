@@ -18,7 +18,7 @@ font_data = SubResource( 1 )
 
 [sub_resource type="Resource" id=3]
 script = ExtResource( 7 )
-an_example_setting = 8
+fullscreen = true
 
 [node name="MenuScreen" type="VBoxContainer"]
 anchor_right = 1.0
