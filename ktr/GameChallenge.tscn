@@ -17,6 +17,7 @@ position = Vector2( 0, 50 )
 points = PoolVector2Array( 25, 300, 250, 300 )
 
 [node name="LineOfPebbles" type="Line2D" parent="." index="5"]
+position = Vector2( -142, 0 )
 points = PoolVector2Array( 420, 600, 420, 545 )
 width = 5.0
 default_color = Color( 0.909804, 0.0666667, 0.956863, 1 )
