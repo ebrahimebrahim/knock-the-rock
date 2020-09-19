@@ -15,6 +15,9 @@ func _ready():
 	beuld_topmid = beuld.global_transform.xform(beuld.top_mid())
 		
 	place_new_target_rock()
+	
+	$LabelsLayer/ThrowingRocksRemainingLabel.text = "Throwing Rocks Remaining: " + str(throwing_rocks_remaining)
+	$LabelsLayer/ScoreLabel.text = "Rocks Knocked: " + str(score)
 
 
 func _process(delta):
@@ -44,7 +47,6 @@ func place_new_throwing_rock():
 	rock[0].connect("tree_exited",self,"check_endgame_condition")
 	rock[0].connect("became_unholdable",self,"check_endgame_condition")
 	throwing_rocks += rock
-	decrement_throwing_rocks_remaining()
 
 func decrement_throwing_rocks_remaining():
 	throwing_rocks_remaining -= 1
@@ -84,5 +86,6 @@ func _on_DelayTillEndGame_timeout():
 
 
 func _on_LineOfPebbles_rock_lost():
-	if throwing_rocks_remaining:
+	decrement_throwing_rocks_remaining()
+	if throwing_rocks_remaining > 1:
 		place_new_throwing_rock()
