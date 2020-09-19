@@ -95,5 +95,13 @@ one_shot = true
 __meta__ = {
 "_editor_description_": "How long to wait after target rock is knocked off before spawning a new target rock"
 }
+
+[node name="DelayTillEndGame" type="Timer" parent="." index="10"]
+wait_time = 2.0
+one_shot = true
+__meta__ = {
+"_editor_description_": "How long to wait after player is out of rocks before actually ending the game-- we wait to give the last target rock a chance to finish falling."
+}
 [connection signal="body_exited" from="LineOfPebbles/ThrowZone" to="LineOfPebbles" method="_on_ThrowZone_body_exited"]
 [connection signal="timeout" from="DelayTillSpawnTarget" to="." method="place_new_target_rock"]
+[connection signal="timeout" from="DelayTillEndGame" to="." method="_on_DelayTillEndGame_timeout"]

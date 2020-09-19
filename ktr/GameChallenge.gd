@@ -12,7 +12,7 @@ func _ready():
 		throwing_rocks += spawn_rocks((10/$RockSpawnLines.get_child_count()),spawn_line)
 	
 	for rock in throwing_rocks:
-		rock.connect("tree_exiting",self,"check_endgame_condition")
+		rock.connect("tree_exited",self,"check_endgame_condition")
 		rock.connect("became_unholdable",self,"check_endgame_condition")
 	
 	beuld_topmid = beuld.global_transform.xform(beuld.top_mid())
@@ -60,5 +60,13 @@ func _on_target_rock_contact(body):
 	if body in throwing_rocks:
 		target_rock_has_been_touched = true
 
+
 func check_endgame_condition():
-	pass
+	for rock in throwing_rocks:
+		if is_instance_valid(rock) and rock.is_inside_tree() and rock.holdable:
+			return
+	$DelayTillEndGame.start()
+
+
+func _on_DelayTillEndGame_timeout():
+	print("game has ended with score of ",score) # placeholder
