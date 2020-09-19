@@ -24,4 +24,6 @@ func _ready():
 func _on_ThrowZone_body_exited(body):
 	if body is Rock:
 		body.holdable=false
-		body.set_held(false)
+		if body.is_held:
+			Input.set_custom_mouse_cursor(preload("res://images/splayed_hand.png"),Input.CURSOR_ARROW,Vector2(21,27))
+			body.set_held(false)
