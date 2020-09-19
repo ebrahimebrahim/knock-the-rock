@@ -62,6 +62,7 @@ func _on_target_rock_contact(body):
 
 
 func check_endgame_condition():
+	if not is_inside_tree(): return # if check was triggered by a scene restart, for example
 	for rock in throwing_rocks:
 		if is_instance_valid(rock) and rock.is_inside_tree() and rock.holdable:
 			return
