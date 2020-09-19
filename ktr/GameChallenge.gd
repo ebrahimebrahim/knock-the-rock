@@ -3,6 +3,7 @@ extends "res://GameBase.gd"
 var target_rock : Rock
 var target_rock_has_been_touched : bool
 var throwing_rocks = [] # list of Rocks that can be thrown-- some items in list will have been deleted at times
+var holdable_throwing_rocks = [] # list of Rocks in ThrowZone
 var throwing_rocks_remaining : int = 10
 var beuld_topmid : Vector2
 var score : int = 0
@@ -47,9 +48,10 @@ func place_new_throwing_rock():
 	rock[0].connect("tree_exited",self,"check_endgame_condition")
 	rock[0].connect("became_unholdable",self,"check_endgame_condition")
 	throwing_rocks += rock
+	holdable_throwing_rocks += rock
 
-func decrement_throwing_rocks_remaining():
-	throwing_rocks_remaining -= 1
+func change_throwing_rocks_remaining(change : int):
+	throwing_rocks_remaining += change
 	$LabelsLayer/ThrowingRocksRemainingLabel.text = "Throwing Rocks Remaining: " + str(throwing_rocks_remaining)
 
 
@@ -82,7 +84,13 @@ func _on_DelayTillEndGame_timeout():
 	print("game has ended with score of ",score) # placeholder
 
 
-func _on_LineOfPebbles_rock_lost():
-	decrement_throwing_rocks_remaining()
-	if throwing_rocks_remaining > 1:
+func _on_LineOfPebbles_rock_lost(body):
+	change_throwing_rocks_remaining(-1)
+	holdable_throwing_rocks.erase(body)
+	if len(holdable_throwing_rocks) < 2 and throwing_rocks_remaining > len(holdable_throwing_rocks):
 		place_new_throwing_rock()
+
+
+func _on_LineOfPebbles_rock_regained(body):
+	change_throwing_rocks_remaining(1)
+	holdable_throwing_rocks.append(body)

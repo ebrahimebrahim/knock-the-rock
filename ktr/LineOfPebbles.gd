@@ -7,7 +7,8 @@ const pebble_scale = 0.1
 
 var num_pebbles : int
 
-signal rock_lost
+signal rock_lost(rock)
+signal rock_regained(rock)
 
 
 func _ready():
@@ -27,7 +28,14 @@ func _on_ThrowZone_body_exited(body):
 	if body is Rock:
 		if body.holdable:
 			body.holdable=false
-			emit_signal("rock_lost")
+			emit_signal("rock_lost",body)
 		if body.is_held:
 			Input.set_custom_mouse_cursor(preload("res://images/splayed_hand.png"),Input.CURSOR_ARROW,Vector2(21,27))
 			body.set_held(false)
+
+
+func _on_ThrowZone_body_entered(body):
+	if body is Rock:
+		if not body.holdable:
+			body.holdable=true
+			emit_signal("rock_regained",body)
