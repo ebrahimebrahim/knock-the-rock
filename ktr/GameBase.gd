@@ -76,7 +76,7 @@ func _on_toggle():
 
 func scroll_bg(scene):
 	for child in get_children():
-		if child.name != "bg": child.queue_free()
+		if child.name != "bg" and child is Node2D : child.visible = false
 	scrolling_bg = true
 	change_scene_to = scene
 
