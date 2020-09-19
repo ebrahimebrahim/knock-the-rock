@@ -8,6 +8,7 @@ var change_scene_to : String
 
 var open_hand = preload("res://images/open_hand.png")
 var closed_hand = preload("res://images/closed_hand.png")
+var clickable = true
 
 var beuld : Boulder
 
@@ -89,5 +90,6 @@ func _process(delta):
 			get_tree().change_scene(change_scene_to)
 
 func update_cursor():
-	if Input.is_action_pressed("click"): Input.set_custom_mouse_cursor(closed_hand,Input.CURSOR_ARROW,Vector2(21,27))
-	else: Input.set_custom_mouse_cursor(open_hand,Input.CURSOR_ARROW,Vector2(21,27))
+	if clickable:
+		if Input.is_action_pressed("click"): Input.set_custom_mouse_cursor(closed_hand,Input.CURSOR_ARROW,Vector2(21,27))
+		else: Input.set_custom_mouse_cursor(open_hand,Input.CURSOR_ARROW,Vector2(21,27))

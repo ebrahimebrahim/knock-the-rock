@@ -8,6 +8,7 @@ var throwing_rocks_remaining : int = 10
 var beuld_topmid : Vector2
 var score : int = 0
 
+const splayed_hand = preload("res://images/splayed_hand.png")
 
 func _ready():
 	for _i in range(2):
@@ -94,3 +95,16 @@ func _on_LineOfPebbles_rock_lost(body):
 func _on_LineOfPebbles_rock_regained(body):
 	change_throwing_rocks_remaining(1)
 	holdable_throwing_rocks.append(body)
+
+
+func _on_ThrowZone_mouse_exited():
+	clickable = false
+	Input.set_custom_mouse_cursor(splayed_hand,Input.CURSOR_ARROW,Vector2(21,27))
+	for rock in holdable_throwing_rocks:
+		if rock.is_held:
+			rock.set_held(false)
+
+
+func _on_ThrowZone_mouse_entered():
+	clickable = true
+	Input.set_custom_mouse_cursor(open_hand,Input.CURSOR_ARROW,Vector2(21,27))

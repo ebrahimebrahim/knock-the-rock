@@ -30,7 +30,6 @@ func _on_ThrowZone_body_exited(body):
 			body.holdable=false
 			emit_signal("rock_lost",body)
 		if body.is_held:
-			Input.set_custom_mouse_cursor(preload("res://images/splayed_hand.png"),Input.CURSOR_ARROW,Vector2(21,27))
 			body.set_held(false)
 
 
