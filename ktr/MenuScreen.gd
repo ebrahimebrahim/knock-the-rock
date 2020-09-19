@@ -18,6 +18,7 @@ func _ready():
 	$Overlays/Settings.connect("back",self,"_on_settings")
 	$Overlays/Settings.connect("apply",self,"reload_scene")
 	Input.set_custom_mouse_cursor(pointing_hand,Input.CURSOR_ARROW,Vector2(16,6))
+	process_settings()
 	
 	
 
@@ -59,3 +60,9 @@ func _input(event):
 		else: _on_exit()
 	if event.is_action_pressed("open_help") and not scrolling_bg:
 		_on_help()
+
+
+# Go through the game settings that were loaded from file and do stuff with them
+func process_settings():
+	var cfg : SettingsConfig = $Overlays/Settings.settings_config
+	OS.window_fullscreen = cfg.fullscreen
