@@ -5,7 +5,7 @@
 [ext_resource path="res://theme.tres" type="Theme" id=4]
 [ext_resource path="res://LineOfPebbles.gd" type="Script" id=5]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 430.518, 705.9 )
 
 [node name="GameChallenge" instance=ExtResource( 1 )]
@@ -30,7 +30,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LineOfPebbles/ThrowZone" index="0"]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="LabelsLayer" type="CanvasLayer" parent="." index="7"]
 
