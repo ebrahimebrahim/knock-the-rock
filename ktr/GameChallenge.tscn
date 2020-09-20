@@ -89,10 +89,10 @@ __meta__ = {
 }
 
 [node name="MsgCenter" type="Label" parent="." index="11"]
-margin_left = 283.0
-margin_top = 140.0
-margin_right = 733.0
-margin_bottom = 315.0
+margin_left = 164.877
+margin_top = 150.129
+margin_right = 903.877
+margin_bottom = 325.129
 theme = ExtResource( 4 )
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0.74902, 0.678431, 0.627451, 1 )

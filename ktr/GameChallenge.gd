@@ -1,12 +1,16 @@
 extends "res://GameBase.gd"
 
+const total_rocks_given : int = 10
+
 var target_rock : Rock
 var target_rock_has_been_touched : bool
 var throwing_rocks = [] # list of Rocks that can be thrown-- some items in list will have been deleted at times
 var holdable_throwing_rocks = [] # list of Rocks in ThrowZone
-var throwing_rocks_remaining : int = 10
+var throwing_rocks_remaining : int = total_rocks_given
 var beuld_topmid : Vector2
+
 var score : int = 0
+var endgame_messages = ["This is disappointing.","Decent, but better luck next time.","Good job!","Wow, incredible!","You are a true Knock the Rock champion!"]
 
 const splayed_hand = preload("res://images/splayed_hand.png")
 
@@ -82,7 +86,7 @@ func _on_target_rock_contact(body):
 
 func _on_DelayTillEndGame_timeout():
 	if throwing_rocks_remaining <= 0:
-		print("game has ended with score of ",score) # placeholder
+		show_message(("Score: "+str(score)+"\n\""+endgame_messages[int((float(score)/total_rocks_given)*(len(endgame_messages)-1))]+"\"\nRestart or return to menu to proceed"),-1)
 
 
 func _on_LineOfPebbles_rock_lost(body):
@@ -121,8 +125,9 @@ func _on_ThrowZone_mouse_entered():
 func show_message(msg : String, time : float = 4):
 	$MsgCenter.text = msg
 	$MsgCenter.show()
-	$MsgCenter/MsgTimer.wait_time = time
-	$MsgCenter/MsgTimer.start()
+	if time > 0: # time <= 0 would cause an indefinite message
+		$MsgCenter/MsgTimer.wait_time = time
+		$MsgCenter/MsgTimer.start()
 
 
 func _on_MsgTimer_timeout():
