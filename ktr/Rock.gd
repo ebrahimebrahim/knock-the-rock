@@ -5,9 +5,11 @@ const RockPolygon = preload("res://RockPolygon.gd")
 var rock_polygon : RockPolygon
 var is_held : bool = false setget set_held
 var holdable : bool = true setget set_holdable
+var reason_for_unholdability : String = ""
 var local_hold_point : Vector2
 
 signal became_unholdable
+signal clicked_yet_unholdable(reason)
 
 enum KnockType {ROCK, GRASS}
 var audio = {} # dict mapping KnockType to AudioStreamPlayer2D
@@ -98,9 +100,10 @@ func set_held(val : bool) -> void:
 		sleeping = false # wake up object if it just got held
 		held_collision_immunity_timer.start()
 
-func set_holdable(val : bool) -> void:
+func set_holdable(val : bool, reason : String = "") -> void:
 	var was_holdable = holdable
 	holdable = val
+	reason_for_unholdability = reason
 	if was_holdable and not holdable : emit_signal("became_unholdable")
 
 func _input(event):
@@ -113,9 +116,12 @@ func _on_input(event):
 		var vertices_global = PoolVector2Array()
 		for v in rock_polygon.vertices:
 			vertices_global.push_back(global_transform.xform(v))
-		if Geometry.is_point_in_polygon(event.position,vertices_global) and holdable:
-			set_held(true)
-			local_hold_point = global_transform.xform_inv(event.position)
+		if Geometry.is_point_in_polygon(event.position,vertices_global):
+			if holdable:
+				set_held(true)
+				local_hold_point = global_transform.xform_inv(event.position)
+			else:
+				emit_signal("clicked_yet_unholdable",reason_for_unholdability)
 	if is_held:
 		# on release, release rock
 		if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and not event.is_pressed():

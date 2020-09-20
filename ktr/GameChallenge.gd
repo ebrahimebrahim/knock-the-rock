@@ -59,6 +59,8 @@ func increment_score():
 
 func place_new_throwing_rocks(num_rocks : int):
 	var rocks = spawn_rocks(num_rocks,$RockSpawnLine)
+	for rock in rocks:
+		rock.connect("clicked_yet_unholdable",self,"_on_clicked_yet_unholdable")
 	throwing_rocks += rocks
 	throwzone_rocks += rocks
 
@@ -73,8 +75,9 @@ func place_new_target_rock():
 	target_rock = Rock.new()
 	add_child(target_rock)
 	target_rock.position += beuld_topmid-target_rock.global_transform.xform(target_rock.center_of_mass())+Vector2(0,-20-target_rock.flat_bottom())
-	target_rock.holdable = false
+	target_rock.set_holdable(false,"No picking up the target rock!")
 	target_rock.connect("body_entered",self,"_on_target_rock_contact")
+	target_rock.connect("clicked_yet_unholdable",self,"_on_clicked_yet_unholdable")
 	target_rock_has_been_touched = false
 
 
@@ -127,6 +130,9 @@ func _on_ThrowZone_mouse_exited():
 func _on_ThrowZone_mouse_entered():
 	cursor_changeable = true
 	Input.set_custom_mouse_cursor(open_hand,Input.CURSOR_ARROW,Vector2(21,27))
+
+func _on_clicked_yet_unholdable(reason):
+	if not game_has_ended: show_message(reason,2.5)
 
 
 func show_message(msg : String, time : float = 4):
