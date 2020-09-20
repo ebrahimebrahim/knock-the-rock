@@ -33,6 +33,7 @@ func _process(_delta):
 	if not target_rock_on_boulder() and $DelayTillSpawnTarget.is_stopped():
 		if target_rock_has_been_touched:
 			increment_score()
+			mistakes_made = 0
 #			target_rock.mode=RigidBody2D.MODE_STATIC  # Uncomment this to observe the moment a rock is counted as knocked off
 		if not target_rock_has_been_touched:
 			show_message(mistake_messages[mistakes_made%len(mistake_messages)],2)
