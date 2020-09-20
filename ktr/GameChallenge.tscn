@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://GameBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://GameChallenge.gd" type="Script" id=2]
 [ext_resource path="res://fonts/Avara.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://theme.tres" type="Theme" id=4]
 [ext_resource path="res://LineOfPebbles.gd" type="Script" id=5]
+[ext_resource path="res://sounds/endgame_ruffle.wav" type="AudioStream" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 430.518, 705.9 )
@@ -106,6 +107,10 @@ __meta__ = {
 [node name="MsgTimer" type="Timer" parent="MsgCenter" index="0"]
 wait_time = 4.0
 one_shot = true
+
+[node name="EndgameRufflePlayer" type="AudioStreamPlayer" parent="." index="12"]
+stream = ExtResource( 6 )
+volume_db = 4.0
 [connection signal="rock_lost" from="LineOfPebbles" to="." method="_on_LineOfPebbles_rock_lost"]
 [connection signal="rock_regained" from="LineOfPebbles" to="." method="_on_LineOfPebbles_rock_regained"]
 [connection signal="body_entered" from="LineOfPebbles/ThrowZone" to="LineOfPebbles" method="_on_ThrowZone_body_entered"]

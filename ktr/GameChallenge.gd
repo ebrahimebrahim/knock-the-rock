@@ -91,6 +91,7 @@ func _on_target_rock_contact(body):
 func _on_DelayTillEndGame_timeout():
 	if throwing_rocks_remaining <= 0:
 		game_has_ended = true
+		$EndgameRufflePlayer.play()
 		show_message(("Score: "+str(score)+"\n\""+endgame_messages[int((float(score)/total_rocks_given)*(len(endgame_messages)-1))]+"\"\nRestart or return to menu to proceed"),-1)
 
 
