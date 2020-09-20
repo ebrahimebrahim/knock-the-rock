@@ -67,7 +67,7 @@ click={
 
 [physics]
 
-2d/default_gravity=980
+2d/default_gravity=1470
 
 [rendering]
 
