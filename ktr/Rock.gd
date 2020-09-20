@@ -74,6 +74,7 @@ func generate_rock_polygon():
 func generate_collision_shape():
 	var triangles : PoolIntArray = Geometry.triangulate_polygon(rock_polygon.vertices)
 	assert(len(triangles)%3==0)
+	#warning-ignore:integer_division
 	for i in range(len(triangles)/3):
 		var triangle = PoolVector2Array([rock_polygon.vertices[triangles[3*i]],
 										 rock_polygon.vertices[triangles[3*i+1]],
@@ -84,7 +85,7 @@ func generate_collision_shape():
 		c.shape.points = triangle
 
 
-func _process(delta):
+func _process(_delta):
 	if position.y > get_tree().get_root().get_size_override().y + 400:
 		queue_free()
 

@@ -15,7 +15,7 @@ func _init():
 func generate_rock_polygon():
 	return BoulderPolygon.new()
 
-func _on_input(event):
+func _on_input(_event):
 	pass # this is just to overwrite the Rock input function which deals with Rock holdability
 
 
