@@ -12,7 +12,6 @@ var throwing_rocks_remaining : int = total_rocks_given
 var beuld_topmid : Vector2
 
 var score : int = 0
-var endgame_messages = ["This is disappointing.","Decent, but better luck next time.","Good job!","Wow, incredible!","You are a true Knock the Rock champion!"]
 
 const splayed_hand = preload("res://images/splayed_hand.png")
 
@@ -95,8 +94,7 @@ func _on_DelayTillEndGame_timeout():
 	if throwing_rocks_remaining <= 0:
 		game_has_ended = true
 		$EndgameRufflePlayer.play()
-		var msg_index = min(int((float(score)/total_rocks_given)*(len(endgame_messages)-1)),len(endgame_messages)-1)
-		show_message(("Score: "+str(score)+"\n\""+endgame_messages[msg_index]+"\"\nRestart or return to menu to proceed"),-1)
+		show_message(Strings.endgame_message(score,total_rocks_given),-1)
 
 
 func _on_LineOfPebbles_rock_lost(body):
