@@ -4,8 +4,17 @@ func _ready():
 	spawn_rocks(2,$RockSpawnLine)
 
 func _input(event):
-	if event is InputEventMouseButton and event.button_index == BUTTON_RIGHT and event.is_pressed():
-		var rock : Rock = Rock.new()
-		add_child(rock)
-		rock.flat_bottom()
-		rock.position += event.position  - rock.global_transform.xform(rock.center_of_mass())
+	if event is InputEventMouseButton and event.is_pressed():
+		if event.button_index == BUTTON_RIGHT:
+			Input.set_custom_mouse_cursor(splayed_hand,Input.CURSOR_ARROW,Vector2(21,27))
+			$SplayedHandTimer.start()
+			var rock : Rock = Rock.new()
+			add_child(rock)
+			rock.flat_bottom()
+			rock.position += event.position  - rock.global_transform.xform(rock.center_of_mass())
+		if event.button_index == BUTTON_LEFT:
+			$SplayedHandTimer.stop()
+
+
+func _on_SplayedHandTimer_timeout():
+	Input.set_custom_mouse_cursor(open_hand,Input.CURSOR_ARROW,Vector2(21,27))

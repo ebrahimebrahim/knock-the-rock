@@ -9,6 +9,7 @@ var scene_shutting_down : bool = false # true if the scene is about to unload
 
 const open_hand = preload("res://images/open_hand.png")
 const closed_hand = preload("res://images/closed_hand.png")
+const splayed_hand = preload("res://images/splayed_hand.png")
 var cursor_changeable = true
 
 var beuld : Boulder
@@ -17,9 +18,9 @@ var beuld : Boulder
 func _ready():
 	randomize()
 	
-	$HUDZone/ReturnButton.connect("button_up",self,"_on_return")
-	$HUDZone/RestartButton.connect("button_up",self,"_on_restart")
-	$HUDZone/HelpButton.connect("button_up",self,"_on_help")
+	$MenuZone/ReturnButton.connect("button_up",self,"_on_return")
+	$MenuZone/RestartButton.connect("button_up",self,"_on_restart")
+	$MenuZone/HelpButton.connect("button_up",self,"_on_help")
 	$HelpOverlay/Help.connect("hide_help",self,"_on_help")
 	Input.set_custom_mouse_cursor(open_hand,Input.CURSOR_ARROW,Vector2(21,27))
 	
@@ -75,8 +76,8 @@ func _on_help():
 	$HelpOverlay.visible = not $HelpOverlay.visible
 
 func _on_toggle():
-	if $HUDZone.visible: $HUDZone.hide()
-	else: $HUDZone.show()
+	if $MenuZone.visible: $MenuZone.hide()
+	else: $MenuZone.show()
 
 func scroll_bg(scene):
 	for child in get_children():

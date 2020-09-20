@@ -13,8 +13,6 @@ var beuld_topmid : Vector2
 
 var score : int = 0
 
-const splayed_hand = preload("res://images/splayed_hand.png")
-
 var mistakes_made : int = 0
 const mistake_messages = ["Please wait, we are experiencing technical difficulties","Oops, I got this this time","LOL sorry let me try one more time","Ok ok, this time for sure"]
 
