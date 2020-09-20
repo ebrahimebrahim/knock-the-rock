@@ -81,6 +81,7 @@ func _on_DelayTillEndGame_timeout():
 
 
 func _on_LineOfPebbles_rock_lost(body):
+	if scene_shutting_down : return
 	change_throwing_rocks_remaining(-1)
 	holdable_throwing_rocks.erase(body)
 	if len(holdable_throwing_rocks) < 2 and throwing_rocks_remaining > len(holdable_throwing_rocks):

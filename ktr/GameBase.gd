@@ -5,6 +5,7 @@ const Rock = preload("res://Rock.gd")
 
 var scrolling_bg : bool = false
 var change_scene_to : String
+var scene_shutting_down : bool = false # true if the scene is about to unload
 
 var open_hand = preload("res://images/open_hand.png")
 var closed_hand = preload("res://images/closed_hand.png")
@@ -62,10 +63,12 @@ func random_point_on_line(line : Line2D):
 	return (line.points[0]+randf()*(line.points[1] - line.points[0])) + line.global_position
 
 func _on_return():
+	scene_shutting_down = true
 	if scrolling_bg : get_tree().quit() # allows double tap esc to quit
 	scroll_bg("res://MenuScreen.tscn")
 
 func _on_restart():
+	scene_shutting_down = true
 	get_tree().reload_current_scene()
 
 func _on_help():
