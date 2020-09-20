@@ -7,9 +7,9 @@ var scrolling_bg : bool = false
 var change_scene_to : String
 var scene_shutting_down : bool = false # true if the scene is about to unload
 
-var open_hand = preload("res://images/open_hand.png")
-var closed_hand = preload("res://images/closed_hand.png")
-var clickable = true
+const open_hand = preload("res://images/open_hand.png")
+const closed_hand = preload("res://images/closed_hand.png")
+var cursor_changeable = true
 
 var beuld : Boulder
 
@@ -93,6 +93,6 @@ func _process(delta):
 			get_tree().change_scene(change_scene_to)
 
 func update_cursor():
-	if clickable:
+	if cursor_changeable:
 		if Input.is_action_pressed("click"): Input.set_custom_mouse_cursor(closed_hand,Input.CURSOR_ARROW,Vector2(21,27))
 		else: Input.set_custom_mouse_cursor(open_hand,Input.CURSOR_ARROW,Vector2(21,27))

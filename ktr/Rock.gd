@@ -7,7 +7,7 @@ var is_held : bool = false setget set_held
 var holdable : bool = true setget set_holdable
 var local_hold_point : Vector2
 
-signal became_unholdable;
+signal became_unholdable
 
 enum KnockType {ROCK, GRASS}
 var audio = {} # dict mapping KnockType to AudioStreamPlayer2D
