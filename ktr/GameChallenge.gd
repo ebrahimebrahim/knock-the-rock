@@ -11,8 +11,7 @@ var score : int = 0
 const splayed_hand = preload("res://images/splayed_hand.png")
 
 func _ready():
-	for _i in range(2):
-		place_new_throwing_rock()
+	place_new_throwing_rocks(2)
 	
 	beuld_topmid = beuld.global_transform.xform(beuld.top_mid())
 		
@@ -44,8 +43,8 @@ func increment_score():
 	$LabelsLayer/ScoreLabel.text = "Rocks Knocked: " + str(score)
 
 
-func place_new_throwing_rock():
-	var rock = spawn_rocks(1,$RockSpawnLine)
+func place_new_throwing_rocks(num_rocks : int):
+	var rock = spawn_rocks(num_rocks,$RockSpawnLine)
 	rock[0].connect("tree_exited",self,"check_endgame_condition")
 	rock[0].connect("became_unholdable",self,"check_endgame_condition")
 	throwing_rocks += rock
@@ -89,7 +88,7 @@ func _on_LineOfPebbles_rock_lost(body):
 	change_throwing_rocks_remaining(-1)
 	holdable_throwing_rocks.erase(body)
 	if len(holdable_throwing_rocks) < 2 and throwing_rocks_remaining > len(holdable_throwing_rocks):
-		place_new_throwing_rock()
+		place_new_throwing_rocks(1)
 
 
 func _on_LineOfPebbles_rock_regained(body):
