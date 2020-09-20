@@ -26,7 +26,7 @@ func _ready():
 func _on_ThrowZone_body_exited(body):
 	if body is Rock:
 		if body.is_holdable():
-			body.set_holdable(false,"No picking up rocks beyond the line of pebbles!")
+			body.set_holdable(false,Strings.cant_hold_past_line())
 			emit_signal("rock_lost",body)
 		if body.is_held:
 			body.set_held(false)

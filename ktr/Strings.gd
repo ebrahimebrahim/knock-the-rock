@@ -33,6 +33,18 @@ const _mistake_messages = {
 			"Ok ok, this time for sure"]
 }
 
+const _knocked = {
+	"en" : "Knocked!"
+}
+
+const _cant_hold_target = {
+	"en" : "No picking up the target rock!"
+}
+
+const _cant_hold_past_line = {
+	"en" : "No picking up rocks beyond the line of pebbles!"
+}
+
 
 func rocks_knocked(s):
 	return _rocks_knocked[lang] + ": " + str(s)
@@ -47,3 +59,11 @@ func endgame_message(score, total_rocks_given):
 func mistake_message(mistakes_made):
 	return _mistake_messages[lang][mistakes_made%len(_mistake_messages[lang])]
 
+func knocked():
+	return _knocked[lang]
+
+func cant_hold_target():
+	return _cant_hold_target[lang]
+	
+func cant_hold_past_line():
+	return _cant_hold_past_line[lang]
