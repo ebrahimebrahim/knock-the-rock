@@ -130,14 +130,14 @@ func _on_ThrowZone_mouse_entered():
 
 
 func show_message(msg : String, time : float = 4):
-	$MsgCenter.text = msg
+	$LabelsLayer/MsgCenter.text = msg
 	if time > 0: # time <= 0 would cause an indefinite message
-		$MsgCenter/MsgTimer.wait_time = time
-		$MsgCenter/MsgTimer.start()
+		$LabelsLayer/MsgCenter/MsgTimer.wait_time = time
+		$LabelsLayer/MsgCenter/MsgTimer.start()
 	else:
-		$MsgCenter/MsgTimer.stop()
-	$MsgCenter.show()
+		$LabelsLayer/MsgCenter/MsgTimer.stop()
+	$LabelsLayer/MsgCenter.show()
 
 
 func _on_MsgTimer_timeout():
-	$MsgCenter.hide()
+	$LabelsLayer/MsgCenter.hide()

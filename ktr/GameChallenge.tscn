@@ -70,6 +70,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="MsgCenter" type="Label" parent="LabelsLayer" index="2"]
+margin_left = 164.877
+margin_top = 150.129
+margin_right = 903.877
+margin_bottom = 325.129
+theme = ExtResource( 4 )
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.74902, 0.678431, 0.627451, 1 )
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MsgTimer" type="Timer" parent="LabelsLayer/MsgCenter" index="0"]
+wait_time = 4.0
+one_shot = true
+
 [node name="DelayTillSpawnTarget" type="Timer" parent="." index="8"]
 one_shot = true
 __meta__ = {
@@ -89,26 +108,7 @@ __meta__ = {
 "_editor_description_": "How long to wait after player is out of rocks before actually ending the game-- we wait to give the last target rock a chance to finish falling."
 }
 
-[node name="MsgCenter" type="Label" parent="." index="11"]
-margin_left = 164.877
-margin_top = 150.129
-margin_right = 903.877
-margin_bottom = 325.129
-theme = ExtResource( 4 )
-custom_fonts/font = SubResource( 2 )
-custom_colors/font_color = Color( 0.74902, 0.678431, 0.627451, 1 )
-align = 1
-valign = 1
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MsgTimer" type="Timer" parent="MsgCenter" index="0"]
-wait_time = 4.0
-one_shot = true
-
-[node name="EndgameRufflePlayer" type="AudioStreamPlayer" parent="." index="12"]
+[node name="EndgameRufflePlayer" type="AudioStreamPlayer" parent="." index="11"]
 stream = ExtResource( 6 )
 volume_db = 4.0
 [connection signal="rock_lost" from="LineOfPebbles" to="." method="_on_LineOfPebbles_rock_lost"]
@@ -117,7 +117,7 @@ volume_db = 4.0
 [connection signal="body_exited" from="LineOfPebbles/ThrowZone" to="LineOfPebbles" method="_on_ThrowZone_body_exited"]
 [connection signal="mouse_entered" from="LineOfPebbles/ThrowZone" to="." method="_on_ThrowZone_mouse_entered"]
 [connection signal="mouse_exited" from="LineOfPebbles/ThrowZone" to="." method="_on_ThrowZone_mouse_exited"]
+[connection signal="timeout" from="LabelsLayer/MsgCenter/MsgTimer" to="." method="_on_MsgTimer_timeout"]
 [connection signal="timeout" from="DelayTillSpawnTarget" to="." method="place_new_target_rock"]
 [connection signal="timeout" from="DelayTillReplaceThrowingRocks" to="." method="_on_DelayTillReplaceThrowingRocks_timeout"]
 [connection signal="timeout" from="DelayTillEndGame" to="." method="_on_DelayTillEndGame_timeout"]
-[connection signal="timeout" from="MsgCenter/MsgTimer" to="." method="_on_MsgTimer_timeout"]
