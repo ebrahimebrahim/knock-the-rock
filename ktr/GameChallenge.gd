@@ -1,6 +1,8 @@
 extends "res://GameBase.gd"
 
-const total_rocks_given : int = 10
+const total_rocks_given : int = 3
+
+var game_has_ended = false
 
 var target_rock : Rock
 var target_rock_has_been_touched : bool
@@ -29,7 +31,7 @@ func _ready():
 
 
 func _process(_delta):
-	if scrolling_bg : return
+	if scrolling_bg or game_has_ended: return
 	if not target_rock_on_boulder() and $DelayTillSpawnTarget.is_stopped():
 		if target_rock_has_been_touched:
 			increment_score()
@@ -88,6 +90,7 @@ func _on_target_rock_contact(body):
 
 func _on_DelayTillEndGame_timeout():
 	if throwing_rocks_remaining <= 0:
+		game_has_ended = true
 		show_message(("Score: "+str(score)+"\n\""+endgame_messages[int((float(score)/total_rocks_given)*(len(endgame_messages)-1))]+"\"\nRestart or return to menu to proceed"),-1)
 
 
