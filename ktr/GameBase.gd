@@ -9,6 +9,7 @@ var scene_shutting_down : bool = false # true if the scene is about to unload
 
 const open_hand = preload("res://images/open_hand.png")
 const closed_hand = preload("res://images/closed_hand.png")
+const splayed_hand = preload("res://images/splayed_hand.png")
 var cursor_changeable = true
 
 var beuld : Boulder
