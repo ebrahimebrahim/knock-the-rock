@@ -44,11 +44,12 @@ func increment_score():
 
 
 func place_new_throwing_rocks(num_rocks : int):
-	var rock = spawn_rocks(num_rocks,$RockSpawnLine)
-	rock[0].connect("tree_exited",self,"check_endgame_condition")
-	rock[0].connect("became_unholdable",self,"check_endgame_condition")
-	throwing_rocks += rock
-	holdable_throwing_rocks += rock
+	var rocks = spawn_rocks(num_rocks,$RockSpawnLine)
+	for rock in rocks:
+		rock.connect("tree_exited",self,"check_endgame_condition")
+		rock.connect("became_unholdable",self,"check_endgame_condition")
+	throwing_rocks += rocks
+	holdable_throwing_rocks += rocks
 
 func change_throwing_rocks_remaining(change : int):
 	throwing_rocks_remaining += change
