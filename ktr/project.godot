@@ -24,6 +24,10 @@ config/name="Knock the Rock"
 run/main_scene="res://MenuScreen.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Music="*res://Music.gd"
+
 [debug]
 
 settings/fps/force_fps=60
