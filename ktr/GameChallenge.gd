@@ -10,6 +10,9 @@ var score : int = 0
 
 const splayed_hand = preload("res://images/splayed_hand.png")
 
+var mistakes_made : int = 0
+const mistake_messages = ["Please wait, we are experiencing technical difficulties","Oops, I got this this time","LOL sorry let me try one more time","Ok ok, this time for sure"]
+
 func _ready():
 	place_new_throwing_rocks(2)
 	
@@ -27,6 +30,9 @@ func _process(delta):
 		if target_rock_has_been_touched:
 			increment_score()
 #			target_rock.mode=RigidBody2D.MODE_STATIC  # Uncomment this to observe the moment a rock is counted as knocked off
+		if not target_rock_has_been_touched:
+			show_message(mistake_messages[mistakes_made%len(mistake_messages)],2)
+			mistakes_made += 1
 		$DelayTillSpawnTarget.start()
 
 

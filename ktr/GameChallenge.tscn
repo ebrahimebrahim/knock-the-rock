@@ -89,16 +89,16 @@ __meta__ = {
 }
 
 [node name="MsgCenter" type="Label" parent="." index="11"]
-visible = false
 margin_left = 283.0
 margin_top = 140.0
-margin_right = 799.0
+margin_right = 733.0
 margin_bottom = 315.0
 theme = ExtResource( 4 )
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0.74902, 0.678431, 0.627451, 1 )
 align = 1
 valign = 1
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
