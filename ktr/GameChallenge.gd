@@ -26,8 +26,8 @@ func _ready():
 		
 	place_new_target_rock()
 	
-	$LabelsLayer/ThrowingRocksRemainingLabel.text = "Throwing Rocks Remaining: " + str(throwing_rocks_remaining)
-	$LabelsLayer/ScoreLabel.text = "Rocks Knocked: " + str(score)
+	$LabelsLayer/ThrowingRocksRemainingLabel.text = Strings.throwing_remaining(throwing_rocks_remaining)
+	$LabelsLayer/ScoreLabel.text = Strings.rocks_knocked(score)
 
 
 func _process(_delta):
@@ -66,7 +66,7 @@ func place_new_throwing_rocks(num_rocks : int):
 
 func change_throwing_rocks_remaining(change : int):
 	throwing_rocks_remaining += change
-	$LabelsLayer/ThrowingRocksRemainingLabel.text = "Throwing Rocks Remaining: " + str(throwing_rocks_remaining)
+	$LabelsLayer/ThrowingRocksRemainingLabel.text = Strings.throwing_remaining(throwing_rocks_remaining)
 	if throwing_rocks_remaining <= 0:
 		$DelayTillEndGame.start()
 
