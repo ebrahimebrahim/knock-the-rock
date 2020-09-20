@@ -7,7 +7,7 @@ var game_has_ended = false
 var target_rock : Rock
 var target_rock_has_been_touched : bool
 var throwing_rocks = [] # list of Rocks that can be thrown-- some items in list will have been deleted at times
-var holdable_throwing_rocks = [] # list of Rocks in ThrowZone
+var throwzone_rocks = [] # list of Rocks in ThrowZone
 var throwing_rocks_remaining : int = total_rocks_given
 var beuld_topmid : Vector2
 
@@ -60,7 +60,7 @@ func increment_score():
 func place_new_throwing_rocks(num_rocks : int):
 	var rocks = spawn_rocks(num_rocks,$RockSpawnLine)
 	throwing_rocks += rocks
-	holdable_throwing_rocks += rocks
+	throwzone_rocks += rocks
 
 func change_throwing_rocks_remaining(change : int):
 	throwing_rocks_remaining += change
@@ -97,9 +97,9 @@ func _on_DelayTillEndGame_timeout():
 func _on_LineOfPebbles_rock_lost(body):
 	if scene_shutting_down : return
 	change_throwing_rocks_remaining(-1)
-	holdable_throwing_rocks.erase(body)
-	if len(holdable_throwing_rocks) < 2 and throwing_rocks_remaining > len(holdable_throwing_rocks):
-		if len(holdable_throwing_rocks) == 0:
+	throwzone_rocks.erase(body)
+	if len(throwzone_rocks) < 2 and throwing_rocks_remaining > len(throwzone_rocks):
+		if len(throwzone_rocks) == 0:
 			place_new_throwing_rocks(1) # if no rocks t throw, provide one immediately
 		else: # but if there's one rock to throw already, provide the second with delay
 			$DelayTillReplaceThrowingRocks.start()
@@ -111,13 +111,13 @@ func _on_DelayTillReplaceThrowingRocks_timeout():
 
 func _on_LineOfPebbles_rock_regained(body):
 	change_throwing_rocks_remaining(1)
-	holdable_throwing_rocks.append(body)
+	throwzone_rocks.append(body)
 
 
 func _on_ThrowZone_mouse_exited():
 	cursor_changeable = false
 	Input.set_custom_mouse_cursor(splayed_hand,Input.CURSOR_ARROW,Vector2(21,27))
-	for rock in holdable_throwing_rocks:
+	for rock in throwzone_rocks:
 		if rock.is_held:
 			rock.set_held(false)
 
@@ -129,10 +129,12 @@ func _on_ThrowZone_mouse_entered():
 
 func show_message(msg : String, time : float = 4):
 	$MsgCenter.text = msg
-	$MsgCenter.show()
 	if time > 0: # time <= 0 would cause an indefinite message
 		$MsgCenter/MsgTimer.wait_time = time
 		$MsgCenter/MsgTimer.start()
+	else:
+		$MsgCenter/MsgTimer.stop()
+	$MsgCenter.show()
 
 
 func _on_MsgTimer_timeout():
