@@ -98,11 +98,12 @@ func _on_LineOfPebbles_rock_lost(body):
 	if scene_shutting_down : return
 	change_throwing_rocks_remaining(-1)
 	throwzone_rocks.erase(body)
-	if len(throwzone_rocks) < 2 and throwing_rocks_remaining > len(throwzone_rocks):
-		if len(throwzone_rocks) == 0:
-			place_new_throwing_rocks(1) # if no rocks t throw, provide one immediately
-		else: # but if there's one rock to throw already, provide the second with delay
+	var num_throwzone_rocks_including_incoming : int = len(throwzone_rocks) + (0 if $DelayTillReplaceThrowingRocks.is_stopped() else 1)
+	if len(throwzone_rocks) < 2 and throwing_rocks_remaining > num_throwzone_rocks_including_incoming:
+		if $DelayTillReplaceThrowingRocks.is_stopped():
 			$DelayTillReplaceThrowingRocks.start()
+		else:
+			place_new_throwing_rocks(1)
 
 
 func _on_DelayTillReplaceThrowingRocks_timeout():
