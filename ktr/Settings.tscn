@@ -66,6 +66,22 @@ margin_bottom = 24.0
 size_flags_horizontal = 6
 size_flags_vertical = 4
 
+[node name="Music Volume" type="HBoxContainer" parent="VBoxContainer/Body"]
+margin_top = 28.0
+margin_right = 533.0
+margin_bottom = 42.0
+
+[node name="Label" type="Label" parent="VBoxContainer/Body/Music Volume"]
+margin_left = 201.0
+margin_top = 5.0
+margin_right = 264.0
+margin_bottom = 19.0
+size_flags_horizontal = 14
+text = "music volume"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Buttons" type="MarginContainer" parent="VBoxContainer"]
 margin_top = 310.0
 margin_right = 533.0

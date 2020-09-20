@@ -10,12 +10,12 @@ signal apply
 
 # transfer data from settings panel controls to settings_config
 func panel_knobs_to_resource():
-	settings_config.fullscreen = $VBoxContainer/VBoxContainer/HBoxContainer/FullscreenCheckbox.pressed
+	settings_config.fullscreen = $VBoxContainer/Body/Fullscreen/Checkbox.pressed
 
 
 # transfer data from settings_config to settings panel controls
 func resource_to_panel_knobs():
-	$VBoxContainer/VBoxContainer/HBoxContainer/FullscreenCheckbox.pressed = settings_config.fullscreen
+	$VBoxContainer/Body/Fullscreen/Checkbox.pressed = settings_config.fullscreen
 
 
 func _init():
