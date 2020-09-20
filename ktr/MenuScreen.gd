@@ -3,7 +3,7 @@ extends VBoxContainer
 var scrolling_bg : bool = false
 var change_scene_to : String
 
-var pointing_hand = preload("res://images/pointing_hand.png")
+const pointing_hand = preload("res://images/pointing_hand.png")
 var settings_config : Resource
 
 

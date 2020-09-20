@@ -101,7 +101,7 @@ func _on_LineOfPebbles_rock_regained(body):
 
 
 func _on_ThrowZone_mouse_exited():
-	clickable = false
+	cursor_changeable = false
 	Input.set_custom_mouse_cursor(splayed_hand,Input.CURSOR_ARROW,Vector2(21,27))
 	for rock in holdable_throwing_rocks:
 		if rock.is_held:
@@ -109,6 +109,6 @@ func _on_ThrowZone_mouse_exited():
 
 
 func _on_ThrowZone_mouse_entered():
-	clickable = true
+	cursor_changeable = true
 	Input.set_custom_mouse_cursor(open_hand,Input.CURSOR_ARROW,Vector2(21,27))
 
