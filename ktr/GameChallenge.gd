@@ -49,6 +49,7 @@ func target_rock_on_boulder() -> bool:
 
 
 func increment_score():
+	show_message("Knocked!",1.2)
 	score += 1
 	$LabelsLayer/ScoreLabel.text = "Rocks Knocked: " + str(score)
 
