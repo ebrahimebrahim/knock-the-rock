@@ -84,7 +84,11 @@ func _on_LineOfPebbles_rock_lost(body):
 	change_throwing_rocks_remaining(-1)
 	holdable_throwing_rocks.erase(body)
 	if len(holdable_throwing_rocks) < 2 and throwing_rocks_remaining > len(holdable_throwing_rocks):
-		place_new_throwing_rocks(1)
+		$DelayTillReplaceThrowingRocks.start()
+
+
+func _on_DelayTillReplaceThrowingRocks_timeout():
+	place_new_throwing_rocks(1)
 
 
 func _on_LineOfPebbles_rock_regained(body):
@@ -103,3 +107,4 @@ func _on_ThrowZone_mouse_exited():
 func _on_ThrowZone_mouse_entered():
 	clickable = true
 	Input.set_custom_mouse_cursor(open_hand,Input.CURSOR_ARROW,Vector2(21,27))
+
