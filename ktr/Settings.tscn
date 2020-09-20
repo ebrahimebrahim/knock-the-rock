@@ -35,7 +35,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+[node name="Body" type="VBoxContainer" parent="VBoxContainer"]
 margin_top = 155.0
 margin_right = 533.0
 margin_bottom = 306.0
@@ -44,11 +44,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+[node name="Fullscreen" type="HBoxContainer" parent="VBoxContainer/Body"]
 margin_right = 533.0
 margin_bottom = 24.0
 
-[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/Body/Fullscreen"]
 margin_left = 201.0
 margin_top = 5.0
 margin_right = 264.0
@@ -59,14 +59,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FullscreenCheckbox" type="CheckBox" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Checkbox" type="CheckBox" parent="VBoxContainer/Body/Fullscreen"]
 margin_left = 388.0
 margin_right = 412.0
 margin_bottom = 24.0
 size_flags_horizontal = 6
 size_flags_vertical = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+[node name="Buttons" type="MarginContainer" parent="VBoxContainer"]
 margin_top = 310.0
 margin_right = 533.0
 margin_bottom = 461.0
@@ -77,7 +77,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Buttons"]
 margin_left = 20.0
 margin_right = 513.0
 margin_bottom = 151.0
@@ -86,7 +86,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ApplyButton" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="ApplyButton" type="Button" parent="VBoxContainer/Buttons/HBoxContainer"]
 margin_top = 62.0
 margin_right = 161.0
 margin_bottom = 88.0
@@ -98,7 +98,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BackButton" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="BackButton" type="Button" parent="VBoxContainer/Buttons/HBoxContainer"]
 margin_left = 165.0
 margin_top = 62.0
 margin_right = 326.0
@@ -111,7 +111,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DefaultsButton" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="DefaultsButton" type="Button" parent="VBoxContainer/Buttons/HBoxContainer"]
 margin_left = 330.0
 margin_top = 62.0
 margin_right = 493.0
@@ -120,6 +120,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 theme = ExtResource( 1 )
 text = "Restore Defaults"
-[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/ApplyButton" to="." method="_on_ApplyButton_pressed"]
-[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/BackButton" to="." method="_on_BackButton_pressed"]
-[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/DefaultsButton" to="." method="_on_DefaultsButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/Buttons/HBoxContainer/ApplyButton" to="." method="_on_ApplyButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/Buttons/HBoxContainer/BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/Buttons/HBoxContainer/DefaultsButton" to="." method="_on_DefaultsButton_pressed"]
