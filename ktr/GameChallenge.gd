@@ -79,7 +79,6 @@ func _on_DelayTillEndGame_timeout():
 		print("game has ended with score of ",score) # placeholder
 
 
-
 func _on_LineOfPebbles_rock_lost(body):
 	if scene_shutting_down : return
 	change_throwing_rocks_remaining(-1)
@@ -112,3 +111,13 @@ func _on_ThrowZone_mouse_entered():
 	cursor_changeable = true
 	Input.set_custom_mouse_cursor(open_hand,Input.CURSOR_ARROW,Vector2(21,27))
 
+
+func show_message(msg : String, time : float = 4):
+	$MsgCenter.text = msg
+	$MsgCenter.show()
+	$MsgCenter/MsgTimer.wait_time = time
+	$MsgCenter/MsgTimer.start()
+
+
+func _on_MsgTimer_timeout():
+	$MsgCenter.hide()

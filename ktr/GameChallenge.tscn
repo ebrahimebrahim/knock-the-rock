@@ -1,12 +1,19 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://GameBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://GameChallenge.gd" type="Script" id=2]
+[ext_resource path="res://fonts/Avara.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://theme.tres" type="Theme" id=4]
 [ext_resource path="res://LineOfPebbles.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 430.518, 705.9 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 40
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 3 )
 
 [node name="GameChallenge" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
@@ -80,6 +87,25 @@ one_shot = true
 __meta__ = {
 "_editor_description_": "How long to wait after player is out of rocks before actually ending the game-- we wait to give the last target rock a chance to finish falling."
 }
+
+[node name="MsgCenter" type="Label" parent="." index="11"]
+visible = false
+margin_left = 283.0
+margin_top = 140.0
+margin_right = 799.0
+margin_bottom = 315.0
+theme = ExtResource( 4 )
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.74902, 0.678431, 0.627451, 1 )
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MsgTimer" type="Timer" parent="MsgCenter" index="0"]
+wait_time = 4.0
+one_shot = true
 [connection signal="rock_lost" from="LineOfPebbles" to="." method="_on_LineOfPebbles_rock_lost"]
 [connection signal="rock_regained" from="LineOfPebbles" to="." method="_on_LineOfPebbles_rock_regained"]
 [connection signal="body_entered" from="LineOfPebbles/ThrowZone" to="LineOfPebbles" method="_on_ThrowZone_body_entered"]
@@ -89,3 +115,4 @@ __meta__ = {
 [connection signal="timeout" from="DelayTillSpawnTarget" to="." method="place_new_target_rock"]
 [connection signal="timeout" from="DelayTillReplaceThrowingRocks" to="." method="_on_DelayTillReplaceThrowingRocks_timeout"]
 [connection signal="timeout" from="DelayTillEndGame" to="." method="_on_DelayTillEndGame_timeout"]
+[connection signal="timeout" from="MsgCenter/MsgTimer" to="." method="_on_MsgTimer_timeout"]
