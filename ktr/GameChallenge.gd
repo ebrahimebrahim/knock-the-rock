@@ -45,15 +45,14 @@ func increment_score():
 
 func place_new_throwing_rocks(num_rocks : int):
 	var rocks = spawn_rocks(num_rocks,$RockSpawnLine)
-	for rock in rocks:
-		rock.connect("tree_exited",self,"check_endgame_condition")
-		rock.connect("became_unholdable",self,"check_endgame_condition")
 	throwing_rocks += rocks
 	holdable_throwing_rocks += rocks
 
 func change_throwing_rocks_remaining(change : int):
 	throwing_rocks_remaining += change
 	$LabelsLayer/ThrowingRocksRemainingLabel.text = "Throwing Rocks Remaining: " + str(throwing_rocks_remaining)
+	if throwing_rocks_remaining <= 0:
+		$DelayTillEndGame.start()
 
 
 func place_new_target_rock():
@@ -73,12 +72,6 @@ func _on_target_rock_contact(body):
 	if body is Boulder or not (body is Rock): return # We only care about non-boulder rocks
 	if body in throwing_rocks:
 		target_rock_has_been_touched = true
-
-
-func check_endgame_condition():
-	if throwing_rocks_remaining > 0: return false
-	$DelayTillEndGame.start()
-	return true
 
 
 func _on_DelayTillEndGame_timeout():
