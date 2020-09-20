@@ -15,7 +15,6 @@ func _ready():
 	self_modulate = Color(0,0,0,0) # Make line not visible w/o hiding child pebbles
 	
 	assert(len(points)==2)
-	var line_length = (points[1]-points[0]).length()
 	num_pebbles = 3 + randi()%3
 	for i in range(num_pebbles):
 		var pebble_polygon = RockPolyon.new()

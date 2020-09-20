@@ -24,7 +24,7 @@ func _ready():
 	$LabelsLayer/ScoreLabel.text = "Rocks Knocked: " + str(score)
 
 
-func _process(delta):
+func _process(_delta):
 	if scrolling_bg : return
 	if not target_rock_on_boulder() and $DelayTillSpawnTarget.is_stopped():
 		if target_rock_has_been_touched:
