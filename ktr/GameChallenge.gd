@@ -75,7 +75,9 @@ func _on_target_rock_contact(body):
 
 
 func _on_DelayTillEndGame_timeout():
-	print("game has ended with score of ",score) # placeholder
+	if throwing_rocks_remaining <= 0:
+		print("game has ended with score of ",score) # placeholder
+
 
 
 func _on_LineOfPebbles_rock_lost(body):
