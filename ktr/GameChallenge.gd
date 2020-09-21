@@ -1,15 +1,18 @@
 extends "res://GameBase.gd"
 
-const total_rocks_given : int = 3
-
 var game_has_ended = false
 
 var target_rock : Rock
 var target_rock_has_been_touched : bool
+
+const total_rocks_given : int = 3
 var throwing_rocks = [] # list of Rocks that can be thrown-- some items in list will have been deleted at times
 var throwzone_rocks = [] # list of Rocks in ThrowZone
 var throwing_rocks_remaining : int = total_rocks_given
+
 var beuld_topmid : Vector2
+const beuld_top_area_height = 10.0 # height of boulder top detection zone for clearing top
+var beuld_top_area : Area2D
 
 var score : int = 0
 
@@ -17,14 +20,29 @@ var mistakes_made : int = 0
 
 
 func _ready():
+	beuld_topmid = beuld.global_transform.xform(beuld.top_mid())
+	
+	initialize_beuld_top_area()
+	
 	place_new_throwing_rocks(2)
 	
-	beuld_topmid = beuld.global_transform.xform(beuld.top_mid())
+	
 		
 	place_new_target_rock()
 	
 	$LabelsLayer/ThrowingRocksRemainingLabel.text = Strings.throwing_remaining(throwing_rocks_remaining)
 	$LabelsLayer/ScoreLabel.text = Strings.rocks_knocked(score)
+
+
+func initialize_beuld_top_area():
+	beuld_top_area = Area2D.new()
+	beuld_top_area.position = beuld_topmid + Vector2(0,-beuld_top_area_height/2)
+	add_child(beuld_top_area)
+	var beuld_top_collision_shape = CollisionShape2D.new()
+	beuld_top_area.add_child(beuld_top_collision_shape)
+	beuld_top_collision_shape.shape = RectangleShape2D.new()
+	var beuld_top_width : float = beuld.global_transform.xform(beuld.top_right()).x - beuld.global_transform.xform(beuld.top_left()).x
+	beuld_top_collision_shape.shape.extents = Vector2(beuld_top_width/2,beuld_top_area_height/2)
 
 
 func _process(_delta):
