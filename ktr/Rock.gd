@@ -196,3 +196,12 @@ func rightmost_vertex() -> Vector2:
 # Returns the center of mass, aka centroid, of the rock polygon in local coords
 func center_of_mass() -> Vector2:
 	return rock_polygon.center_of_mass()
+
+
+# Vacuum the rock into the sky and then delete it
+func schwoop_delete():
+	gravity_scale = 0.0
+	set_holdable(false,"Let this rock go, it wants to be free.")
+	add_central_force(Vector2(0,-1500.0 * mass))
+	yield(get_tree().create_timer(3), "timeout")
+	queue_free()
