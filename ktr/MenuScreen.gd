@@ -70,3 +70,6 @@ func process_settings():
 	if cfg.music_vol ==  $Overlays/Settings.music_vol_min:
 		Music.really_stop = true
 		Music.stop()
+	elif not Music.playing:
+		Music.really_stop = false
+		Music.play()
