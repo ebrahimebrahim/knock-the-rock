@@ -12,10 +12,9 @@ var throwing_rocks_remaining : int = total_rocks_given
 var beuld_topmid : Vector2
 
 var score : int = 0
-var endgame_messages = ["This is disappointing.","Decent, but better luck next time.","Good job!","Wow, incredible!","You are a true Knock the Rock champion!"]
 
 var mistakes_made : int = 0
-const mistake_messages = ["Please wait, we are experiencing technical difficulties","Oops, I got this this time","LOL sorry let me try one more time","Ok ok, this time for sure"]
+
 
 func _ready():
 	place_new_throwing_rocks(2)
@@ -24,8 +23,8 @@ func _ready():
 		
 	place_new_target_rock()
 	
-	$LabelsLayer/ThrowingRocksRemainingLabel.text = "Throwing Rocks Remaining: " + str(throwing_rocks_remaining)
-	$LabelsLayer/ScoreLabel.text = "Rocks Knocked: " + str(score)
+	$LabelsLayer/ThrowingRocksRemainingLabel.text = Strings.throwing_remaining(throwing_rocks_remaining)
+	$LabelsLayer/ScoreLabel.text = Strings.rocks_knocked(score)
 
 
 func _process(_delta):
@@ -36,7 +35,7 @@ func _process(_delta):
 			mistakes_made = 0
 #			target_rock.mode=RigidBody2D.MODE_STATIC  # Uncomment this to observe the moment a rock is counted as knocked off
 		if not target_rock_has_been_touched:
-			show_message(mistake_messages[mistakes_made%len(mistake_messages)],2)
+			show_message(Strings.mistake_message(mistakes_made),2)
 			mistakes_made += 1
 		$DelayTillSpawnTarget.start()
 
@@ -50,9 +49,9 @@ func target_rock_on_boulder() -> bool:
 
 
 func increment_score():
-	show_message("Knocked!",1.2)
+	show_message(Strings.knocked(),1.2)
 	score += 1
-	$LabelsLayer/ScoreLabel.text = "Rocks Knocked: " + str(score)
+	$LabelsLayer/ScoreLabel.text = Strings.rocks_knocked(score)
 
 
 func place_new_throwing_rocks(num_rocks : int):
@@ -64,7 +63,7 @@ func place_new_throwing_rocks(num_rocks : int):
 
 func change_throwing_rocks_remaining(change : int):
 	throwing_rocks_remaining += change
-	$LabelsLayer/ThrowingRocksRemainingLabel.text = "Throwing Rocks Remaining: " + str(throwing_rocks_remaining)
+	$LabelsLayer/ThrowingRocksRemainingLabel.text = Strings.throwing_remaining(throwing_rocks_remaining)
 	if throwing_rocks_remaining <= 0:
 		$DelayTillEndGame.start()
 
@@ -73,7 +72,7 @@ func place_new_target_rock():
 	target_rock = Rock.new()
 	add_child(target_rock)
 	target_rock.position += beuld_topmid-target_rock.global_transform.xform(target_rock.center_of_mass())+Vector2(0,-20-target_rock.flat_bottom())
-	target_rock.set_holdable(false,"No picking up the target rock!")
+	target_rock.set_holdable(false,Strings.cant_hold_target())
 	target_rock.connect("body_entered",self,"_on_target_rock_contact")
 	target_rock.connect("clicked_yet_unholdable",self,"_on_clicked_yet_unholdable")
 	target_rock_has_been_touched = false
@@ -93,8 +92,7 @@ func _on_DelayTillEndGame_timeout():
 	if throwing_rocks_remaining <= 0:
 		game_has_ended = true
 		$EndgameRufflePlayer.play()
-		var msg_index = min(int((float(score)/total_rocks_given)*(len(endgame_messages)-1)),len(endgame_messages)-1)
-		show_message(("Score: "+str(score)+"\n\""+endgame_messages[msg_index]+"\"\nRestart or return to menu to proceed"),-1)
+		show_message(Strings.endgame_message(score,total_rocks_given),-1)
 
 
 func _on_LineOfPebbles_rock_lost(body):

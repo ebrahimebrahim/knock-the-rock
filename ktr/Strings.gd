@@ -1,0 +1,69 @@
+extends Node
+
+var lang = "en"
+
+
+const _rocks_knocked = {
+	"en" : "Rocks Knocked"
+}
+
+const _throwing_remaining = {
+	"en" : "Throwing Rocks Remaining"
+}
+
+const _endgame_messages = {
+	"en" : ["This is disappointing.",
+			"Decent, but better luck next time.",
+			"Good job!","Wow, incredible!",
+			"You are a true Knock the Rock champion!"]
+}
+
+const _score = {
+	"en" : "Score"
+}
+
+const _to_proceed = {
+	"en" : "Restart or return to menu to proceed"
+}
+
+const _mistake_messages = {
+	"en" : ["Please wait, we are experiencing technical difficulties",
+			"Oops, I got this this time",
+			"LOL sorry let me try one more time",
+			"Ok ok, this time for sure"]
+}
+
+const _knocked = {
+	"en" : "Knocked!"
+}
+
+const _cant_hold_target = {
+	"en" : "No picking up the target rock!"
+}
+
+const _cant_hold_past_line = {
+	"en" : "No picking up rocks beyond the line of pebbles!"
+}
+
+
+func rocks_knocked(s):
+	return _rocks_knocked[lang] + ": " + str(s)
+
+func throwing_remaining(t):
+	return _throwing_remaining[lang] + ": " + str(t)
+
+func endgame_message(score, total_rocks_given):
+	var msg_index = min(int((float(score)/total_rocks_given)*(len(_endgame_messages[lang])-1)),len(_endgame_messages[lang])-1)
+	return _score[lang] + ": " + str(score) + "\n\""+ _endgame_messages[lang][msg_index] + "\"\n" + _to_proceed[lang]
+
+func mistake_message(mistakes_made):
+	return _mistake_messages[lang][mistakes_made%len(_mistake_messages[lang])]
+
+func knocked():
+	return _knocked[lang]
+
+func cant_hold_target():
+	return _cant_hold_target[lang]
+	
+func cant_hold_past_line():
+	return _cant_hold_past_line[lang]

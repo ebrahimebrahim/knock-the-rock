@@ -27,6 +27,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Music="*res://Music.gd"
+Strings="*res://Strings.gd"
 
 [debug]
 

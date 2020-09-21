@@ -4,7 +4,7 @@ const RockPolygon = preload("res://RockPolygon.gd")
 
 var rock_polygon : RockPolygon
 var is_held : bool = false setget set_held
-var holdable : bool = true setget set_holdable
+var _holdable : bool = true setget set_holdable, is_holdable
 var reason_for_unholdability : String = ""
 var local_hold_point : Vector2
 
@@ -93,7 +93,7 @@ func _process(_delta):
 
 
 func set_held(val : bool) -> void:
-	if val : assert(holdable)
+	if val : assert(_holdable)
 	is_held = val
 	gravity_scale = 0.0 if is_held else 1.0
 	if is_held:
@@ -101,10 +101,16 @@ func set_held(val : bool) -> void:
 		held_collision_immunity_timer.start()
 
 func set_holdable(val : bool, reason : String = "") -> void:
-	var was_holdable = holdable
-	holdable = val
+	if val == false : assert(reason!="") # you'd better give a reason
+	var was_holdable = _holdable
+	_holdable = val
 	reason_for_unholdability = reason
-	if was_holdable and not holdable : emit_signal("became_unholdable")
+	if was_holdable and not _holdable : emit_signal("became_unholdable")
+
+
+func is_holdable():
+	return _holdable
+
 
 func _input(event):
 	_on_input(event) # this step is necessary to allow Boulder to override this function
@@ -117,7 +123,7 @@ func _on_input(event):
 		for v in rock_polygon.vertices:
 			vertices_global.push_back(global_transform.xform(v))
 		if Geometry.is_point_in_polygon(event.position,vertices_global):
-			if holdable:
+			if _holdable:
 				set_held(true)
 				local_hold_point = global_transform.xform_inv(event.position)
 			else:
