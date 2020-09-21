@@ -66,21 +66,39 @@ margin_bottom = 24.0
 size_flags_horizontal = 6
 size_flags_vertical = 4
 
-[node name="Music Volume" type="HBoxContainer" parent="VBoxContainer/Body"]
+[node name="MusicVolume" type="HBoxContainer" parent="VBoxContainer/Body"]
 margin_top = 28.0
 margin_right = 533.0
-margin_bottom = 42.0
+margin_bottom = 44.0
 
-[node name="Label" type="Label" parent="VBoxContainer/Body/Music Volume"]
-margin_left = 201.0
-margin_top = 5.0
+[node name="Label" type="Label" parent="VBoxContainer/Body/MusicVolume"]
+margin_left = 173.0
+margin_top = 1.0
 margin_right = 264.0
-margin_bottom = 19.0
+margin_bottom = 15.0
 size_flags_horizontal = 14
 text = "music volume"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Body/MusicVolume"]
+margin_left = 268.0
+margin_right = 533.0
+margin_bottom = 16.0
+size_flags_horizontal = 7
+size_flags_vertical = 4
+custom_constants/margin_right = 20
+custom_constants/margin_left = 20
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/Body/MusicVolume/MarginContainer"]
+margin_left = 20.0
+margin_right = 245.0
+margin_bottom = 16.0
+size_flags_vertical = 1
+min_value = -40.0
+max_value = 10.0
+value = -40.0
 
 [node name="Buttons" type="MarginContainer" parent="VBoxContainer"]
 margin_top = 310.0

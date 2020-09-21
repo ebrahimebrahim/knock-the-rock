@@ -5,3 +5,4 @@
 [resource]
 script = ExtResource( 1 )
 fullscreen = true
+music_vol = -40.0

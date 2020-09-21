@@ -66,3 +66,7 @@ func _input(event):
 func process_settings():
 	var cfg : SettingsConfig = $Overlays/Settings.settings_config
 	OS.window_fullscreen = cfg.fullscreen
+	Music.volume_db = cfg.music_vol
+	if cfg.music_vol ==  $Overlays/Settings.music_vol_min:
+		Music.really_stop = true
+		Music.stop()
