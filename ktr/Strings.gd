@@ -45,6 +45,10 @@ const _cant_hold_past_line = {
 	"en" : "No picking up rocks beyond the line of pebbles!"
 }
 
+const _removing_obstructions = {
+	"en" : "Removing obstructing rocks..."
+}
+
 
 func rocks_knocked(s):
 	return _rocks_knocked[lang] + ": " + str(s)
@@ -67,3 +71,6 @@ func cant_hold_target():
 	
 func cant_hold_past_line():
 	return _cant_hold_past_line[lang]
+
+func removing_obstructions():
+	return _removing_obstructions[lang]

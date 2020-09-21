@@ -5,7 +5,7 @@ var game_has_ended = false
 var target_rock : Rock
 var target_rock_has_been_touched : bool
 
-const total_rocks_given : int = 3
+const total_rocks_given : int = 10
 var throwing_rocks = [] # list of Rocks that can be thrown-- some items in list will have been deleted at times
 var throwzone_rocks = [] # list of Rocks in ThrowZone
 var throwing_rocks_remaining : int = total_rocks_given
@@ -87,6 +87,13 @@ func change_throwing_rocks_remaining(change : int):
 
 
 func place_new_target_rock():
+	var obstructors : Array = beuld_top_obstructors() 
+	if not obstructors.empty():
+		show_message(Strings.removing_obstructions(),$DelayTillSpawnTarget.wait_time)
+		for rock in obstructors:
+			rock.schwoop_delete()
+		$DelayTillSpawnTarget.start()
+		return
 	target_rock = Rock.new()
 	add_child(target_rock)
 	target_rock.position += beuld_topmid-target_rock.global_transform.xform(target_rock.center_of_mass())+Vector2(0,-20-target_rock.flat_bottom())
@@ -164,10 +171,13 @@ func _on_MsgTimer_timeout():
 	$LabelsLayer/MsgCenter.hide()
 
 
-func beuld_top_obstructed() -> bool:
+# return array of rocks that are obstructing the top of the boulder
+func beuld_top_obstructors() -> Array:
+	var out = []
 	for body in beuld_top_area.get_overlapping_bodies():
-		if body is Rock and not body is Boulder: return true
-	return false
+		if body is Rock and not body is Boulder:
+			out.append(body)
+	return out
 	
 	
 	
