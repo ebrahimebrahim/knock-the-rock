@@ -162,3 +162,15 @@ func show_message(msg : String, time : float = 4):
 
 func _on_MsgTimer_timeout():
 	$LabelsLayer/MsgCenter.hide()
+
+
+func beuld_top_obstructed() -> bool:
+	for body in beuld_top_area.get_overlapping_bodies():
+		if body is Rock and not body is Boulder: return true
+	return false
+	
+	
+	
+	
+	
+	
