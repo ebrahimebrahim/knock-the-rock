@@ -128,7 +128,7 @@ func _on_DelayTillEndGame_timeout():
 
 
 func _on_LineOfPebbles_rock_lost(body):
-	if scene_shutting_down : return
+	if scene_shutting_down or game_has_ended: return
 	change_throwing_rocks_remaining(-1)
 	throwzone_rocks.erase(body)
 	var num_throwzone_rocks_including_incoming : int = len(throwzone_rocks) + (0 if $DelayTillReplaceThrowingRocks.is_stopped() else 1)
@@ -144,6 +144,7 @@ func _on_DelayTillReplaceThrowingRocks_timeout():
 
 
 func _on_LineOfPebbles_rock_regained(body):
+	if game_has_ended: return
 	change_throwing_rocks_remaining(1)
 	throwzone_rocks.append(body)
 	if not body in throwing_rocks:
