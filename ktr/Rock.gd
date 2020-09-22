@@ -202,13 +202,13 @@ func _on_nearby_body(_body):
 func sedate():
 	mode = MODE_STATIC
 	sleeping = true
-	modulate = Color(1,0,0)
+#	modulate = Color(1,0,0)
 
 
 func awaken():
 	mode = MODE_RIGID
 	sleeping = false
-	modulate = Color(1,1,1,1)
+#	modulate = Color(1,1,1,1)
 
 
 
