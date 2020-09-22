@@ -20,7 +20,6 @@ const audio_resources = {
 var audio_timer : Timer
 
 var recent_positions = []
-var recent_rotations = []
 
 # This is in units of force per distance, like a "spring constant"
 # It's the strength of the player holding the rock, in some sense
@@ -66,7 +65,7 @@ func _init():
 	var dists = []
 	for v in rock_polygon.vertices:
 		dists.append(rock_polygon.position.distance_squared_to(v))
-	proximity_collision_shape.shape.radius = sqrt(dists.max()) + 30
+	proximity_collision_shape.shape.radius = sqrt(dists.max()) + 100
 	proximity_sensor.connect("body_entered",self,"_on_nearby_body")
 	
 	
@@ -176,9 +175,7 @@ func _integrate_forces(state):
 
 func _physics_process(delta):
 	recent_positions.push_back(position)
-	recent_rotations.push_back(rotation)
-	if len(recent_positions) > 50: recent_positions.pop_front()
-	if len(recent_rotations) > 50: recent_rotations.pop_front()
+	if len(recent_positions) > 10: recent_positions.pop_front()
 	if randi()%20 == 0:
 		var num_negs = 0
 		for i in range(len(recent_positions)-2):
@@ -186,13 +183,14 @@ func _physics_process(delta):
 			var v2 = recent_positions[i+1] - recent_positions[i]
 			if v1.dot(v2) < 0:
 				num_negs += 1
-		if num_negs > 30: sedate()
+		if num_negs > 5: call_deferred("sedate")
 
 func _on_nearby_body(body):
 	call_deferred("awaken")
 
 func sedate():
 	mode = MODE_STATIC
+	sleeping = true
 	modulate = Color(1,0,0)
 
 
