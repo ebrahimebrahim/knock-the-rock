@@ -136,7 +136,7 @@ func _on_LineOfPebbles_rock_lost(body):
 		if $DelayTillReplaceThrowingRocks.is_stopped():
 			$DelayTillReplaceThrowingRocks.start()
 		else:
-			place_new_throwing_rocks(1)
+			call_deferred("place_new_throwing_rocks",1)
 
 
 func _on_DelayTillReplaceThrowingRocks_timeout():
