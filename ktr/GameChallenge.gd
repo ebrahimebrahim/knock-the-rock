@@ -13,6 +13,7 @@ var throwing_rocks_remaining : int = total_rocks_given
 var beuld_topmid : Vector2
 const beuld_top_area_height = 10.0 # height of boulder top detection zone for clearing top
 var beuld_top_area : Area2D
+var beuld_top_obstructors = []
 
 var score : int = 0
 
@@ -43,6 +44,18 @@ func initialize_beuld_top_area():
 	beuld_top_collision_shape.shape = RectangleShape2D.new()
 	var beuld_top_width : float = beuld.global_transform.xform(beuld.top_right()).x - beuld.global_transform.xform(beuld.top_left()).x
 	beuld_top_collision_shape.shape.extents = Vector2(beuld_top_width/2,beuld_top_area_height/2)
+	beuld_top_area.connect("body_entered",self,"_on_beuld_top_body_entered")
+	beuld_top_area.connect("body_exited",self,"_on_beuld_top_body_exited")
+
+func _on_beuld_top_body_entered(body):
+	if body is Rock and not body is Boulder and not body in beuld_top_obstructors:
+		beuld_top_obstructors.append(body)
+	
+func _on_beuld_top_body_exited(body):
+	# when body.mode become MODE_STATIC, that does weirdly triggert he body_exited signal
+	# we don't want to count this as a body exiting
+	if body in beuld_top_obstructors and body.mode != RigidBody2D.MODE_STATIC:
+		beuld_top_obstructors.erase(body)
 
 
 func _process(_delta):
@@ -87,11 +100,11 @@ func change_throwing_rocks_remaining(change : int):
 
 
 func place_new_target_rock():
-	var obstructors : Array = beuld_top_obstructors() 
-	if not obstructors.empty():
+	if not beuld_top_obstructors.empty():
 		show_message(Strings.removing_obstructions(),$DelayTillSpawnTarget.wait_time)
-		for rock in obstructors:
+		for rock in beuld_top_obstructors:
 			rock.schwoop_delete()
+			beuld_top_obstructors.erase(rock)
 		$DelayTillSpawnTarget.start()
 		return
 	
@@ -181,14 +194,6 @@ func show_message(msg : String, time : float = 4):
 func _on_MsgTimer_timeout():
 	$LabelsLayer/MsgCenter.hide()
 
-
-# return array of rocks that are obstructing the top of the boulder
-func beuld_top_obstructors() -> Array:
-	var out = []
-	for body in beuld_top_area.get_overlapping_bodies():
-		if body is Rock and not body is Boulder:
-			out.append(body)
-	return out
 	
 	
 	

@@ -177,6 +177,7 @@ func set_jiggle_control(val : bool):
 	if val and not jiggle_control:
 		proximity_sensor.connect("body_entered",self,"_on_nearby_body")
 	if jiggle_control and not val:
+		call_deferred("awaken")
 		proximity_sensor.disconnect("body_entered",self,"_on_nearby_body")
 	jiggle_control = val
 	recent_positions = []
@@ -253,6 +254,7 @@ func center_of_mass() -> Vector2:
 
 # Vacuum the rock into the sky and then delete it
 func schwoop_delete():
+	call_deferred("awaken")
 	gravity_scale = 0.0
 	set_holdable(false,"Let this rock go, it wants to be free.")
 	add_central_force(Vector2(0,-1500.0 * mass))
