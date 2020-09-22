@@ -57,6 +57,20 @@ func _init():
 	contact_monitor = true
 	contacts_reported = 1
 	
+	
+	var proximity_sensor = Area2D.new()
+	add_child(proximity_sensor)
+	var proximity_collision_shape = CollisionShape2D.new()
+	proximity_sensor.add_child(proximity_collision_shape)
+	proximity_collision_shape.shape = CircleShape2D.new()
+	var dists = []
+	for v in rock_polygon.vertices:
+		dists.append(rock_polygon.position.distance_squared_to(v))
+	proximity_collision_shape.shape.radius = sqrt(dists.max()) + 30
+	proximity_sensor.connect("body_entered",self,"_on_nearby_body")
+	
+	
+	
 	for knock_type in audio_resources.keys():
 		var audio_player = AudioStreamPlayer2D.new()
 		audio_player.set_stream(audio_resources[knock_type][randi() % len(audio_resources[knock_type])])
@@ -174,6 +188,9 @@ func _physics_process(delta):
 				num_negs += 1
 		if num_negs > 30: sedate()
 
+func _on_nearby_body(body):
+	call_deferred("awaken")
+
 func sedate():
 	mode = MODE_STATIC
 	modulate = Color(1,0,0)
@@ -181,6 +198,7 @@ func sedate():
 
 func awaken():
 	mode = MODE_RIGID
+	sleeping = false
 	modulate = Color(1,1,1,1)
 
 
