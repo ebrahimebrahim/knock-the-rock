@@ -94,6 +94,13 @@ func place_new_target_rock():
 			rock.schwoop_delete()
 		$DelayTillSpawnTarget.start()
 		return
+	
+	# Relieve old target rock of its targetty duties, if there is one
+	if target_rock:
+		target_rock.disconnect("body_entered",self,"_on_target_rock_contact")
+		target_rock.set_holdable(false,Strings.cant_hold_past_line())
+	
+	# Introduce new target rock
 	target_rock = Rock.new()
 	add_child(target_rock)
 	target_rock.position += beuld_topmid-target_rock.global_transform.xform(target_rock.center_of_mass())+Vector2(0,-20-target_rock.flat_bottom())
