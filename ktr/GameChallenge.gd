@@ -139,6 +139,8 @@ func _on_DelayTillReplaceThrowingRocks_timeout():
 func _on_LineOfPebbles_rock_regained(body):
 	change_throwing_rocks_remaining(1)
 	throwzone_rocks.append(body)
+	if not body in throwing_rocks:
+		throwing_rocks.append(body)
 
 
 func _on_ThrowZone_mouse_exited():
