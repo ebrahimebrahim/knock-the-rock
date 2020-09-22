@@ -19,8 +19,6 @@ const audio_resources = {
 }
 var audio_timer : Timer
 
-var recent_positions = []
-
 # This is in units of force per distance, like a "spring constant"
 # It's the strength of the player holding the rock, in some sense
 
@@ -36,6 +34,7 @@ var held_collision_immunity_timer : Timer
 # and we will awaken it when there is a nearby body
 var jiggle_control = false setget set_jiggle_control
 var proximity_sensor : Area2D
+var recent_positions = []
 
 
 func _init():
@@ -184,7 +183,7 @@ func set_jiggle_control(val : bool):
 
 
 func _physics_process(_delta):
-	if jiggle_control:
+	if jiggle_control and mode==MODE_RIGID:
 		recent_positions.push_back(position)
 		if len(recent_positions) > 10: recent_positions.pop_front()
 		if randi()%20 == 0:
@@ -208,6 +207,7 @@ func sedate():
 func awaken():
 	mode = MODE_RIGID
 	sleeping = false
+	recent_positions = []
 #	modulate = Color(1,1,1,1)
 
 
