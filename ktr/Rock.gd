@@ -183,7 +183,7 @@ func set_jiggle_control(val : bool):
 	recent_positions = []
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if jiggle_control:
 		recent_positions.push_back(position)
 		if len(recent_positions) > 10: recent_positions.pop_front()
@@ -196,7 +196,7 @@ func _physics_process(delta):
 					num_negs += 1
 			if num_negs > 5: call_deferred("sedate")
 
-func _on_nearby_body(body):
+func _on_nearby_body(_body):
 	call_deferred("awaken")
 
 func sedate():
