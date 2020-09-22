@@ -99,6 +99,7 @@ func place_new_target_rock():
 	if target_rock:
 		target_rock.disconnect("body_entered",self,"_on_target_rock_contact")
 		target_rock.set_holdable(false,Strings.cant_hold_past_line())
+		target_rock.set_jiggle_control(true)
 	
 	# Introduce new target rock
 	target_rock = Rock.new()
