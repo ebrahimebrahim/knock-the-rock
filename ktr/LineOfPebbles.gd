@@ -27,6 +27,7 @@ func _on_ThrowZone_body_exited(body):
 	if body is Rock:
 		if body.is_holdable():
 			body.set_holdable(false,Strings.cant_hold_past_line())
+			body.set_jiggle_control(true)
 			emit_signal("rock_lost",body)
 		if body.is_held:
 			body.set_held(false)
@@ -36,4 +37,5 @@ func _on_ThrowZone_body_entered(body):
 	if body is Rock:
 		if not body.is_holdable():
 			body.set_holdable(true)
+			body.set_jiggle_control(false)
 			emit_signal("rock_regained",body)
