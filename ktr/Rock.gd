@@ -32,6 +32,11 @@ var hold_damping : float
 # After the time is up, any collisions will release the rock
 var held_collision_immunity_timer : Timer
 
+# if this is enabled we will sedate the rock when it is jiggling
+# and we will awaken it when there is a nearby body
+var jiggle_control = false setget set_jiggle_control
+var proximity_sensor : Area2D
+
 
 func _init():
 	rock_polygon = generate_rock_polygon()
@@ -54,21 +59,7 @@ func _init():
 	generate_collision_shape()
 	
 	contact_monitor = true
-	contacts_reported = 1
-	
-	
-	var proximity_sensor = Area2D.new()
-	add_child(proximity_sensor)
-	var proximity_collision_shape = CollisionShape2D.new()
-	proximity_sensor.add_child(proximity_collision_shape)
-	proximity_collision_shape.shape = CircleShape2D.new()
-	var dists = []
-	for v in rock_polygon.vertices:
-		dists.append(rock_polygon.position.distance_squared_to(v))
-	proximity_collision_shape.shape.radius = sqrt(dists.max()) + 100
-	proximity_sensor.connect("body_entered",self,"_on_nearby_body")
-	
-	
+	contacts_reported = 1	
 	
 	for knock_type in audio_resources.keys():
 		var audio_player = AudioStreamPlayer2D.new()
@@ -173,17 +164,37 @@ func _integrate_forces(state):
 				knock(impact_vel,mass,KnockType.GRASS)
 
 
+func set_jiggle_control(val : bool):
+	if val and not proximity_sensor:
+		proximity_sensor = Area2D.new()
+		add_child(proximity_sensor)
+		var proximity_collision_shape = CollisionShape2D.new()
+		proximity_sensor.add_child(proximity_collision_shape)
+		proximity_collision_shape.shape = CircleShape2D.new()
+		var dists = []
+		for v in rock_polygon.vertices:
+			dists.append(rock_polygon.position.distance_squared_to(v))
+		proximity_collision_shape.shape.radius = sqrt(dists.max()) + 100
+	if val and not jiggle_control:
+		proximity_sensor.connect("body_entered",self,"_on_nearby_body")
+	if jiggle_control and not val:
+		proximity_sensor.disconnect("body_entered",self,"_on_nearby_body")
+	jiggle_control = val
+	recent_positions = []
+
+
 func _physics_process(delta):
-	recent_positions.push_back(position)
-	if len(recent_positions) > 10: recent_positions.pop_front()
-	if randi()%20 == 0:
-		var num_negs = 0
-		for i in range(len(recent_positions)-2):
-			var v1 = recent_positions[i+2] - recent_positions[i+1]
-			var v2 = recent_positions[i+1] - recent_positions[i]
-			if v1.dot(v2) < 0:
-				num_negs += 1
-		if num_negs > 5: call_deferred("sedate")
+	if jiggle_control:
+		recent_positions.push_back(position)
+		if len(recent_positions) > 10: recent_positions.pop_front()
+		if randi()%20 == 0:
+			var num_negs = 0
+			for i in range(len(recent_positions)-2):
+				var v1 = recent_positions[i+2] - recent_positions[i+1]
+				var v2 = recent_positions[i+1] - recent_positions[i]
+				if v1.dot(v2) < 0:
+					num_negs += 1
+			if num_negs > 5: call_deferred("sedate")
 
 func _on_nearby_body(body):
 	call_deferred("awaken")
