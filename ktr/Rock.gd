@@ -19,7 +19,8 @@ const audio_resources = {
 }
 var audio_timer : Timer
 
-
+var recent_positions = []
+var recent_rotations = []
 
 # This is in units of force per distance, like a "spring constant"
 # It's the strength of the player holding the rock, in some sense
@@ -158,6 +159,12 @@ func _integrate_forces(state):
 			if (obj is StaticBody2D):
 				knock(impact_vel,mass,KnockType.GRASS)
 
+
+func _physics_process(delta):
+	recent_positions.push_back(position)
+	recent_rotations.push_back(rotation)
+	if len(recent_positions) > 50: recent_positions.pop_front()
+	if len(recent_rotations) > 50: recent_rotations.pop_front()
 
 
 func knock(impact_vel : float, lighter_mass : float, knock_type):
