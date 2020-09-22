@@ -165,6 +165,18 @@ func _physics_process(delta):
 	recent_rotations.push_back(rotation)
 	if len(recent_positions) > 50: recent_positions.pop_front()
 	if len(recent_rotations) > 50: recent_rotations.pop_front()
+	if randi()%2 == 0:
+		var num_negs = 0
+		for i in range(len(recent_positions)-2):
+			var v1 = recent_positions[i+2] - recent_positions[i+1]
+			var v2 = recent_positions[i+1] - recent_positions[i]
+			if v1.dot(v2) < 0:
+				num_negs += 1
+		if num_negs > 10:
+			sleeping = true
+#			print("Rock ",name,": ", num_negs)
+			print("Rock sedated")
+				
 
 
 func knock(impact_vel : float, lighter_mass : float, knock_type):
