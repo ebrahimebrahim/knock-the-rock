@@ -29,6 +29,7 @@ func _ready():
 	beuld.set_position(random_point_on_line($BoulderBotRight)-beuld.bottom_right())
 	
 	$MenuZone.visible = not Globals.corner_menu_hidden_by_default
+	setup_ui_labels()
 
 func _input(event):
 	if event.is_action_pressed("return_to_menu"): _on_return()
@@ -100,3 +101,10 @@ func update_cursor():
 	if cursor_changeable:
 		if Input.is_action_pressed("click"): Input.set_custom_mouse_cursor(closed_hand,Input.CURSOR_ARROW,Vector2(21,27))
 		else: Input.set_custom_mouse_cursor(open_hand,Input.CURSOR_ARROW,Vector2(21,27))
+
+
+func setup_ui_labels():
+	$MenuZone/ReturnButton.text = Strings.ui_label("return btn")
+	$MenuZone/RestartButton.text = Strings.ui_label("restart btn")
+	$MenuZone/HelpButton.text = Strings.ui_label("help btn corner menu")
+	$MenuZone/Panel/ToggleMenuLabel.text = Strings.ui_label("toggle corner menu lbl")

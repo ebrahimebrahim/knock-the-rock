@@ -71,7 +71,7 @@ const _ui_label = {
 		"hide help btn" : "(H)ide Help",
 		"return btn" : "Return to Menu (Esc)",
 		"restart btn" : "(R)estart",
-		"Help btn" : "(H)elp",
+		"help btn corner menu" : "(H)elp",
 		"toggle corner menu lbl" : "(T)oggle this Menu",
 	}
 }
