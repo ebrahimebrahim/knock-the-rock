@@ -89,5 +89,7 @@ func process_settings():
 	Globals.total_rocks_given = cfg.challenge_mode_rocks
 	
 	# corner menu hidden by default
+	Globals.corner_menu_hidden_by_default = cfg.corner_menu_hidden_by_default
 	
 	# language
+	Strings.lang = cfg.language

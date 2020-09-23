@@ -8,5 +8,5 @@ fullscreen = true
 music_vol = -5.0
 gravity = 1470.0
 challenge_mode_rocks = 15
-corner_menu_hidden_by_default = false
+corner_menu_hidden_by_default = true
 language = "en"

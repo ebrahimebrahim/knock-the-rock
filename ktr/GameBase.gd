@@ -27,6 +27,8 @@ func _ready():
 	beuld = Boulder.new()
 	add_child(beuld)
 	beuld.set_position(random_point_on_line($BoulderBotRight)-beuld.bottom_right())
+	
+	$MenuZone.visible = not Globals.corner_menu_hidden_by_default
 
 func _input(event):
 	if event.is_action_pressed("return_to_menu"): _on_return()
