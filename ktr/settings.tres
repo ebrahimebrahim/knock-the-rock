@@ -6,3 +6,7 @@
 script = ExtResource( 1 )
 fullscreen = false
 music_vol = -18.0
+gravity = 0.0
+challenge_mode_rocks = 0
+corner_menu_hidden_by_default = false
+language = ""

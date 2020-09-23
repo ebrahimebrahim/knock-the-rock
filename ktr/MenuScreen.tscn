@@ -19,7 +19,11 @@ font_data = SubResource( 1 )
 [sub_resource type="Resource" id=3]
 script = ExtResource( 7 )
 fullscreen = true
-music_vol = -10.0
+music_vol = -5.0
+gravity = 1470.0
+challenge_mode_rocks = 15
+corner_menu_hidden_by_default = false
+language = "en"
 
 [node name="MenuScreen" type="VBoxContainer"]
 anchor_right = 1.0
