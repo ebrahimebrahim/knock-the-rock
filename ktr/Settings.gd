@@ -9,16 +9,36 @@ signal apply
 
 var music_vol_min : float
 
+
+onready var fullscreen_widget = $VBoxContainer/Body/Fullscreen/MarginContainer/Checkbox
+onready var music_vol_widget = $VBoxContainer/Body/MusicVolume/MarginContainer/HSlider
+onready var gravity_widget = $VBoxContainer/Body/Gravity/MarginContainer/HSlider
+onready var challenge_mode_rocks_widget = $VBoxContainer/Body/TotalRocksGiven/MarginContainer/SpinBox
+onready var corner_menu_hidden_by_default_widget = $VBoxContainer/Body/CornerMenuHidden/MarginContainer/CheckButton
+onready var language_widget = $VBoxContainer/Body/Language/MarginContainer/OptionButton
+
 # transfer data from settings panel controls to settings_config
 func panel_knobs_to_resource():
-	settings_config.fullscreen = $VBoxContainer/Body/Fullscreen/MarginContainer/Checkbox.pressed
-	settings_config.music_vol = $VBoxContainer/Body/MusicVolume/MarginContainer/HSlider.value
+	settings_config.fullscreen = fullscreen_widget.pressed
+	settings_config.music_vol = music_vol_widget.value
+	settings_config.gravity = gravity_widget.value
+	settings_config.challenge_mode_rocks = challenge_mode_rocks_widget.value
+	settings_config.corner_menu_hidden_by_default = corner_menu_hidden_by_default_widget.pressed
+	settings_config.language = language_widget.get_item_text(language_widget.selected)
 
 
 # transfer data from settings_config to settings panel controls
 func resource_to_panel_knobs():
-	$VBoxContainer/Body/Fullscreen/MarginContainer/Checkbox.pressed = settings_config.fullscreen
-	$VBoxContainer/Body/MusicVolume/MarginContainer/HSlider.value = settings_config.music_vol
+	fullscreen_widget.pressed = settings_config.fullscreen
+	music_vol_widget.value = settings_config.music_vol
+	gravity_widget.value = settings_config.gravity
+	challenge_mode_rocks_widget.value = settings_config.challenge_mode_rocks
+	corner_menu_hidden_by_default_widget.pressed = settings_config.corner_menu_hidden_by_default
+	
+	for idx in range(language_widget.get_item_count()):
+		if language_widget.get_item_text(idx)==settings_config.language:
+			language_widget.selected = idx
+			break
 
 
 func _init():
