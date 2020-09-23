@@ -46,14 +46,15 @@ func spawn_rocks(num_rocks : int, spawn_line : Line2D):
 		while true:
 			rock.set_position(random_point_on_line(spawn_line))
 			var rock_intersects_some_other_rock = false
+			var r_l = rock.leftmost_vertex().x
+			var r_r = rock.rightmost_vertex().x
 			for other in rocks:
-				var r_l = rock.leftmost_vertex().x
-				var r_r = rock.rightmost_vertex().x
 				var o_l = other.leftmost_vertex().x
 				var o_r = other.rightmost_vertex().x
 				if r_r > o_l and o_r > r_l:
 					rock_intersects_some_other_rock = true
-			if not rock_intersects_some_other_rock:
+			var rock_fully_in_screen = r_l>0
+			if not rock_intersects_some_other_rock and rock_fully_in_screen:
 				break
 		rocks.append(rock)
 	return rocks
