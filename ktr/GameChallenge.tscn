@@ -28,6 +28,9 @@ font_data = ExtResource( 3 )
 [node name="GameChallenge" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
+[node name="Floor" parent="." index="2"]
+collision_layer = 3
+
 [node name="RockSpawnLine" type="Line2D" parent="." index="3"]
 visible = false
 position = Vector2( 0, 50 )
@@ -55,6 +58,8 @@ shape = SubResource( 1 )
 
 [node name="ThrowZoneFloor" type="Area2D" parent="LineOfPebbles" index="1"]
 position = Vector2( 278.551, 575 )
+collision_layer = 3
+collision_mask = 3
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
@@ -66,7 +71,7 @@ shape = SubResource( 2 )
 [node name="ThrowZoneBarrier" type="StaticBody2D" parent="LineOfPebbles" index="2"]
 position = Vector2( 279.74, 348.324 )
 collision_layer = 2
-collision_mask = 2147483650
+collision_mask = 2147483648
 __meta__ = {
 "_edit_lock_": true,
 "_editor_description_": "A temporary barrier that helps guide newly spawned rocks in the throw zone"
