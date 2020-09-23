@@ -97,7 +97,9 @@ func temporarily_grant_justspawned_collisionness(rock):
 	rock.collision_mask = 0b10 # allows rock to be blocked by throwzone barrier
 	rock.collision_layer = 0b10 # other just spawned rocks should be blocked by rock
 #	rock.modulate = Color(1,0,0) # uncomment for debugging
-	yield(get_tree().create_timer(1.0), "timeout")
+	get_tree().create_timer(1.0).connect("timeout",self,"_on_justspawned_timeout",[rock])
+func _on_justspawned_timeout(rock):
+	if not is_instance_valid(rock): return
 #	rock.modulate = Color(1,1,1) # uncomment for debugging
 	rock.collision_mask = 0b01 # can phase through throwzone barrier again
 	rock.collision_layer = 0b11 # will collide with all rocks
