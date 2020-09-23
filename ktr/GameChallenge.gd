@@ -74,7 +74,7 @@ func _process(_delta):
 func target_rock_on_boulder() -> bool:
 	if not is_instance_valid(target_rock) : 
 		return false
-	return target_rock.position.y < beuld_topmid.y and\
+	return target_rock.position.y < beuld_topmid.y + 5 and\
 		   target_rock.rightmost_vertex().x > beuld.global_transform.xform(beuld.top_left()).x and\
 		   target_rock.leftmost_vertex().x < beuld.global_transform.xform(beuld.top_right()).x
 
