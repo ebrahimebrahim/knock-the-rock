@@ -65,6 +65,8 @@ shape = SubResource( 2 )
 
 [node name="ThrowZoneBarrier" type="StaticBody2D" parent="LineOfPebbles" index="2"]
 position = Vector2( 279.74, 348.324 )
+collision_layer = 2
+collision_mask = 2147483650
 __meta__ = {
 "_edit_lock_": true,
 "_editor_description_": "A temporary barrier that helps guide newly spawned rocks in the throw zone"
@@ -155,6 +157,8 @@ volume_db = 4.0
 [connection signal="body_exited" from="LineOfPebbles/ThrowZone" to="LineOfPebbles" method="_on_ThrowZone_body_exited"]
 [connection signal="mouse_entered" from="LineOfPebbles/ThrowZone" to="." method="_on_ThrowZone_mouse_entered"]
 [connection signal="mouse_exited" from="LineOfPebbles/ThrowZone" to="." method="_on_ThrowZone_mouse_exited"]
+[connection signal="body_entered" from="LineOfPebbles/ThrowZoneFloor" to="LineOfPebbles" method="_on_ThrowZoneFloor_body_entered"]
+[connection signal="body_exited" from="LineOfPebbles/ThrowZoneFloor" to="LineOfPebbles" method="_on_ThrowZoneFloor_body_exited"]
 [connection signal="timeout" from="LabelsLayer/MsgCenter/MsgTimer" to="." method="_on_MsgTimer_timeout"]
 [connection signal="timeout" from="DelayTillSpawnTarget" to="." method="place_new_target_rock"]
 [connection signal="timeout" from="DelayTillReplaceThrowingRocks" to="." method="_on_DelayTillReplaceThrowingRocks_timeout"]
