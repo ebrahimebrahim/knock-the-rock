@@ -28,6 +28,7 @@ config/icon="res://icon.png"
 
 Music="*res://Music.gd"
 Strings="*res://Strings.gd"
+Globals="*res://Globals.gd"
 
 [debug]
 

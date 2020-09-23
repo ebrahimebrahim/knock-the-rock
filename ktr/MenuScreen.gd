@@ -86,6 +86,7 @@ func process_settings():
 	)
 	
 	# number of thrown rocks to be given
+	Globals.total_rocks_given = cfg.challenge_mode_rocks
 	
 	# corner menu hidden by default
 	

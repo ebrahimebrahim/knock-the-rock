@@ -5,7 +5,7 @@ var game_has_ended = false
 var target_rock : Rock
 var target_rock_has_been_touched : bool
 
-const total_rocks_given : int = 10
+var total_rocks_given : int = Globals.total_rocks_given
 var throwing_rocks = [] # list of Rocks that can be thrown-- some items in list will have been deleted at times
 var throwzone_rocks = [] # list of Rocks in ThrowZone
 var throwing_rocks_remaining : int = total_rocks_given
