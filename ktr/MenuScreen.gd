@@ -65,7 +65,11 @@ func _input(event):
 # Go through the game settings that were loaded from file and do stuff with them
 func process_settings():
 	var cfg : SettingsConfig = $Overlays/Settings.settings_config
+	
+	# fullscreen
 	OS.window_fullscreen = cfg.fullscreen
+	
+	# music vol
 	Music.volume_db = cfg.music_vol
 	if cfg.music_vol ==  $Overlays/Settings.music_vol_min:
 		Music.really_stop = true
@@ -73,3 +77,16 @@ func process_settings():
 	elif not Music.playing:
 		Music.really_stop = false
 		Music.play()
+	
+	# gravity
+	Physics2DServer.area_set_param(
+		get_viewport().find_world_2d().get_space(),
+		Physics2DServer.AREA_PARAM_GRAVITY,
+		cfg.gravity
+	)
+	
+	# number of thrown rocks to be given
+	
+	# corner menu hidden by default
+	
+	# language
