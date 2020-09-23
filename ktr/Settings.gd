@@ -11,13 +11,13 @@ var music_vol_min : float
 
 # transfer data from settings panel controls to settings_config
 func panel_knobs_to_resource():
-	settings_config.fullscreen = $VBoxContainer/Body/Fullscreen/Checkbox.pressed
+	settings_config.fullscreen = $VBoxContainer/Body/Fullscreen/MarginContainer/Checkbox.pressed
 	settings_config.music_vol = $VBoxContainer/Body/MusicVolume/MarginContainer/HSlider.value
 
 
 # transfer data from settings_config to settings panel controls
 func resource_to_panel_knobs():
-	$VBoxContainer/Body/Fullscreen/Checkbox.pressed = settings_config.fullscreen
+	$VBoxContainer/Body/Fullscreen/MarginContainer/Checkbox.pressed = settings_config.fullscreen
 	$VBoxContainer/Body/MusicVolume/MarginContainer/HSlider.value = settings_config.music_vol
 
 
