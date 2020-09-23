@@ -24,9 +24,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Title" type="Label" parent="VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 margin_right = 533.0
-margin_bottom = 133.0
+margin_bottom = 94.0
+size_flags_vertical = 0
+custom_constants/margin_top = 40
+custom_constants/margin_bottom = 40
+
+[node name="Title" type="Label" parent="VBoxContainer/MarginContainer"]
+margin_top = 40.0
+margin_right = 533.0
+margin_bottom = 54.0
 size_flags_vertical = 3
 text = "-- SETTINGS --"
 align = 1
@@ -36,9 +44,9 @@ __meta__ = {
 }
 
 [node name="Body" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 137.0
+margin_top = 98.0
 margin_right = 533.0
-margin_bottom = 323.0
+margin_bottom = 284.0
 size_flags_vertical = 3
 custom_constants/separation = 6
 __meta__ = {
@@ -169,8 +177,9 @@ custom_constants/margin_left = 20
 
 [node name="SpinBox" type="SpinBox" parent="VBoxContainer/Body/TotalRocksGiven/MarginContainer"]
 margin_left = 20.0
-margin_right = 245.0
+margin_right = 94.0
 margin_bottom = 24.0
+size_flags_horizontal = 0
 allow_greater = true
 
 [node name="CornerMenuHidden" type="HBoxContainer" parent="VBoxContainer/Body"]
@@ -238,7 +247,7 @@ size_flags_horizontal = 2
 size_flags_vertical = 4
 
 [node name="Buttons" type="MarginContainer" parent="VBoxContainer"]
-margin_top = 327.0
+margin_top = 288.0
 margin_right = 533.0
 margin_bottom = 461.0
 size_flags_vertical = 3
@@ -251,16 +260,16 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Buttons"]
 margin_left = 20.0
 margin_right = 513.0
-margin_bottom = 134.0
+margin_bottom = 173.0
 size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ApplyButton" type="Button" parent="VBoxContainer/Buttons/HBoxContainer"]
-margin_top = 54.0
+margin_top = 73.0
 margin_right = 161.0
-margin_bottom = 80.0
+margin_bottom = 99.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme = ExtResource( 1 )
@@ -271,9 +280,9 @@ __meta__ = {
 
 [node name="BackButton" type="Button" parent="VBoxContainer/Buttons/HBoxContainer"]
 margin_left = 165.0
-margin_top = 54.0
+margin_top = 73.0
 margin_right = 326.0
-margin_bottom = 80.0
+margin_bottom = 99.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme = ExtResource( 1 )
@@ -284,9 +293,9 @@ __meta__ = {
 
 [node name="DefaultsButton" type="Button" parent="VBoxContainer/Buttons/HBoxContainer"]
 margin_left = 330.0
-margin_top = 54.0
+margin_top = 73.0
 margin_right = 493.0
-margin_bottom = 80.0
+margin_bottom = 99.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme = ExtResource( 1 )
