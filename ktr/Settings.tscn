@@ -180,6 +180,8 @@ margin_left = 20.0
 margin_right = 94.0
 margin_bottom = 24.0
 size_flags_horizontal = 0
+min_value = 2.0
+value = 2.0
 allow_greater = true
 
 [node name="CornerMenuHidden" type="HBoxContainer" parent="VBoxContainer/Body"]
