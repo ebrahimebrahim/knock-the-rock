@@ -89,8 +89,19 @@ func place_new_throwing_rocks(num_rocks : int):
 	var rocks = spawn_rocks(num_rocks,$RockSpawnLine)
 	for rock in rocks:
 		rock.connect("clicked_yet_unholdable",self,"_on_clicked_yet_unholdable")
+		temporarily_grant_justspawned_collisionness(rock)
 	throwing_rocks += rocks
 	throwzone_rocks += rocks
+
+func temporarily_grant_justspawned_collisionness(rock):
+	rock.collision_mask = 0b10 # allows rock to be blocked by throwzone barrier
+	rock.collision_layer = 0b10 # other just spawned rocks should be blocked by rock
+#	rock.modulate = Color(1,0,0) # uncomment for debugging
+	yield(get_tree().create_timer(1.0), "timeout")
+#	rock.modulate = Color(1,1,1) # uncomment for debugging
+	rock.collision_mask = 0b01 # can phase through throwzone barrier again
+	rock.collision_layer = 0b11 # will collide with all rocks
+
 
 func change_throwing_rocks_remaining(change : int):
 	throwing_rocks_remaining += change

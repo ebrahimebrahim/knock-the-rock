@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://GameBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://GameChallenge.gd" type="Script" id=2]
@@ -10,7 +10,16 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 430.518, 705.9 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 140.292, 10 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 10, 252.688 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 10, 251.428 )
+
+[sub_resource type="DynamicFont" id=3]
 size = 40
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
@@ -18,6 +27,9 @@ font_data = ExtResource( 3 )
 
 [node name="GameChallenge" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+
+[node name="Floor" parent="." index="2"]
+collision_layer = 3
 
 [node name="RockSpawnLine" type="Line2D" parent="." index="3"]
 visible = false
@@ -30,15 +42,48 @@ points = PoolVector2Array( 420, 600, 420, 545 )
 width = 5.0
 default_color = Color( 0.909804, 0.0666667, 0.956863, 1 )
 script = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ThrowZone" type="Area2D" parent="LineOfPebbles" index="0"]
 position = Vector2( -10.0106, 133.061 )
 __meta__ = {
-"_edit_group_": true
+"_edit_group_": true,
+"_edit_lock_": true
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LineOfPebbles/ThrowZone" index="0"]
 shape = SubResource( 1 )
+
+[node name="ThrowZoneFloor" type="Area2D" parent="LineOfPebbles" index="1"]
+position = Vector2( 278.551, 575 )
+collision_layer = 3
+collision_mask = 3
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LineOfPebbles/ThrowZoneFloor" index="0"]
+shape = SubResource( 2 )
+
+[node name="ThrowZoneBarrier" type="StaticBody2D" parent="LineOfPebbles" index="2"]
+position = Vector2( 279.74, 348.324 )
+collision_layer = 2
+collision_mask = 2147483648
+__meta__ = {
+"_edit_lock_": true,
+"_editor_description_": "A temporary barrier that helps guide newly spawned rocks in the throw zone"
+}
+
+[node name="LeftWall" type="CollisionShape2D" parent="LineOfPebbles/ThrowZoneBarrier" index="0"]
+position = Vector2( -147.25, 0 )
+shape = SubResource( 4 )
+
+[node name="RightWall" type="CollisionShape2D" parent="LineOfPebbles/ThrowZoneBarrier" index="1"]
+position = Vector2( 149.919, 0 )
+shape = SubResource( 5 )
 
 [node name="LabelsLayer" type="CanvasLayer" parent="." index="7"]
 
@@ -76,7 +121,7 @@ margin_top = 150.129
 margin_right = 903.877
 margin_bottom = 325.129
 theme = ExtResource( 4 )
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0.74902, 0.678431, 0.627451, 1 )
 align = 1
 valign = 1
@@ -117,6 +162,8 @@ volume_db = 4.0
 [connection signal="body_exited" from="LineOfPebbles/ThrowZone" to="LineOfPebbles" method="_on_ThrowZone_body_exited"]
 [connection signal="mouse_entered" from="LineOfPebbles/ThrowZone" to="." method="_on_ThrowZone_mouse_entered"]
 [connection signal="mouse_exited" from="LineOfPebbles/ThrowZone" to="." method="_on_ThrowZone_mouse_exited"]
+[connection signal="body_entered" from="LineOfPebbles/ThrowZoneFloor" to="LineOfPebbles" method="_on_ThrowZoneFloor_body_entered"]
+[connection signal="body_exited" from="LineOfPebbles/ThrowZoneFloor" to="LineOfPebbles" method="_on_ThrowZoneFloor_body_exited"]
 [connection signal="timeout" from="LabelsLayer/MsgCenter/MsgTimer" to="." method="_on_MsgTimer_timeout"]
 [connection signal="timeout" from="DelayTillSpawnTarget" to="." method="place_new_target_rock"]
 [connection signal="timeout" from="DelayTillReplaceThrowingRocks" to="." method="_on_DelayTillReplaceThrowingRocks_timeout"]

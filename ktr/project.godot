@@ -71,6 +71,11 @@ click={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="main"
+2d_physics/layer_2="just_spawned"
+
 [physics]
 
 2d/default_gravity=1470

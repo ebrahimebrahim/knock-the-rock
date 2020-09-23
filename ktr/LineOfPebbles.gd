@@ -39,3 +39,15 @@ func _on_ThrowZone_body_entered(body):
 			body.set_holdable(true)
 			body.set_jiggle_control(false)
 			emit_signal("rock_regained",body)
+
+
+
+
+func _on_ThrowZoneFloor_body_entered(body):
+	if body is Rock:
+		body.set_collision_layer_bit(1,true)
+
+
+func _on_ThrowZoneFloor_body_exited(body):
+	if body is Rock:
+		body.set_collision_layer_bit(1,false)
