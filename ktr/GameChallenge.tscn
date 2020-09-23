@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://GameBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://GameChallenge.gd" type="Script" id=2]
@@ -10,7 +10,10 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 430.518, 705.9 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 140.292, 10 )
+
+[sub_resource type="DynamicFont" id=3]
 size = 40
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
@@ -30,15 +33,29 @@ points = PoolVector2Array( 420, 600, 420, 545 )
 width = 5.0
 default_color = Color( 0.909804, 0.0666667, 0.956863, 1 )
 script = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ThrowZone" type="Area2D" parent="LineOfPebbles" index="0"]
 position = Vector2( -10.0106, 133.061 )
 __meta__ = {
-"_edit_group_": true
+"_edit_group_": true,
+"_edit_lock_": true
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LineOfPebbles/ThrowZone" index="0"]
 shape = SubResource( 1 )
+
+[node name="ThrowZoneFloor" type="Area2D" parent="LineOfPebbles" index="1"]
+position = Vector2( 278.551, 575 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LineOfPebbles/ThrowZoneFloor" index="0"]
+shape = SubResource( 2 )
 
 [node name="LabelsLayer" type="CanvasLayer" parent="." index="7"]
 
@@ -76,7 +93,7 @@ margin_top = 150.129
 margin_right = 903.877
 margin_bottom = 325.129
 theme = ExtResource( 4 )
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0.74902, 0.678431, 0.627451, 1 )
 align = 1
 valign = 1
