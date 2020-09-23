@@ -4,8 +4,12 @@ var scrolling_bg : bool = false
 var change_scene_to : String
 
 const pointing_hand = preload("res://images/pointing_hand.png")
-var settings_config : Resource
 
+
+
+func _init():
+	var cfg = ResourceLoader.load("settings.tres","",true) # no_cache = true
+	Strings.lang = cfg.language
 
 
 func _ready():
@@ -91,5 +95,4 @@ func process_settings():
 	# corner menu hidden by default
 	Globals.corner_menu_hidden_by_default = cfg.corner_menu_hidden_by_default
 	
-	# language
-	Strings.lang = cfg.language
+	# language needs to be set earlier-- see _init
