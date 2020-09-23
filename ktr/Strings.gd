@@ -49,6 +49,34 @@ const _removing_obstructions = {
 	"en" : "Removing obstructing rocks..."
 }
 
+const _ui_label = {
+	"en" : {
+		"ktr title" : "KNOCK\nTHE\nROCK",
+		"sandbox btn" : "Sandbox",
+		"challenge btn" : "Challenge",
+		"settings btn" : "Settings",
+		"help btn" : "Help",
+		"exit btn" : "Exit",
+		"settings title" : "Settings",
+		"fullscreen" : "fullscreen",
+		"music volume" : "music volume",
+		"gravity" : "gravity",
+		"challenge mode rocks" : "challenge mode rocks",
+		"corner menu hidden by default" : "corner menu hidden by default",
+		"language" : "language",
+		"apply btn" : "Apply",
+		"back btn" : "Back",
+		"defaults btn" : "Restore Defaults",
+		"help title" : "Help",
+		"hide help btn" : "(H)ide Help",
+		"return btn" : "Return to Menu (Esc)",
+		"restart btn" : "(R)estart",
+		"Help btn" : "(H)elp",
+		"toggle corner menu lbl" : "(T)oggle this Menu",
+	}
+}
+
+
 
 func rocks_knocked(s):
 	return _rocks_knocked[lang] + ": " + str(s)
@@ -74,3 +102,6 @@ func cant_hold_past_line():
 
 func removing_obstructions():
 	return _removing_obstructions[lang]
+
+func ui_label(btn):
+	return _ui_label[lang][btn]

@@ -23,6 +23,7 @@ func _ready():
 	$Overlays/Settings.connect("apply",self,"reload_scene")
 	Input.set_custom_mouse_cursor(pointing_hand,Input.CURSOR_ARROW,Vector2(16,6))
 	process_settings()
+	setup_ui_labels()
 	
 	
 
@@ -96,3 +97,12 @@ func process_settings():
 	Globals.corner_menu_hidden_by_default = cfg.corner_menu_hidden_by_default
 	
 	# language needs to be set earlier-- see _init
+
+
+func setup_ui_labels():
+	$LogoZone/Logo/Title.text = Strings.ui_label("ktr title")
+	$MenuZone/Menu/SdbxButton.text = Strings.ui_label("sandbox btn")
+	$MenuZone/Menu/ChlgButton.text = Strings.ui_label("challenge btn")
+	$MenuZone/Menu/SettingsButton.text = Strings.ui_label("settings btn")
+	$MenuZone/Menu/HelpButton.text = Strings.ui_label("help btn")
+	$MenuZone/Menu/ExitButton.text = Strings.ui_label("exit btn")
