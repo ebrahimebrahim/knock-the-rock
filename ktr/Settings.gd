@@ -47,6 +47,7 @@ func _init():
 func _ready():
 	resource_to_panel_knobs()
 	music_vol_min = $VBoxContainer/Body/MusicVolume/MarginContainer/HSlider.min_value
+	setup_ui_labels()
 
 func get_example_setting():
 	return settings_config.an_example_setting
@@ -69,3 +70,19 @@ func apply_settings(s : SettingsConfig):
 	if error != OK:
 		print("There was an error saving settings.")
 	emit_signal("apply")
+
+
+func setup_ui_labels():
+	$VBoxContainer/Body/Fullscreen/Label.text = Strings.ui_label("fullscreen")
+	$VBoxContainer/Body/MusicVolume/Label.text = Strings.ui_label("music volume")
+	$VBoxContainer/Body/Gravity/Label.text = Strings.ui_label("gravity")
+	$VBoxContainer/Body/TotalRocksGiven/Label.text = Strings.ui_label("challenge mode rocks")
+	$VBoxContainer/Body/CornerMenuHidden/Label.text = Strings.ui_label("corner menu hidden by default")
+	$VBoxContainer/Body/Language/Label.text = Strings.ui_label("language")
+	$VBoxContainer/Buttons/HBoxContainer/ApplyButton.text = Strings.ui_label("apply btn")
+	$VBoxContainer/Buttons/HBoxContainer/BackButton.text = Strings.ui_label("back btn")
+	$VBoxContainer/Buttons/HBoxContainer/DefaultsButton.text = Strings.ui_label("defaults btn")
+	
+	
+	
+	
