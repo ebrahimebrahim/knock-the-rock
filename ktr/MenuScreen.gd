@@ -8,7 +8,7 @@ const pointing_hand = preload("res://images/pointing_hand.png")
 
 
 func _init():
-	var cfg = ResourceLoader.load("settings.tres","",true) # no_cache = true
+	var cfg : Resource = Globals.load_settings_config()
 	Strings.lang = cfg.language
 
 

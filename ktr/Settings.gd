@@ -2,7 +2,6 @@ extends Panel
 
 const SettingsConfig = preload("SettingsConfig.gd")
 var settings_config : SettingsConfig
-export var default_settings : Resource # A SettingsConfig which we set up in editor
 
 signal back
 signal apply
@@ -42,7 +41,7 @@ func resource_to_panel_knobs():
 
 
 func _init():
-	settings_config = ResourceLoader.load("settings.tres","",true) # no_cache = true
+	settings_config = Globals.load_settings_config()
 
 func _ready():
 	resource_to_panel_knobs()
@@ -62,7 +61,7 @@ func _on_ApplyButton_pressed():
 
 
 func _on_DefaultsButton_pressed():
-	apply_settings(default_settings)
+	apply_settings(load("default_settings.tres"))
 
 
 func apply_settings(s : SettingsConfig):
