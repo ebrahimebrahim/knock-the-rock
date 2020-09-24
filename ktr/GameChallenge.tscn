@@ -11,7 +11,7 @@
 extents = Vector2( 430.518, 705.9 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 140.292, 10 )
+extents = Vector2( 140.292, 30 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 10, 252.688 )
@@ -59,7 +59,7 @@ __meta__ = {
 shape = SubResource( 1 )
 
 [node name="ThrowZoneFloor" type="Area2D" parent="LineOfPebbles" index="1"]
-position = Vector2( 278.551, 575 )
+position = Vector2( 279.811, 566.81 )
 collision_layer = 3
 collision_mask = 3
 __meta__ = {
