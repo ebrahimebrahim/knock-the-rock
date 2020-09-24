@@ -108,8 +108,6 @@ func _on_justspawned_timeout(rock):
 func change_throwing_rocks_remaining(change : int):
 	throwing_rocks_remaining += change
 	$LabelsLayer/ThrowingRocksRemainingLabel.text = Strings.throwing_remaining(throwing_rocks_remaining)
-	if throwing_rocks_remaining <= 0:
-		$DelayTillEndGame.start()
 
 
 func place_new_target_rock():
@@ -154,10 +152,15 @@ func _on_DelayTillEndGame_timeout():
 		show_message(Strings.endgame_message(score,total_rocks_given),-1)
 
 
-func _on_LineOfPebbles_rock_lost(body):
+
+func _on_LineOfPebbles_rock_lost(rock : Rock):
 	if scene_shutting_down or game_has_ended: return
 	change_throwing_rocks_remaining(-1)
-	throwzone_rocks.erase(body)
+	if throwing_rocks_remaining <= 0:
+		# initiate possible endgame sequence
+		rock.monitor_stopped_or_deleted = true
+		rock.connect("stopped_or_deleted",self,"_last_rock_stopped_or_gone",[rock],CONNECT_ONESHOT) 
+	throwzone_rocks.erase(rock)
 	var num_throwzone_rocks_including_incoming : int = len(throwzone_rocks) + (0 if $DelayTillReplaceThrowingRocks.is_stopped() else 1)
 	if len(throwzone_rocks) < 2 and throwing_rocks_remaining > num_throwzone_rocks_including_incoming:
 		if $DelayTillReplaceThrowingRocks.is_stopped():
@@ -170,12 +173,17 @@ func _on_DelayTillReplaceThrowingRocks_timeout():
 	place_new_throwing_rocks(1)
 
 
-func _on_LineOfPebbles_rock_regained(body):
+func _last_rock_stopped_or_gone(rock : Rock) -> void:
+	rock.monitor_stopped_or_deleted = false
+	$DelayTillEndGame.start()
+
+
+func _on_LineOfPebbles_rock_regained(rock : Rock):
 	if game_has_ended: return
 	change_throwing_rocks_remaining(1)
-	throwzone_rocks.append(body)
-	if not body in throwing_rocks:
-		throwing_rocks.append(body)
+	throwzone_rocks.append(rock)
+	if not rock in throwing_rocks:
+		throwing_rocks.append(rock)
 
 
 func _on_ThrowZone_mouse_exited():
