@@ -188,7 +188,12 @@ func _on_ThrowZone_mouse_exited():
 
 func _on_ThrowZone_mouse_entered():
 	cursor_changeable = true
-	Input.set_custom_mouse_cursor(open_hand,Input.CURSOR_ARROW,Vector2(21,27))
+	var some_rock_is_held = false
+	for rock in throwing_rocks:
+		if is_instance_valid(rock) and rock.is_held:
+			some_rock_is_held = true
+			break
+	Input.set_custom_mouse_cursor(closed_hand if some_rock_is_held else open_hand,Input.CURSOR_ARROW,Vector2(21,27))
 
 func _on_clicked_yet_unholdable(reason):
 	if not game_has_ended: show_message(reason,2.5)
