@@ -14,6 +14,10 @@ var top_right : Vector2
 var bottom_left : Vector2
 var bottom_right : Vector2
 
+var debug_circle_centers = [] # DEBUG
+var debug_circle_radii = [] # DEBUG
+var debug_circle_colors = [] # DEBUG
+
 
 # For some reason we need to have an _init defined if we want BoulderPolygon's properties to persist
 # This doesn't override RockPolygon's init; in fact it does nothing.
