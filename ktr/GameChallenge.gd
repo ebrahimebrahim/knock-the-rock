@@ -100,16 +100,34 @@ func place_new_throwing_rocks(num_rocks : int):
 	throwing_rocks += rocks
 	throwzone_rocks += rocks
 
-func temporarily_grant_justspawned_collisionness(rock):
+func temporarily_grant_justspawned_collisionness(rock : Rock):
 	rock.collision_mask = 0b10 # allows rock to be blocked by throwzone barrier
 	rock.collision_layer = 0b10 # other just spawned rocks should be blocked by rock
 #	rock.modulate = Color(1,0,0) # uncomment for debugging
-	get_tree().create_timer(1.0).connect("timeout",self,"_on_justspawned_timeout",[rock])
-func _on_justspawned_timeout(rock):
+	
+	# This area will be a circle inside the rock
+	# It will be used to help decide when we turn off the "justspawned_collisionness"
+	# Then it will be deleted
+	var a = Area2D.new()
+	var c = CollisionShape2D.new()
+	c.shape = CircleShape2D.new()
+	var posrad = rock.get_inner_circle()
+	c.shape.radius = posrad[1]
+	a.add_child(c)
+	rock.add_child(a)
+	c.position = posrad[0]
+	
+	get_tree().create_timer(1.0).connect("timeout",self,"_on_justspawned_timeout",[rock,a])
+func _on_justspawned_timeout(rock : Rock, inner_circle : Area2D):
 	if not is_instance_valid(rock): return
+	for body in inner_circle.get_overlapping_bodies():
+		if body is Rock:
+			get_tree().create_timer(0.2).connect("timeout",self,"_on_justspawned_timeout",[rock,inner_circle])
+			return
 #	rock.modulate = Color(1,1,1) # uncomment for debugging
 	rock.collision_mask = 0b01 # can phase through throwzone barrier again
 	rock.collision_layer = 0b11 # will collide with all rocks
+	inner_circle.queue_free()
 
 
 func change_throwing_rocks_remaining(change : int):

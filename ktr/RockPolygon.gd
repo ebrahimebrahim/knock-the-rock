@@ -129,7 +129,7 @@ func bounding_rect() -> Rect2:
 
 
 # Return the position and radius of an interior circle of maximal radius centered at the center of mass
-# The position is in global coordinates
+# The position is in local coordinates
 func get_inner_circle() -> Array:
 	var srads = []
 	var c = center_of_mass()
@@ -146,4 +146,4 @@ func get_inner_circle() -> Array:
 		else:
 			srads.push_back(c.distance_squared_to(v1))
 			srads.push_back(c.distance_squared_to(v2))
-	return [global_transform.xform(c),sqrt(srads.min())]
+	return [c,sqrt(srads.min())]
