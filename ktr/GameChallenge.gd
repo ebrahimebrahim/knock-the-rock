@@ -110,6 +110,10 @@ func change_throwing_rocks_remaining(change : int):
 	$LabelsLayer/ThrowingRocksRemainingLabel.text = Strings.throwing_remaining(throwing_rocks_remaining)
 
 
+func _input(event):
+	if event is InputEventMouseButton and event.button_index == BUTTON_RIGHT and not event.is_pressed():
+		target_rock.apply_central_impulse(Vector2(-2000,0))
+
 func place_new_target_rock():
 	if not beuld_top_obstructors.empty():
 		show_message(Strings.removing_obstructions(),$DelayTillSpawnTarget.wait_time)
