@@ -8,6 +8,9 @@ var _holdable : bool = true setget set_holdable, is_holdable
 var reason_for_unholdability : String = ""
 var local_hold_point : Vector2
 
+var _schwoop_deleting : bool = false
+const schwoop_delete_time : float = 3.0
+
 signal became_unholdable
 signal clicked_yet_unholdable(reason)
 
@@ -100,9 +103,11 @@ func generate_collision_shape():
 		c.shape.points = triangle
 
 
-func _process(_delta):
+func _process(delta):
 	if position.y > get_tree().get_root().get_size_override().y + 400:
 		queue_free()
+	if _schwoop_deleting:
+		modulate = Color(modulate.r,modulate.g,modulate.b, max(0.0 , modulate.a - delta*(1.0/schwoop_delete_time) ) )
 
 
 func set_held(val : bool) -> void:
@@ -291,9 +296,11 @@ func center_of_mass() -> Vector2:
 
 # Vacuum the rock into the sky and then delete it
 func schwoop_delete():
+	_schwoop_deleting = true
 	call_deferred("awaken")
 	gravity_scale = 0.0
 	set_holdable(false,"Let this rock go, it wants to be free.")
+	linear_velocity = Vector2(0,0)
 	add_central_force(Vector2(0,-1500.0 * mass))
-	yield(get_tree().create_timer(3), "timeout")
+	yield(get_tree().create_timer(schwoop_delete_time), "timeout")
 	queue_free()
