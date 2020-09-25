@@ -74,7 +74,6 @@ func _process(_delta):
 			target_rock.disconnect("body_entered",self,"_on_target_rock_contact")
 			target_rock.set_holdable(false,Strings.cant_hold_past_line())
 			target_rock.set_jiggle_control(true)
-			target_rock.modulate = Color(1,0,0)
 		
 		$DelayTillSpawnTarget.start()
 
@@ -117,10 +116,6 @@ func change_throwing_rocks_remaining(change : int):
 	throwing_rocks_remaining += change
 	$LabelsLayer/ThrowingRocksRemainingLabel.text = Strings.throwing_remaining(throwing_rocks_remaining)
 
-
-func _input(event):
-	if event is InputEventMouseButton and event.button_index == BUTTON_RIGHT and not event.is_pressed():
-		target_rock.apply_central_impulse(Vector2(-2000,0))
 
 func place_new_target_rock():
 	if not beuld_top_obstructors.empty():
