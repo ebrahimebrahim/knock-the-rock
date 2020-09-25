@@ -123,7 +123,7 @@ func _on_justspawned_timeout(rock : Rock, inner_circle : Area2D):
 	for body in inner_circle.get_overlapping_bodies():
 		if body is Rock and body.name != rock.name:
 			get_tree().create_timer(0.2).connect("timeout",self,"_on_justspawned_timeout",[rock,inner_circle])
-			rock.set_holdable(false,"test")
+			rock.set_holdable(false,"")
 			body.raise()
 			return
 #	rock.modulate = Color(1,1,1) # uncomment for debugging
@@ -222,7 +222,8 @@ func _on_ThrowZone_mouse_entered():
 	Input.set_custom_mouse_cursor(closed_hand if some_rock_is_held else open_hand,Input.CURSOR_ARROW,Vector2(21,27))
 
 func _on_clicked_yet_unholdable(reason):
-	if not game_has_ended: show_message(reason,2.5)
+	if not game_has_ended and reason != "":
+		show_message(reason,2.5)
 
 
 func show_message(msg : String, time : float = 4):

@@ -120,7 +120,6 @@ func set_held(val : bool) -> void:
 		held_collision_immunity_timer.start()
 
 func set_holdable(val : bool, reason : String = "") -> void:
-	if val == false : assert(reason!="") # you'd better give a reason
 	var was_holdable = _holdable
 	_holdable = val
 	reason_for_unholdability = reason
