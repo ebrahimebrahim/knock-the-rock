@@ -135,10 +135,6 @@ func place_new_target_rock():
 	target_rock_has_been_touched = false
 
 
-func _on_TargetRockPlacementTimer_timeout():
-	place_new_target_rock()
-		
-
 func _on_target_rock_contact(body):
 	if body is Boulder or not (body is Rock): return # We only care about non-boulder rocks
 	if body in throwing_rocks:
