@@ -121,12 +121,15 @@ func temporarily_grant_justspawned_collisionness(rock : Rock):
 func _on_justspawned_timeout(rock : Rock, inner_circle : Area2D):
 	if not is_instance_valid(rock): return
 	for body in inner_circle.get_overlapping_bodies():
-		if body is Rock:
+		if body is Rock and body.name != rock.name:
 			get_tree().create_timer(0.2).connect("timeout",self,"_on_justspawned_timeout",[rock,inner_circle])
+			rock.set_holdable(false,"test")
+			body.raise()
 			return
 #	rock.modulate = Color(1,1,1) # uncomment for debugging
 	rock.collision_mask = 0b01 # can phase through throwzone barrier again
 	rock.collision_layer = 0b11 # will collide with all rocks
+	rock.set_holdable(true)
 	inner_circle.queue_free()
 
 
