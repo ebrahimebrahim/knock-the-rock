@@ -44,7 +44,7 @@ func generate_polygon():
 	texture_uvs.push_back(Vector2(0,0))
 	
 	#build left side
-	var n = 1+randi()%8
+	var n = 1+randi()%6
 	var left_side_vec : Vector2 = top_left - bottom_left
 	var left_side_vec_n : Vector2 = left_side_vec.normalized()
 	var step : float = left_side_vec.length()/(2*n)
