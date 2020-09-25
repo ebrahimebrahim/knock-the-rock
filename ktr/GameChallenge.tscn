@@ -17,7 +17,7 @@ extents = Vector2( 140.292, 15 )
 extents = Vector2( 10, 252.688 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 10, 35.6316 )
+extents = Vector2( 10, 15.572 )
 
 [sub_resource type="DynamicFont" id=5]
 size = 40
@@ -83,7 +83,7 @@ position = Vector2( -147.25, 0 )
 shape = SubResource( 3 )
 
 [node name="RightWall" type="CollisionShape2D" parent="LineOfPebbles/ThrowZoneBarrier" index="1"]
-position = Vector2( 149.919, 216.11 )
+position = Vector2( 149.919, 236.155 )
 shape = SubResource( 4 )
 
 [node name="LabelsLayer" type="CanvasLayer" parent="." index="7"]
