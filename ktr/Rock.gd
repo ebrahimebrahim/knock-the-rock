@@ -113,6 +113,7 @@ func _process(delta):
 func set_held(val : bool) -> void:
 	if val : assert(_holdable)
 	is_held = val
+	can_sleep = not val
 	gravity_scale = 0.0 if is_held else 1.0
 	if is_held:
 		sleeping = false # wake up object if it just got held
