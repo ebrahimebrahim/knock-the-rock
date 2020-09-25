@@ -56,6 +56,12 @@ func generate_polygon():
 	for i in range(n):
 		var center : Vector2 = bottom_left + (step + 2*step*i)*left_side_vec_n
 		vertices.push_back(random_point_in_disk(center,radius))
+		debug_circle_centers.push_back(center) # DEBUG
+		debug_circle_radii.push_back(radius) # DEBUG
+		debug_circle_colors.push_back(Color(0,1,0)) # DEBUG
+		debug_circle_centers.push_back(center) # DEBUG
+		debug_circle_radii.push_back(2) # DEBUG
+		debug_circle_colors.push_back(Color(1,0,0)) # DEBUG
 		texture_uvs.push_back(Vector2(0,float(1+i)/(n+1)))
 
 	vertices.push_back(top_left)
@@ -72,6 +78,12 @@ func generate_polygon():
 	for i in range(n):
 		var center : Vector2 = top_right + (step + 2*step*i)*right_side_vec_n
 		vertices.push_back(random_point_in_disk(center,radius))
+		debug_circle_centers.push_back(center) # DEBUG
+		debug_circle_radii.push_back(radius) # DEBUG
+		debug_circle_colors.push_back(Color(0,1,0)) # DEBUG
+		debug_circle_centers.push_back(center) # DEBUG
+		debug_circle_radii.push_back(2) # DEBUG
+		debug_circle_colors.push_back(Color(1,0,0)) # DEBUG
 		texture_uvs.push_back(Vector2(1,1-float(1+i)/(n+1)))
 	
 	vertices.push_back(bottom_right)

@@ -19,5 +19,6 @@ wait_time = 0.7
 one_shot = true
 
 [node name="DebugDraw" type="Node2D" parent="." index="7"]
+z_index = 1
 script = ExtResource( 3 )
 [connection signal="timeout" from="SplayedHandTimer" to="." method="_on_SplayedHandTimer_timeout"]
