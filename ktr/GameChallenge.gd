@@ -93,7 +93,12 @@ func increment_score():
 
 
 func place_new_throwing_rocks(num_rocks : int):
-	var rocks = spawn_rocks(num_rocks,$RockSpawnLine)
+	var rightwall : CollisionShape2D = $LineOfPebbles/ThrowZoneBarrier/RightWall
+	var rocks = spawn_rocks(
+		num_rocks,
+		$RockSpawnLine,
+		[ 0 , rightwall.global_position.x - rightwall.shape.extents.x ]
+	)
 	for rock in rocks:
 		rock.connect("clicked_yet_unholdable",self,"_on_clicked_yet_unholdable")
 		temporarily_grant_justspawned_collisionness(rock)
@@ -117,7 +122,7 @@ func temporarily_grant_justspawned_collisionness(rock : Rock):
 	rock.add_child(a)
 	c.position = posrad[0]
 	
-	get_tree().create_timer(1.0).connect("timeout",self,"_on_justspawned_timeout",[rock,a])
+	get_tree().create_timer(0.7).connect("timeout",self,"_on_justspawned_timeout",[rock,a])
 func _on_justspawned_timeout(rock : Rock, inner_circle : Area2D):
 	if not is_instance_valid(rock): return
 	for body in inner_circle.get_overlapping_bodies():

@@ -41,7 +41,9 @@ func _input(event):
 # Spawn a number of non-intersecting rocks along the given line segment
 # The line should have exactly two points
 # Returns a list of the spawned rocks
-func spawn_rocks(num_rocks : int, spawn_line : Line2D):
+# optionally boundaries can be an Array of two floats: the left and right boundary
+# in which the rocks should be spawned
+func spawn_rocks(num_rocks : int, spawn_line : Line2D, boundaries = []):
 	var rocks = []
 	for _i in range(num_rocks):
 		var rock : Rock = Rock.new()
@@ -56,8 +58,11 @@ func spawn_rocks(num_rocks : int, spawn_line : Line2D):
 				var o_r = other.rightmost_vertex().x
 				if r_r > o_l and o_r > r_l:
 					rock_intersects_some_other_rock = true
-			var rock_fully_in_screen = r_l>0
-			if not rock_intersects_some_other_rock and rock_fully_in_screen:
+			var rock_within_boundaries = true
+			if not boundaries.empty():
+				assert(len(boundaries)==2)
+				rock_within_boundaries = r_l > boundaries[0] and r_r < boundaries[1]
+			if not rock_intersects_some_other_rock and rock_within_boundaries:
 				break
 		rocks.append(rock)
 	return rocks
