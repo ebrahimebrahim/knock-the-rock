@@ -48,6 +48,8 @@ func spawn_rocks(num_rocks : int, spawn_line : Line2D, boundaries = []):
 	for _i in range(num_rocks):
 		var rock : Rock = Rock.new()
 		add_child(rock)
+		var num_positioning_attempts = 0
+		var positioning_failed = false
 		while true:
 			rock.set_position(random_point_on_line(spawn_line))
 			var rock_intersects_some_other_rock = false
@@ -64,7 +66,15 @@ func spawn_rocks(num_rocks : int, spawn_line : Line2D, boundaries = []):
 				rock_within_boundaries = r_l > boundaries[0] and r_r < boundaries[1]
 			if not rock_intersects_some_other_rock and rock_within_boundaries:
 				break
+			num_positioning_attempts += 1
+			if num_positioning_attempts > 20:
+				positioning_failed = true
+				break
 		rocks.append(rock)
+		if positioning_failed:
+			for r in rocks:
+				r.queue_free()
+			return spawn_rocks(num_rocks,spawn_line,boundaries)
 	return rocks
 
 # returns random point on given line, in global coords
