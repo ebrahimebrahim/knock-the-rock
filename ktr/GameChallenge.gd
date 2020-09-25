@@ -68,6 +68,14 @@ func _process(_delta):
 		if not target_rock_has_been_touched:
 			show_message(Strings.mistake_message(mistakes_made),2)
 			mistakes_made += 1
+		
+		# Relieve old target rock of its targetty duties, if there is one
+		if target_rock:
+			target_rock.disconnect("body_entered",self,"_on_target_rock_contact")
+			target_rock.set_holdable(false,Strings.cant_hold_past_line())
+			target_rock.set_jiggle_control(true)
+			target_rock.modulate = Color(1,0,0)
+		
 		$DelayTillSpawnTarget.start()
 
 
@@ -122,12 +130,6 @@ func place_new_target_rock():
 			beuld_top_obstructors.erase(rock)
 		$DelayTillSpawnTarget.start()
 		return
-	
-	# Relieve old target rock of its targetty duties, if there is one
-	if target_rock:
-		target_rock.disconnect("body_entered",self,"_on_target_rock_contact")
-		target_rock.set_holdable(false,Strings.cant_hold_past_line())
-		target_rock.set_jiggle_control(true)
 	
 	# Introduce new target rock
 	target_rock = Rock.new()
