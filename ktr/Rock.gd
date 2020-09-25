@@ -289,6 +289,11 @@ func rightmost_vertex() -> Vector2:
 	return rock_polygon.rightmost_vertex()
 
 
+# Returns a bounding rectangle in global coords
+func bounding_rect() -> Rect2:
+	return rock_polygon.bounding_rect()
+
+
 # Returns the center of mass, aka centroid, of the rock polygon in local coords
 func center_of_mass() -> Vector2:
 	return rock_polygon.center_of_mass()

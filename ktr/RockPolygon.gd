@@ -114,3 +114,15 @@ func rightmost_vertex() -> Vector2:
 	var argmax = xs.find(xs.max())
 	return get_global_transform().xform(vertices[argmax])
 
+
+# Returns a bounding rectangle in global coords
+func bounding_rect() -> Rect2:
+	var xs = []
+	var ys = []
+	for v in vertices:
+		var v_global : Vector2 = get_global_transform().xform(v)
+		xs.push_back(v_global.x)
+		ys.push_back(v_global.y)
+	var x_min : float = xs.min()
+	var y_min : float = ys.min()
+	return Rect2(x_min,y_min,xs.max()-x_min,ys.max()-y_min)
