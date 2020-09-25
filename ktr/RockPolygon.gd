@@ -126,3 +126,24 @@ func bounding_rect() -> Rect2:
 	var x_min : float = xs.min()
 	var y_min : float = ys.min()
 	return Rect2(x_min,y_min,xs.max()-x_min,ys.max()-y_min)
+
+
+# Return the position and radius of an interior circle of maximal radius centered at the center of mass
+# The position is in global coordinates
+func get_inner_circle() -> Array:
+	var srads = []
+	var c = center_of_mass()
+	for i in range(len(vertices)):
+		var v1 : Vector2 = vertices[i]
+		var v2 : Vector2 = vertices[(i+1)%len(vertices)]
+		var acute : bool = (c-v1).dot(v2-v1) > 0 and (c-v2).dot(v1-v2) > 0 
+		if acute:		
+			var l : Vector2 = v2 - v1
+			var lnn : Vector2 = (1/l.length_squared()) * l
+			srads.push_back(
+				((v1 - c) - (l.dot(v1 - c)) * lnn ).length_squared()
+			)
+		else:
+			srads.push_back(c.distance_squared_to(v1))
+			srads.push_back(c.distance_squared_to(v2))
+	return [global_transform.xform(c),sqrt(srads.min())]

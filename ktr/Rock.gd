@@ -295,6 +295,12 @@ func bounding_rect() -> Rect2:
 	return rock_polygon.bounding_rect()
 
 
+# Return the position and radius of an interior circle of maximal radius centered at the center of mass
+# The position is in global coordinates
+func get_inner_circle() -> Array:
+	return rock_polygon.get_inner_circle()
+
+
 # Returns the center of mass, aka centroid, of the rock polygon in local coords
 func center_of_mass() -> Vector2:
 	return rock_polygon.center_of_mass()
