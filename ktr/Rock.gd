@@ -198,7 +198,6 @@ func set_jiggle_control(val : bool):
 
 
 func set_monitor_stopped(val : bool):
-	print("peup:",val,monitor_stopped)
 	if val :
 		in_motion = true # guarantees that after enabling, signal WILL eventually be emitted
 	recent_sq_speeds = []
