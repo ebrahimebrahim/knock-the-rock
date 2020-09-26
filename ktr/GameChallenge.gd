@@ -1,6 +1,7 @@
 extends "res://GameBase.gd"
 
-var game_has_ended = false
+var game_has_ended = false # true when game is for sure over
+var game_might_end = false # true when last rock was thrown and we are waiting to see if player somehow gets it back or something
 
 var target_rock : Rock
 var target_rock_has_been_touched : bool
@@ -173,6 +174,8 @@ func _on_DelayTillEndGame_timeout():
 		game_has_ended = true
 		$EndgameRufflePlayer.play()
 		show_message(Strings.endgame_message(score,total_rocks_given),-1)
+	elif throwing_rocks_remaining > 0:
+		game_might_end = false
 
 
 
@@ -182,6 +185,7 @@ func _on_LineOfPebbles_rock_lost(rock : Rock):
 	if throwing_rocks_remaining <= 0:
 		# initiate possible endgame sequence
 		rock.monitor_stopped_or_deleted = true
+		game_might_end = true
 		rock.connect("stopped_or_deleted",self,"_last_rock_stopped_or_gone",[rock],CONNECT_ONESHOT) 
 	throwzone_rocks.erase(rock)
 	var num_throwzone_rocks_including_incoming : int = len(throwzone_rocks) + (0 if $DelayTillReplaceThrowingRocks.is_stopped() else 1)
