@@ -145,6 +145,9 @@ func change_throwing_rocks_remaining(change : int):
 
 
 func place_new_target_rock():
+	if game_might_end:
+		$DelayTillSpawnTarget.start()
+		return
 	if not beuld_top_obstructors.empty():
 		show_message(Strings.removing_obstructions(),$DelayTillSpawnTarget.wait_time)
 		for rock in beuld_top_obstructors:
