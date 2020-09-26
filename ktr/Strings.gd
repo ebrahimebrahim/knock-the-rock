@@ -82,11 +82,11 @@ func rocks_knocked(s):
 	return _rocks_knocked[lang] + ": " + str(s)
 
 func throwing_remaining(t):
-	return _throwing_remaining[lang] + ": " + str(t)
+	return _throwing_remaining[lang] + ": " + str(t) + "/" + str(Globals.total_rocks_given)
 
 func endgame_message(score, total_rocks_given):
 	var msg_index = min(int((float(score)/total_rocks_given)*(len(_endgame_messages[lang])-1)),len(_endgame_messages[lang])-1)
-	return _score[lang] + ": " + str(score) + "\n"+ _endgame_messages[lang][msg_index] 
+	return _score[lang] + ": " + str(score) + "/" + str(Globals.total_rocks_given) + "\n"+ _endgame_messages[lang][msg_index] 
 
 func mistake_message(mistakes_made):
 	return _mistake_messages[lang][mistakes_made%len(_mistake_messages[lang])]
