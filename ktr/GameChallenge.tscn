@@ -156,7 +156,7 @@ __meta__ = {
 
 [node name="EndgameRufflePlayer" type="AudioStreamPlayer" parent="." index="11"]
 stream = ExtResource( 6 )
-volume_db = 4.0
+volume_db = -4.0
 [connection signal="rock_lost" from="LineOfPebbles" to="." method="_on_LineOfPebbles_rock_lost"]
 [connection signal="rock_regained" from="LineOfPebbles" to="." method="_on_LineOfPebbles_rock_regained"]
 [connection signal="body_entered" from="LineOfPebbles/ThrowZone" to="LineOfPebbles" method="_on_ThrowZone_body_entered"]
