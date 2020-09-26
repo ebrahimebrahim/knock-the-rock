@@ -178,8 +178,8 @@ func _on_LineOfPebbles_rock_lost(rock : Rock):
 		rock.monitor_stopped = true
 		game_might_end = true
 		last_rock_thrown = rock
-		rock.connect("stopped",self,"_last_rock_stopped_or_gone",[rock],CONNECT_ONESHOT)
-		rock.connect("tree_exiting",self,"_last_rock_stopped_or_gone",[rock],CONNECT_ONESHOT | CONNECT_DEFERRED)
+		rock.connect("stopped",self,"_last_rock_stopped",[rock],CONNECT_ONESHOT)
+		rock.connect("tree_exiting",self,"_last_rock_gone",[],CONNECT_ONESHOT)
 	throwzone_rocks.erase(rock)
 	var num_throwzone_rocks_including_incoming : int = len(throwzone_rocks) + (0 if $DelayTillReplaceThrowingRocks.is_stopped() else 1)
 	if len(throwzone_rocks) < 2 and throwing_rocks_remaining > num_throwzone_rocks_including_incoming:
@@ -193,12 +193,13 @@ func _on_DelayTillReplaceThrowingRocks_timeout():
 	place_new_throwing_rocks(1)
 
 
-func _last_rock_stopped_or_gone(rock : Rock) -> void:
+func _last_rock_stopped(rock : Rock) -> void:
 	rock.monitor_stopped = false
-	if rock.is_connected("stopped",self,"_last_rock_stopped_or_gone"):
-		rock.disconnect("stopped",self,"_last_rock_stopped_or_gone")
-	if rock.is_connected("tree_exiting",self,"_last_rock_stopped_or_gone"):
-		rock.disconnect("tree_exiting",self,"_last_rock_stopped_or_gone")
+	rock.disconnect("tree_exiting",self,"_last_rock_gone")
+	$DelayTillEndGame.start()
+
+
+func _last_rock_gone() -> void:
 	$DelayTillEndGame.start()
 
 
