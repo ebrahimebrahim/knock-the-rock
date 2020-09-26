@@ -38,7 +38,7 @@ __meta__ = {
 
 [node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
 margin_right = 533.0
-margin_bottom = 30.0
+margin_bottom = 39.0
 size_flags_vertical = 3
 text = "-- HELP --"
 align = 1
@@ -48,9 +48,9 @@ __meta__ = {
 }
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 34.0
+margin_top = 43.0
 margin_right = 533.0
-margin_bottom = 119.0
+margin_bottom = 128.0
 custom_constants/margin_top = 10
 custom_constants/margin_bottom = 10
 __meta__ = {
@@ -73,16 +73,16 @@ __meta__ = {
 }
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 123.0
+margin_top = 132.0
 margin_right = 533.0
-margin_bottom = 371.0
+margin_bottom = 363.0
 custom_constants/margin_top = 15
 custom_constants/margin_bottom = 15
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
 margin_top = 15.0
 margin_right = 533.0
-margin_bottom = 233.0
+margin_bottom = 216.0
 size_flags_vertical = 3
 
 [node name="LeftText" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
@@ -105,38 +105,29 @@ __meta__ = {
 [node name="MidLine" type="Panel" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
 margin_left = 266.0
 margin_right = 266.0
-margin_bottom = 218.0
+margin_bottom = 201.0
 custom_styles/panel = SubResource( 1 )
 
 [node name="RightText" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
 margin_left = 270.0
 margin_right = 533.0
-margin_bottom = 218.0
+margin_bottom = 201.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "CHALLENGE MODE
 
-You can only interact with your
-throwing rocks, which will be on
-your side of the screen. You will
-start with two, and receive a
-replacement each time have less
-than two, until you've received a total
-of ten new rocks. Target rocks will be
-set up on the boulder on the
-opposite side of the screen, being
-replaced when you knock them. See
-how many rocks you can knock!"
+You can only interact with your throwing rocks, which will be on your side of the screen. You will start with two, and receive a replacement each time you have less than two, until you've received a total of ten new rocks. Target rocks will be set up on the boulder on the opposite side of the screen, being replaced when you knock them. See how many rocks you can knock!"
 align = 1
 valign = 1
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 375.0
+margin_top = 367.0
 margin_right = 533.0
-margin_bottom = 426.0
+margin_bottom = 418.0
 custom_constants/margin_top = 10
 custom_constants/margin_bottom = 10
 __meta__ = {
@@ -157,7 +148,7 @@ __meta__ = {
 }
 
 [node name="HelpButtonZone" type="Control" parent="MarginContainer/VBoxContainer"]
-margin_top = 430.0
+margin_top = 422.0
 margin_right = 533.0
 margin_bottom = 461.0
 size_flags_vertical = 3
