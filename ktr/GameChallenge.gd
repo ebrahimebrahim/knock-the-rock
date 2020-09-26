@@ -2,7 +2,6 @@ extends "res://GameBase.gd"
 
 var game_has_ended = false # true when game is for sure over
 var game_might_end = false # true when last rock was thrown and we are waiting to see if player somehow gets it back or something
-var last_rock_thrown : Rock # if game_might_end, this is useful
 
 var target_rock : Rock
 var target_rock_has_been_touched : bool
@@ -177,7 +176,6 @@ func _on_LineOfPebbles_rock_lost(rock : Rock):
 		# initiate possible endgame sequence
 		rock.monitor_stopped = true
 		game_might_end = true
-		last_rock_thrown = rock
 		if not rock.is_connected("stopped",self,"_last_rock_stopped"):
 			rock.connect("stopped",self,"_last_rock_stopped",[rock],CONNECT_ONESHOT)
 		if not rock.is_connected("tree_exiting",self,"_last_rock_gone"):
