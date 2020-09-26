@@ -42,11 +42,11 @@ var recent_positions = []
 # if enabled this will maintain a list of recent squared speeds
 # and emit the "stopped_or_deleted" signal when velocity is small for a while
 #  or when rock gets deleted
-var monitor_stopped_or_deleted = false setget set_monitor_stopped_or_deleted
-# the following are only used if monitor_stopped_or_deleted is enabled
+var monitor_stopped = false setget set_monitor_stopped
+# the following are only used if monitor_stopped is enabled
 var recent_sq_speeds = []
 var in_motion
-signal stopped_or_deleted
+signal stopped
 
 
 func _init():
@@ -197,14 +197,11 @@ func set_jiggle_control(val : bool):
 	recent_positions = []
 
 
-func set_monitor_stopped_or_deleted(val : bool):
-	monitor_stopped_or_deleted = val
+func set_monitor_stopped(val : bool):
 	if val :
 		in_motion = true # guarantees that after enabling, signal WILL eventually be emitted
-		connect("tree_exiting",self,"_on_delete",[],CONNECT_ONESHOT)
 	recent_sq_speeds = []
-func _on_delete():
-	if monitor_stopped_or_deleted : emit_signal("stopped_or_deleted")
+	monitor_stopped = val
 
 
 func _physics_process(_delta):
@@ -220,7 +217,7 @@ func _physics_process(_delta):
 					num_negs += 1
 			if num_negs > 5: call_deferred("sedate")
 	
-	if monitor_stopped_or_deleted:
+	if monitor_stopped:
 		recent_sq_speeds.push_back(linear_velocity.length_squared())
 		if len(recent_sq_speeds) > 5:
 			recent_sq_speeds.pop_front()
@@ -231,7 +228,7 @@ func _physics_process(_delta):
 				if sqspeed < 900 : all_sqspeeds_above_upper_threshold = false
 			if all_sqspeeds_below_lower_threshold and in_motion :
 				in_motion = false
-				emit_signal("stopped_or_deleted")
+				emit_signal("stopped")
 			elif all_sqspeeds_above_upper_threshold and not in_motion:
 				in_motion = true
 		
