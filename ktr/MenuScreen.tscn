@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://theme.tres" type="Theme" id=1]
 [ext_resource path="res://images/bg.png" type="Texture" id=2]
@@ -6,6 +6,28 @@
 [ext_resource path="res://Help.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Logo.gd" type="Script" id=5]
 [ext_resource path="res://Settings.tscn" type="PackedScene" id=6]
+[ext_resource path="res://images/fireflies/Firefly0002.png" type="Texture" id=7]
+[ext_resource path="res://images/fireflies/Firefly0005.png" type="Texture" id=8]
+[ext_resource path="res://images/fireflies/Firefly0006.png" type="Texture" id=9]
+[ext_resource path="res://images/fireflies/Firefly0004.png" type="Texture" id=10]
+[ext_resource path="res://images/fireflies/Firefly0003.png" type="Texture" id=11]
+[ext_resource path="res://images/fireflies/Firefly0011.png" type="Texture" id=12]
+[ext_resource path="res://images/fireflies/Firefly0012.png" type="Texture" id=13]
+[ext_resource path="res://images/fireflies/Firefly0007.png" type="Texture" id=14]
+[ext_resource path="res://images/fireflies/Firefly0008.png" type="Texture" id=15]
+[ext_resource path="res://images/fireflies/Firefly0001.png" type="Texture" id=16]
+[ext_resource path="res://images/fireflies/Firefly0010.png" type="Texture" id=17]
+[ext_resource path="res://images/fireflies/Firefly0009.png" type="Texture" id=18]
+[ext_resource path="res://images/fireflies/Firefly0013.png" type="Texture" id=19]
+[ext_resource path="res://images/fireflies/Firefly0000.png" type="Texture" id=20]
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 20 ), ExtResource( 16 ), ExtResource( 7 ), ExtResource( 11 ), ExtResource( 10 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 18 ), ExtResource( 17 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 19 ) ],
+"loop": true,
+"name": "default",
+"speed": 12.0
+} ]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://fonts/Avara.ttf"
@@ -32,6 +54,12 @@ texture = ExtResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="fireflies" type="AnimatedSprite" parent="bg"]
+position = Vector2( 660, 32 )
+frames = SubResource( 3 )
+frame = 4
+playing = true
 
 [node name="LogoZone" type="CenterContainer" parent="."]
 margin_right = 1066.0
