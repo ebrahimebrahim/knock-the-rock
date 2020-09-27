@@ -86,19 +86,21 @@ shape = SubResource( 3 )
 position = Vector2( 149.919, 236.155 )
 shape = SubResource( 4 )
 
-[node name="LabelsLayer" type="CanvasLayer" parent="." index="7"]
+[node name="LabelsLayer" type="Node2D" parent="." index="7"]
+position = Vector2( 1066.5, 600 )
+z_index = 1
 
 [node name="ThrowingRocksRemainingLabel" type="Label" parent="LabelsLayer" index="0"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -267.275
-margin_top = -60.0
-margin_right = -20.275
-margin_bottom = -25.0
+margin_left = -279.779
+margin_top = -59.9999
+margin_right = -15.7794
+margin_bottom = -39.9999
 theme = ExtResource( 4 )
-text = "Throwing Rocks Remaining: 0"
+text = "Throwing Rocks Remaining: 0/0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -108,8 +110,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -159.0
-margin_top = -35.0
+margin_left = -177.042
+margin_top = -37.9999
+margin_right = -39.0425
+margin_bottom = -17.9999
 theme = ExtResource( 4 )
 text = "Rocks Knocked: 0"
 __meta__ = {
@@ -117,10 +121,10 @@ __meta__ = {
 }
 
 [node name="MsgCenter" type="Label" parent="LabelsLayer" index="2"]
-margin_left = 164.877
-margin_top = 150.129
-margin_right = 903.877
-margin_bottom = 325.129
+margin_left = -899.812
+margin_top = -450.871
+margin_right = -160.812
+margin_bottom = -275.871
 theme = ExtResource( 4 )
 custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 0.74902, 0.678431, 0.627451, 1 )
