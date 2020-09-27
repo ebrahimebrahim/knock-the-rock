@@ -27,10 +27,11 @@ const _to_proceed = {
 }
 
 const _mistake_messages = {
-	"en" : ["Please wait, we are experiencing technical difficulties",
-			"Oops, I got this this time",
+	"en" : ["Oops, replacing target",
+			"Whoops, I got this this time",
 			"LOL sorry let me try one more time",
-			"Ok ok, this time for sure"]
+			"Ok ok, this time for sure",
+			"Please wait, we are experiencing technical difficulties"]
 }
 
 const _knocked = {
