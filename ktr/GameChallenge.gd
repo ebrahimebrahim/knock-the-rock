@@ -32,8 +32,8 @@ func _ready():
 		
 	place_new_target_rock()
 	
-	$LabelsLayer/ThrowingRocksRemainingLabel.text = Strings.throwing_remaining(throwing_rocks_remaining)
-	$LabelsLayer/ScoreLabel.text = Strings.rocks_knocked(score)
+	$LabelsLayer/MarginContainer/VBoxContainer/ThrowingRocksRemainingLabel.text = Strings.throwing_remaining(throwing_rocks_remaining)
+	$LabelsLayer/MarginContainer/VBoxContainer/ScoreLabel.text = Strings.rocks_knocked(score)
 
 
 func initialize_beuld_top_area():
@@ -90,7 +90,7 @@ func target_rock_on_boulder() -> bool:
 func increment_score():
 	show_message(Strings.knocked(),1.2)
 	score += 1
-	$LabelsLayer/ScoreLabel.text = Strings.rocks_knocked(score)
+	$LabelsLayer/MarginContainer/VBoxContainer/ScoreLabel.text = Strings.rocks_knocked(score)
 
 
 func place_new_throwing_rocks(num_rocks : int):
@@ -141,7 +141,7 @@ func _on_justspawned_timeout(rock : Rock, inner_circle : Area2D):
 
 func change_throwing_rocks_remaining(change : int):
 	throwing_rocks_remaining += change
-	$LabelsLayer/ThrowingRocksRemainingLabel.text = Strings.throwing_remaining(throwing_rocks_remaining)
+	$LabelsLayer/MarginContainer/VBoxContainer/ThrowingRocksRemainingLabel.text = Strings.throwing_remaining(throwing_rocks_remaining)
 
 
 func place_new_target_rock():
