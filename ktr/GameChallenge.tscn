@@ -47,7 +47,7 @@ __meta__ = {
 }
 
 [node name="ThrowZone" type="Area2D" parent="LineOfPebbles" index="0"]
-position = Vector2( 281, 300 )
+position = Vector2( 275, 300 )
 collision_layer = 3
 collision_mask = 3
 __meta__ = {
