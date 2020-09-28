@@ -48,6 +48,7 @@ func reload_scene():
 func scroll_bg(scene):
 	$LogoZone.hide()
 	$MenuZone.hide()
+	$MarginContainer/VersionLabel.hide()
 	scrolling_bg = true
 	change_scene_to = scene
 
@@ -100,6 +101,7 @@ func process_settings():
 
 
 func setup_ui_labels():
+	$MarginContainer/VersionLabel.text = Globals.version
 	$LogoZone/Logo/Title.text = Strings.ui_label("ktr title")
 	$MenuZone/Menu/SdbxButton.text = Strings.ui_label("sandbox btn")
 	$MenuZone/Menu/ChlgButton.text = Strings.ui_label("challenge btn")

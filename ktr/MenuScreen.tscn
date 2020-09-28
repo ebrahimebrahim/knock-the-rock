@@ -35,15 +35,15 @@ __meta__ = {
 
 [node name="LogoZone" type="CenterContainer" parent="."]
 margin_right = 1066.0
-margin_bottom = 298.0
+margin_bottom = 285.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Logo" type="Control" parent="LogoZone"]
 margin_left = 533.0
-margin_top = 149.0
+margin_top = 142.0
 margin_right = 533.0
-margin_bottom = 149.0
+margin_bottom = 142.0
 script = ExtResource( 5 )
 
 [node name="Center" type="Position2D" parent="LogoZone/Logo"]
@@ -84,9 +84,9 @@ __meta__ = {
 }
 
 [node name="MenuZone" type="Control" parent="."]
-margin_top = 302.0
+margin_top = 289.0
 margin_right = 1066.0
-margin_bottom = 600.0
+margin_bottom = 574.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -107,43 +107,43 @@ __meta__ = {
 
 [node name="SdbxButton" type="Button" parent="MenuZone/Menu"]
 margin_right = 355.0
-margin_bottom = 39.0
+margin_bottom = 37.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 1 )
 text = "Sandbox"
 
 [node name="ChlgButton" type="Button" parent="MenuZone/Menu"]
-margin_top = 49.0
+margin_top = 47.0
 margin_right = 355.0
-margin_bottom = 88.0
+margin_bottom = 84.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 1 )
 text = "Challenge"
 
 [node name="SettingsButton" type="Button" parent="MenuZone/Menu"]
-margin_top = 98.0
+margin_top = 94.0
 margin_right = 355.0
-margin_bottom = 137.0
+margin_bottom = 131.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 1 )
 text = "Settings"
 
 [node name="HelpButton" type="Button" parent="MenuZone/Menu"]
-margin_top = 147.0
+margin_top = 141.0
 margin_right = 355.0
-margin_bottom = 186.0
+margin_bottom = 178.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 1 )
 text = "Help"
 
 [node name="ExitButton" type="Button" parent="MenuZone/Menu"]
-margin_top = 196.0
+margin_top = 188.0
 margin_right = 355.0
-margin_bottom = 238.0
+margin_bottom = 228.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 1 )
@@ -164,3 +164,20 @@ margin_bottom = 246.0
 
 [node name="Settings" parent="Overlays" instance=ExtResource( 6 )]
 visible = false
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_top = 578.0
+margin_right = 1066.0
+margin_bottom = 600.0
+custom_constants/margin_right = 5
+custom_constants/margin_bottom = 2
+
+[node name="VersionLabel" type="Label" parent="MarginContainer"]
+margin_right = 1061.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+text = "[version label]"
+align = 2
+valign = 2
