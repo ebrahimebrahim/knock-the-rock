@@ -173,7 +173,8 @@ func _on_target_rock_contact(body):
 
 
 func _on_LineOfPebbles_rock_lost(rock : Rock):
-	if scene_shutting_down or game_has_ended: return
+	if scene_shutting_down or game_has_ended:
+		return
 	change_throwing_rocks_remaining(-1)
 	if throwing_rocks_remaining <= 0:
 		# initiate possible endgame sequence
@@ -181,8 +182,8 @@ func _on_LineOfPebbles_rock_lost(rock : Rock):
 		game_might_end = true
 		if not rock.is_connected("stopped",self,"_last_rock_stopped"):
 			rock.connect("stopped",self,"_last_rock_stopped",[rock],CONNECT_ONESHOT)
-		if not rock.is_connected("tree_exiting",self,"_last_rock_gone"):
-			rock.connect("tree_exiting",self,"_last_rock_gone",[],CONNECT_ONESHOT)
+		if not rock.is_connected("tree_exited",self,"_last_rock_gone"):
+			rock.connect("tree_exited",self,"_last_rock_gone",[],CONNECT_ONESHOT)
 	throwzone_rocks.erase(rock)
 	var num_throwzone_rocks_including_incoming : int = len(throwzone_rocks) + (0 if $DelayTillReplaceThrowingRocks.is_stopped() else 1)
 	if len(throwzone_rocks) < 2 and throwing_rocks_remaining > num_throwzone_rocks_including_incoming:
@@ -198,7 +199,7 @@ func _on_DelayTillReplaceThrowingRocks_timeout():
 
 func _last_rock_stopped(rock : Rock) -> void:
 	rock.monitor_stopped = false
-	rock.disconnect("tree_exiting",self,"_last_rock_gone")
+	rock.disconnect("tree_exited",self,"_last_rock_gone")
 	$DelayTillEndGame.start()
 
 
