@@ -47,7 +47,7 @@ func spawn_rocks(num_rocks : int, spawn_line : Line2D, boundaries = []):
 	var rocks = []
 	for _i in range(num_rocks):
 		var rock : Rock = Rock.new()
-		add_child(rock)
+		$RockList.add_child(rock)
 		var num_positioning_attempts = 0
 		var positioning_failed = false
 		while true:

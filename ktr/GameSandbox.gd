@@ -9,7 +9,7 @@ func _input(event):
 			Input.set_custom_mouse_cursor(splayed_hand,Input.CURSOR_ARROW,Vector2(21,27))
 			$SplayedHandTimer.start()
 			var rock : Rock = Rock.new()
-			add_child(rock)
+			$RockList.add_child(rock)
 			rock.flat_bottom()
 			rock.position += event.position  - rock.global_transform.xform(rock.center_of_mass())
 		if event.button_index == BUTTON_LEFT:

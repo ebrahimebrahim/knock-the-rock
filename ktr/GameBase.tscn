@@ -116,3 +116,8 @@ __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
+
+[node name="RockList" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
