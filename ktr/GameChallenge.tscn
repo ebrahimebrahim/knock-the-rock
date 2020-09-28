@@ -8,7 +8,7 @@
 [ext_resource path="res://sounds/endgame_ruffle.wav" type="AudioStream" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 430.518, 705.9 )
+extents = Vector2( 139, 300 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 140.292, 15 )
@@ -47,7 +47,7 @@ __meta__ = {
 }
 
 [node name="ThrowZone" type="Area2D" parent="LineOfPebbles" index="0"]
-position = Vector2( -10.0106, 133.061 )
+position = Vector2( 281, 300 )
 collision_layer = 3
 collision_mask = 3
 __meta__ = {
