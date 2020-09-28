@@ -89,9 +89,9 @@ func throwing_remaining(t):
 func endgame_message(score, total_rocks_given):
 	var msg_index : int
 	if total_rocks_given < len(_endgame_messages[lang]):
-		msg_index = min(score,len(_endgame_messages[lang])-1)
+		msg_index = int(min(score,len(_endgame_messages[lang])-1))
 	else:
-		msg_index = min(int((float(score)/total_rocks_given)*(len(_endgame_messages[lang])-1)),len(_endgame_messages[lang])-1)
+		msg_index = int(min((float(score)/total_rocks_given)*(len(_endgame_messages[lang])-1),len(_endgame_messages[lang])-1))
 	return _score[lang] + ": " + str(score) + "/" + str(total_rocks_given) + "\n"+ _endgame_messages[lang][msg_index] 
 
 func mistake_message(mistakes_made):
