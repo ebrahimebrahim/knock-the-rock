@@ -1,0 +1,42 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://GameChallenge.tscn" type="PackedScene" id=1]
+[ext_resource path="res://images/fireflies/Firefly0003.png" type="Texture" id=2]
+[ext_resource path="res://GameChallengeSpecial.gd" type="Script" id=3]
+[ext_resource path="res://images/fireflies/Firefly0001.png" type="Texture" id=4]
+[ext_resource path="res://images/fireflies/Firefly0006.png" type="Texture" id=5]
+[ext_resource path="res://images/fireflies/Firefly0005.png" type="Texture" id=6]
+[ext_resource path="res://images/fireflies/Firefly0004.png" type="Texture" id=7]
+[ext_resource path="res://images/fireflies/Firefly0002.png" type="Texture" id=8]
+[ext_resource path="res://images/fireflies/Firefly0000.png" type="Texture" id=9]
+[ext_resource path="res://images/fireflies/Firefly0013.png" type="Texture" id=10]
+[ext_resource path="res://images/fireflies/Firefly0007.png" type="Texture" id=11]
+[ext_resource path="res://images/fireflies/Firefly0009.png" type="Texture" id=12]
+[ext_resource path="res://images/fireflies/Firefly0008.png" type="Texture" id=13]
+[ext_resource path="res://images/fireflies/Firefly0011.png" type="Texture" id=14]
+[ext_resource path="res://images/fireflies/Firefly0012.png" type="Texture" id=15]
+[ext_resource path="res://images/fireflies/Firefly0010.png" type="Texture" id=16]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 9 ), ExtResource( 4 ), ExtResource( 8 ), ExtResource( 2 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 11 ), ExtResource( 13 ), ExtResource( 12 ), ExtResource( 16 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "default",
+"speed": 12.0
+} ]
+
+[node name="GameChallenge" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="bg" parent="." index="0"]
+self_modulate = Color( 0.0588235, 0.0627451, 0.0941176, 1 )
+
+[node name="Fireflies" type="AnimatedSprite" parent="bg" index="0"]
+frames = SubResource( 1 )
+frame = 6
+
+[node name="FirefliesRectTopLeft" type="Position2D" parent="bg" index="1"]
+position = Vector2( -411.244, -250.197 )
+
+[node name="FirefliesRectBotRight" type="Position2D" parent="bg" index="2"]
+position = Vector2( 589.545, 89.1507 )
