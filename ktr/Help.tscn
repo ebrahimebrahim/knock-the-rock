@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Help.gd" type="Script" id=1]
 [ext_resource path="res://theme.tres" type="Theme" id=2]
+[ext_resource path="res://theme_help.tres" type="Theme" id=3]
 
 [sub_resource type="StyleBoxLine" id=1]
 color = Color( 1, 1, 1, 1 )
@@ -13,10 +14,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -266.5
-margin_top = -230.5
-margin_right = 266.5
-margin_bottom = 230.5
+margin_left = -309.0
+margin_top = -256.0
+margin_right = 309.0
+margin_bottom = 256.0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -30,17 +31,18 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-margin_right = 533.0
-margin_bottom = 461.0
+margin_right = 618.0
+margin_bottom = 512.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
-margin_right = 533.0
-margin_bottom = 39.0
+margin_right = 618.0
+margin_bottom = 56.0
 size_flags_vertical = 3
-text = "-- HELP --"
+theme = ExtResource( 3 )
+text = "HELP"
 align = 1
 valign = 1
 __meta__ = {
@@ -48,20 +50,24 @@ __meta__ = {
 }
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 43.0
-margin_right = 533.0
-margin_bottom = 128.0
+margin_top = 60.0
+margin_right = 618.0
+margin_bottom = 134.0
+custom_constants/margin_right = 10
 custom_constants/margin_top = 10
+custom_constants/margin_left = 10
 custom_constants/margin_bottom = 10
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TopText" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer2"]
+margin_left = 10.0
 margin_top = 10.0
-margin_right = 533.0
-margin_bottom = 75.0
+margin_right = 608.0
+margin_bottom = 64.0
 size_flags_vertical = 3
+theme = ExtResource( 3 )
 text = "The simple goal of Knock the Rock is to knock one rock down by the throw of another rock. It has been hypothesized that Knock the Rock may have been the first game ever played by humans! However, there is no evidence to support this theory."
 align = 1
 valign = 1
@@ -71,27 +77,36 @@ __meta__ = {
 }
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 132.0
-margin_right = 533.0
-margin_bottom = 363.0
+margin_top = 138.0
+margin_right = 618.0
+margin_bottom = 393.0
 custom_constants/margin_top = 15
 custom_constants/margin_bottom = 15
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
 margin_top = 15.0
-margin_right = 533.0
-margin_bottom = 216.0
+margin_right = 618.0
+margin_bottom = 240.0
 size_flags_vertical = 3
 
-[node name="LeftText" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
-margin_right = 262.0
-margin_bottom = 99.0
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+margin_right = 305.0
+margin_bottom = 225.0
+size_flags_horizontal = 3
+custom_constants/margin_right = 15
+custom_constants/margin_left = 15
+
+[node name="LeftText" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer"]
+margin_left = 15.0
+margin_right = 290.0
+margin_bottom = 111.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
+theme = ExtResource( 3 )
 text = "SANDBOX MODE
 
 Right click to spawn rocks. You can set rocks up manually and knock them with other rocks, or you can do whatever else you want with the rocks."
-align = 1
+align = 3
 valign = 1
 autowrap = true
 __meta__ = {
@@ -99,21 +114,30 @@ __meta__ = {
 }
 
 [node name="MidLine" type="Panel" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
-margin_left = 266.0
-margin_right = 266.0
-margin_bottom = 201.0
+margin_left = 309.0
+margin_right = 309.0
+margin_bottom = 225.0
 custom_styles/panel = SubResource( 1 )
 
-[node name="RightText" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
-margin_left = 270.0
-margin_right = 533.0
-margin_bottom = 201.0
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+margin_left = 313.0
+margin_right = 618.0
+margin_bottom = 225.0
+size_flags_horizontal = 3
+custom_constants/margin_right = 15
+custom_constants/margin_left = 15
+
+[node name="RightText" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer2"]
+margin_left = 15.0
+margin_right = 290.0
+margin_bottom = 225.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
+theme = ExtResource( 3 )
 text = "CHALLENGE MODE
 
 You can only interact with your throwing rocks, which will be on your side of the screen. You will start with two, and receive a replacement each time you have less than two, until you've received a total of ten new rocks. Target rocks will be set up on the boulder on the opposite side of the screen, being replaced when you knock them. See how many rocks you can knock!"
-align = 1
+align = 3
 valign = 1
 autowrap = true
 __meta__ = {
@@ -121,9 +145,9 @@ __meta__ = {
 }
 
 [node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 367.0
-margin_right = 533.0
-margin_bottom = 418.0
+margin_top = 397.0
+margin_right = 618.0
+margin_bottom = 452.0
 custom_constants/margin_top = 10
 custom_constants/margin_bottom = 10
 __meta__ = {
@@ -132,9 +156,10 @@ __meta__ = {
 
 [node name="BottomText" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer3"]
 margin_top = 10.0
-margin_right = 533.0
-margin_bottom = 41.0
+margin_right = 618.0
+margin_bottom = 45.0
 size_flags_vertical = 3
+theme = ExtResource( 3 )
 text = "Press (R) to restart in either mode.
 Open this help at anytime by pressing (H) in-game."
 align = 1
@@ -145,9 +170,9 @@ __meta__ = {
 }
 
 [node name="HelpButtonZone" type="Control" parent="MarginContainer/VBoxContainer"]
-margin_top = 422.0
-margin_right = 533.0
-margin_bottom = 461.0
+margin_top = 456.0
+margin_right = 618.0
+margin_bottom = 512.0
 size_flags_vertical = 3
 
 [node name="HideButton" type="Button" parent="MarginContainer/VBoxContainer/HelpButtonZone"]
