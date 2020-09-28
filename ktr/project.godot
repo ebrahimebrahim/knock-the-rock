@@ -23,6 +23,7 @@ _global_script_class_icons={
 config/name="Knock the Rock"
 run/main_scene="res://MenuScreen.tscn"
 config/icon="res://icon.png"
+config/windows_native_icon="res://icon.ico"
 
 [autoload]
 
