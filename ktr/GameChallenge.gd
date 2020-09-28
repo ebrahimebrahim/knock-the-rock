@@ -124,6 +124,8 @@ func temporarily_grant_justspawned_collisionness(rock : Rock):
 	c.position = posrad[0]
 	
 	get_tree().create_timer(0.7).connect("timeout",self,"_on_justspawned_timeout",[rock,a])
+	
+	
 func _on_justspawned_timeout(rock : Rock, inner_circle : Area2D):
 	if not is_instance_valid(rock): return
 	for body in inner_circle.get_overlapping_bodies():

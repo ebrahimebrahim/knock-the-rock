@@ -14,7 +14,8 @@ const _throwing_remaining = {
 const _endgame_messages = {
 	"en" : ["This is disappointing.",
 			"Decent, but better luck next time.",
-			"Good job!","Wow, incredible!",
+			"Good job!",
+			"Wow, incredible!",
 			"You are a true Knock the Rock champion!"]
 }
 
@@ -86,8 +87,12 @@ func throwing_remaining(t):
 	return _throwing_remaining[lang] + ": " + str(t) + "/" + str(Globals.total_rocks_given)
 
 func endgame_message(score, total_rocks_given):
-	var msg_index = min(int((float(score)/total_rocks_given)*(len(_endgame_messages[lang])-1)),len(_endgame_messages[lang])-1)
-	return _score[lang] + ": " + str(score) + "/" + str(Globals.total_rocks_given) + "\n"+ _endgame_messages[lang][msg_index] 
+	var msg_index : int
+	if total_rocks_given < len(_endgame_messages[lang]):
+		msg_index = min(score,len(_endgame_messages[lang])-1)
+	else:
+		msg_index = min(int((float(score)/total_rocks_given)*(len(_endgame_messages[lang])-1)),len(_endgame_messages[lang])-1)
+	return _score[lang] + ": " + str(score) + "/" + str(total_rocks_given) + "\n"+ _endgame_messages[lang][msg_index] 
 
 func mistake_message(mistakes_made):
 	return _mistake_messages[lang][mistakes_made%len(_mistake_messages[lang])]
