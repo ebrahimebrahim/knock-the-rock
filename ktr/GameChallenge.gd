@@ -207,7 +207,7 @@ func _last_rock_stopped(rock : Rock) -> void:
 
 
 func _last_rock_gone() -> void:
-	if game_has_ended: return # in case game already ended due to EndGameFailsafe
+	if scene_shutting_down or game_has_ended: return # in case game already ended due to EndGameFailsafe
 	$DelayTillEndGame.start()
 
 
@@ -221,7 +221,7 @@ func _on_DelayTillEndGame_timeout():
 
 
 func _on_LineOfPebbles_rock_regained(rock : Rock):
-	if game_has_ended: return
+	if scene_shutting_down or game_has_ended: return
 	change_throwing_rocks_remaining(1)
 	throwzone_rocks.append(rock)
 	if not rock in throwing_rocks:
