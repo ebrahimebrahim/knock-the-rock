@@ -65,7 +65,7 @@ func _on_DefaultsButton_pressed():
 
 
 func apply_settings(s : SettingsConfig):
-	var error : int = ResourceSaver.save("settings.tres",s)
+	var error : int = ResourceSaver.save("user://settings.tres",s)
 	if error != OK:
 		print("There was an error saving settings.")
 	emit_signal("apply")
