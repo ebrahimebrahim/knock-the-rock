@@ -184,6 +184,7 @@ func _on_LineOfPebbles_rock_lost(rock : Rock):
 			rock.connect("stopped",self,"_last_rock_stopped",[rock],CONNECT_ONESHOT)
 		if not rock.is_connected("tree_exited",self,"_last_rock_gone"):
 			rock.connect("tree_exited",self,"_last_rock_gone",[],CONNECT_ONESHOT)
+		$EndGameFailsafe.start()
 	throwzone_rocks.erase(rock)
 	var num_throwzone_rocks_including_incoming : int = len(throwzone_rocks) + (0 if $DelayTillReplaceThrowingRocks.is_stopped() else 1)
 	if len(throwzone_rocks) < 2 and throwing_rocks_remaining > num_throwzone_rocks_including_incoming:
@@ -204,6 +205,7 @@ func _last_rock_stopped(rock : Rock) -> void:
 
 
 func _last_rock_gone() -> void:
+	if game_has_ended: return # in case game already ended due to EndGameFailsafe
 	$DelayTillEndGame.start()
 
 
@@ -222,6 +224,7 @@ func _on_LineOfPebbles_rock_regained(rock : Rock):
 	throwzone_rocks.append(rock)
 	if not rock in throwing_rocks:
 		throwing_rocks.append(rock)
+	$EndGameFailsafe.stop()
 
 
 func _on_ThrowZone_mouse_exited():

@@ -167,7 +167,14 @@ __meta__ = {
 "_editor_description_": "How long to wait after player is out of rocks before actually ending the game-- we wait to give the last target rock a chance to finish falling."
 }
 
-[node name="EndgameRufflePlayer" type="AudioStreamPlayer" parent="." index="11"]
+[node name="EndGameFailsafe" type="Timer" parent="." index="11"]
+wait_time = 6.0
+one_shot = true
+__meta__ = {
+"_editor_description_": "A longer timer that triggers after the number of remaining rocks is 0 for long enough. This is just in case the \"DelayTillEndGame\" one isn't triggered for some reason (e.g. in low gravity when rocks float straight up for too long)"
+}
+
+[node name="EndgameRufflePlayer" type="AudioStreamPlayer" parent="." index="12"]
 stream = ExtResource( 6 )
 volume_db = -4.0
 [connection signal="rock_lost" from="LineOfPebbles" to="." method="_on_LineOfPebbles_rock_lost"]
@@ -182,3 +189,4 @@ volume_db = -4.0
 [connection signal="timeout" from="DelayTillSpawnTarget" to="." method="place_new_target_rock"]
 [connection signal="timeout" from="DelayTillReplaceThrowingRocks" to="." method="_on_DelayTillReplaceThrowingRocks_timeout"]
 [connection signal="timeout" from="DelayTillEndGame" to="." method="_on_DelayTillEndGame_timeout"]
+[connection signal="timeout" from="EndGameFailsafe" to="." method="_on_DelayTillEndGame_timeout"]
