@@ -104,7 +104,9 @@ func generate_collision_shape():
 
 
 func _process(delta):
-	if position.y > get_tree().get_root().get_size_override().y + 400:
+	if global_position.y > get_tree().get_root().get_size_override().y + 400  or\
+	   global_position.x > get_tree().get_root().get_size_override().x + 200  or\
+	   global_position.x < -200 :
 		queue_free()
 	if _schwoop_deleting:
 		modulate = Color(modulate.r,modulate.g,modulate.b, max(0.0 , modulate.a - delta*(1.0/schwoop_delete_time) ) )
