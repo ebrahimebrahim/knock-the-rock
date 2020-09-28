@@ -26,6 +26,7 @@ func _ready():
 	
 	beuld = Boulder.new()
 	add_child(beuld)
+	move_child(beuld, $RockList.get_index())
 	beuld.set_position(random_point_on_line($BoulderBotRight)-beuld.bottom_right())
 	
 	$MenuZone.visible = not Globals.corner_menu_hidden_by_default
