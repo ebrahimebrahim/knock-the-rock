@@ -211,13 +211,24 @@ func _last_rock_gone() -> void:
 	$DelayTillEndGame.start()
 
 
+func special_mode_condition_met() -> bool :
+	return score > total_rocks_given and total_rocks_given >= 5
+
+
 func _on_DelayTillEndGame_timeout():
 	if throwing_rocks_remaining <= 0 and not game_has_ended:
 		game_has_ended = true
 		$EndgameRufflePlayer.play()
-		show_message(Strings.endgame_message(score,total_rocks_given),-1)
+		if not special_mode_condition_met():
+			show_message(Strings.endgame_message(score,total_rocks_given),-1)
 	elif throwing_rocks_remaining > 0:
 		game_might_end = false
+
+
+func _on_EndgameRufflePlayer_finished():
+	if special_mode_condition_met():
+		scene_shutting_down = true
+		get_tree().change_scene_to(load("GameChallengeSpecial.tscn"))
 
 
 func _on_LineOfPebbles_rock_regained(rock : Rock):

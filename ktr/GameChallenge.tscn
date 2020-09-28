@@ -191,3 +191,4 @@ volume_db = -4.0
 [connection signal="timeout" from="DelayTillReplaceThrowingRocks" to="." method="_on_DelayTillReplaceThrowingRocks_timeout"]
 [connection signal="timeout" from="DelayTillEndGame" to="." method="_on_DelayTillEndGame_timeout"]
 [connection signal="timeout" from="EndGameFailsafe" to="." method="_on_DelayTillEndGame_timeout"]
+[connection signal="finished" from="EndgameRufflePlayer" to="." method="_on_EndgameRufflePlayer_finished"]
