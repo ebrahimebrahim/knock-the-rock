@@ -39,12 +39,13 @@ func _input(event):
 	if event.is_action_pressed("toggle_hud"): _on_toggle()
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT: update_cursor()
 
-# Spawn a number of non-intersecting rocks along the given line segment
-# The line should have exactly two points
+# Spawn a number of non-intersecting rocks within the given box
+# The box should be a node that has two Position2D children
 # Returns a list of the spawned rocks
 # optionally boundaries can be an Array of two floats: the left and right boundary
 # in which the rocks should be spawned
-func spawn_rocks(num_rocks : int, spawn_line : Line2D, boundaries = []):
+func spawn_rocks(num_rocks : int, spawn_box : Node, boundaries = []):
+	assert(spawn_box.get_child_count() == 2)
 	var rocks = []
 	for _i in range(num_rocks):
 		var rock : Rock = Rock.new()
@@ -52,15 +53,20 @@ func spawn_rocks(num_rocks : int, spawn_line : Line2D, boundaries = []):
 		var num_positioning_attempts = 0
 		var positioning_failed = false
 		while true:
-			rock.set_position(random_point_on_line(spawn_line))
+			rock.set_position(random_point_in_box(spawn_box))
 			var rock_intersects_some_other_rock = false
 			var r_l = rock.leftmost_vertex().x
 			var r_r = rock.rightmost_vertex().x
-			for other in rocks:
-				var o_l = other.leftmost_vertex().x
-				var o_r = other.rightmost_vertex().x
-				if r_r > o_l and o_r > r_l:
-					rock_intersects_some_other_rock = true
+			var r_t = rock.topmost_vertex().y
+			var r_b = rock.botmost_vertex().y
+			for other in $RockList.get_children():
+				if not other == rock:
+					var o_l = other.leftmost_vertex().x
+					var o_r = other.rightmost_vertex().x
+					var o_t = other.topmost_vertex().y
+					var o_b = other.botmost_vertex().y
+					if r_r > o_l and o_r > r_l and r_b > o_t and o_b > r_t:
+						rock_intersects_some_other_rock = true
 			var rock_within_boundaries = true
 			if not boundaries.empty():
 				assert(len(boundaries)==2)
@@ -75,8 +81,14 @@ func spawn_rocks(num_rocks : int, spawn_line : Line2D, boundaries = []):
 		if positioning_failed:
 			for r in rocks:
 				r.queue_free()
-			return spawn_rocks(num_rocks,spawn_line,boundaries)
+			yield(get_tree().create_timer(3.0),"timeout")
+			return spawn_rocks(num_rocks,spawn_box,boundaries)
 	return rocks
+
+# returns a random point in a box, the box being a node which has a "TopLeft" child and a "BotRight" child (their coordinates should be global anyway bc of their ancestry) 
+func random_point_in_box(box : Node):
+	assert(box.get_child_count() == 2)
+	return Vector2(rand_range(box.get_children()[0].position.x,box.get_children()[1].position.x),rand_range(box.get_children()[0].position.y,box.get_children()[1].position.y))
 
 # returns random point on given line, in global coords
 func random_point_on_line(line : Line2D):

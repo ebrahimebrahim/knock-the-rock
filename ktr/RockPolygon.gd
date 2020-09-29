@@ -114,6 +114,22 @@ func rightmost_vertex() -> Vector2:
 	var argmax = xs.find(xs.max())
 	return get_global_transform().xform(vertices[argmax])
 
+# Returns the global coords of the vertex that is topmost in global coords
+func topmost_vertex() -> Vector2:
+	var ys = []
+	for v in vertices:
+		ys.push_back(get_global_transform().xform(v).y)
+	var argmin = ys.find(ys.min())
+	return get_global_transform().xform(vertices[argmin])
+
+# Returns the global coords of the vertex that is bottommost in global coords
+func botmost_vertex() -> Vector2:
+	var ys = []
+	for v in vertices:
+		ys.push_back(get_global_transform().xform(v).y)
+	var argmax = ys.find(ys.max())
+	return get_global_transform().xform(vertices[argmax])
+
 
 # Returns a bounding rectangle in global coords
 func bounding_rect() -> Rect2:

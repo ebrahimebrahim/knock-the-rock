@@ -6,12 +6,13 @@
 [node name="Game" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
-[node name="RockSpawnLine" type="Line2D" parent="." index="3"]
-visible = false
-points = PoolVector2Array( 100, 300, 500, 300 )
-__meta__ = {
-"_editor_description_": "Spawn range for rocks"
-}
+[node name="RockSpawnBox" type="Node" parent="." index="2"]
+
+[node name="TopLeft" type="Position2D" parent="RockSpawnBox" index="0"]
+position = Vector2( 92, 242 )
+
+[node name="BotRight" type="Position2D" parent="RockSpawnBox" index="1"]
+position = Vector2( 368, 432 )
 
 [node name="SplayedHandTimer" type="Timer" parent="." index="6"]
 wait_time = 0.7

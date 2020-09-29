@@ -288,6 +288,14 @@ func rightmost_vertex() -> Vector2:
 	return rock_polygon.rightmost_vertex()
 
 
+func topmost_vertex() -> Vector2:
+	return rock_polygon.topmost_vertex()
+
+
+func botmost_vertex() -> Vector2:
+	return rock_polygon.botmost_vertex()
+
+
 # Returns a bounding rectangle in global coords
 func bounding_rect() -> Rect2:
 	return rock_polygon.bounding_rect()

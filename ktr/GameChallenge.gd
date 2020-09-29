@@ -97,7 +97,7 @@ func place_new_throwing_rocks(num_rocks : int):
 	var rightwall : CollisionShape2D = $LineOfPebbles/ThrowZoneBarrier/RightWall
 	var rocks = spawn_rocks(
 		num_rocks,
-		$RockSpawnLine,
+		$RockSpawnBox,
 		[ 0 , rightwall.global_position.x - rightwall.shape.extents.x ]
 	)
 	for rock in rocks:
