@@ -23,10 +23,6 @@ const _score = {
 	"en" : "Score"
 }
 
-const _to_proceed = {
-	"en" : "Restart or return to menu to proceed"
-}
-
 const _mistake_messages = {
 	"en" : ["Oops, replacing target",
 			"Whoops, I got this this time",
