@@ -2,13 +2,14 @@ extends Node
 
 var lang = "en"
 
-
 const _rocks_knocked = {
-	"en" : "Rocks Knocked"
+	"en" : "Rocks Knocked",
+	"ar" : "الحجارة المسقطة"
 }
 
 const _throwing_remaining = {
-	"en" : "Throwing Rocks Remaining"
+	"en" : "Throwing Rocks Remaining",
+	"ar" : "الحجارة الباقية للرمي"
 }
 
 const _endgame_messages = {
@@ -16,35 +17,50 @@ const _endgame_messages = {
 			"Decent, but better luck next time.",
 			"Good job!",
 			"Wow, incredible!",
-			"You are a true Knock the Rock champion!"]
+			"You are a true Knock the Rock champion!"],
+	"ar" : ["هذا مخيب للأمل.",
+			"حسنا, لكن حظا اوفر في المرة القادمة.",
+			"أحسنت!",
+			"ممتاز!",
+			"انت بطل \"أسقط الحجرة\"!"]
 }
 
 const _score = {
-	"en" : "Score"
+	"en" : "Score",
+	"ar" : "النتيجة"
 }
 
 const _mistake_messages = {
 	"en" : ["Oops, replacing target",
+			"We are experiencing technical difficulties",
 			"Whoops, I got this this time",
 			"Ok ok, this time for sure",
-			"LOL sorry let me try one more time",
-			"We are experiencing technical difficulties"]
+			"LOL sorry let me try one more time"],
+	"ar" : ["لحظة! نحن نبدل الهدف",
+			"عفوا, سنصحح الخطأ",
+			"حسنا, هذه اخر مرة",
+			"ههههه اخر مرة",
+			"خخخخخخخخ"]
 }
 
 const _knocked = {
-	"en" : "Knocked!"
+	"en" : "Knocked!",
+	"ar" : "سقطت!"
 }
 
 const _cant_hold_target = {
-	"en" : "No picking up the target rock!"
+	"en" : "No picking up the target rock!",
+	"ar" : "لا تمسك الهدف!"
 }
 
 const _cant_hold_past_line = {
-	"en" : "No picking up rocks beyond the line of pebbles!"
+	"en" : "No picking up rocks beyond the line of pebbles!",
+	"ar" : "لا تمسك الحجارة خلف خط الحصو!"
 }
 
 const _removing_obstructions = {
-	"en" : "Removing obstructing rocks..."
+	"en" : "Removing obstructing rocks...",
+	"ar" : "نشفط الحجارة المعيقة..."
 }
 
 const _ui_label = {
@@ -71,6 +87,30 @@ const _ui_label = {
 		"restart btn" : "(R)estart",
 		"help btn corner menu" : "(H)elp",
 		"toggle corner menu lbl" : "(T)oggle this Menu",
+	},
+	"ar" : {
+		"ktr title" : "أسقط\nالحجرة",
+		"sandbox btn" : "لعبة حرة",
+		"challenge btn" : "إبدأ تحدي",
+		"settings btn" : "الإعدادات",
+		"help btn" : "مساعدة",
+		"exit btn" : "خروج",
+		"settings title" : "الإعدادات",
+		"fullscreen" : "كبر النافذة",
+		"music volume" : "صوت المسيقة",
+		"gravity" : "جاذبية",
+		"challenge mode rocks" : "عدد الحجارة في وضع التحدي",
+		"corner menu hidden by default" : "إفترض إخفاء قائمة الزاوية",
+		"language" : "اللغة",
+		"apply btn" : "تطبيق",
+		"back btn" : "عودة",
+		"defaults btn" : "الإعدادات الإفتراضية",
+		"help title" : "مساعدة",
+		"hide help btn" : "خبء قائمة المساعدة (H)",
+		"return btn" : "عد إلى القائمة الأصلية (Esc)",
+		"restart btn" : "إبدأ من جديد (R)",
+		"help btn corner menu" : "مساعدة (H)",
+		"toggle corner menu lbl" : "خبء هذه القائمة (T)",
 	}
 }
 
