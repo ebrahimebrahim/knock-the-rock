@@ -112,7 +112,7 @@ func temporarily_grant_justspawned_collisionness(rock : Rock):
 	rock.add_child(a)
 	c.position = posrad[0]
 	
-	get_tree().create_timer(2).connect("timeout",self,"end_justspawned_collisionness",[rock,a])
+	get_tree().create_timer(1.5).connect("timeout",self,"end_justspawned_collisionness",[rock,a])
 	rock.connect("got_held",self,"end_justspawned_collisionness",[rock,a],CONNECT_ONESHOT)
 	
 	
@@ -130,6 +130,7 @@ func end_justspawned_collisionness(rock : Rock, inner_circle : Area2D):
 	rock.collision_layer = 0b11 # will collide with all rocks
 	rock.set_holdable(true)
 	inner_circle.queue_free()
+	rock.sleeping = true
 	rocks_with_justspawned_collisionness.erase(rock)
 
 
