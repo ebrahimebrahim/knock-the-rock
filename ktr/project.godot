@@ -39,7 +39,6 @@ gdscript/warnings/return_value_discarded=false
 [display]
 
 window/size/width=1066
-window/size/fullscreen=true
 mouse_cursor/custom_image="res://images/pointing_hand.png"
 mouse_cursor/custom_image_hotspot=Vector2( 16, 6 )
 window/stretch/mode="2d"
