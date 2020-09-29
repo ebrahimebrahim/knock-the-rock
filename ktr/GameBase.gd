@@ -39,56 +39,37 @@ func _input(event):
 	if event.is_action_pressed("toggle_hud"): _on_toggle()
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT: update_cursor()
 
-# Spawn a number of non-intersecting rocks within the given box
+# Spawn a rock within the given box that does not intersect with any other rocks
 # The box should be a node that has two Position2D children
-# Returns a list of the spawned rocks
-# optionally boundaries can be an Array of two floats: the left and right boundary
-# in which the rocks should be spawned
-func spawn_rocks(num_rocks : int, spawn_box : Node, boundaries = []):
-	assert(spawn_box.get_child_count() == 2)
-	var rocks = []
-	for _i in range(num_rocks):
-		var rock : Rock = Rock.new()
-		$RockList.add_child(rock)
-		var num_positioning_attempts = 0
-		var positioning_failed = false
-		while true:
-			rock.set_position(random_point_in_box(spawn_box))
-			var rock_intersects_some_other_rock = false
-			var r_l = rock.leftmost_vertex().x
-			var r_r = rock.rightmost_vertex().x
-			var r_t = rock.topmost_vertex().y
-			var r_b = rock.botmost_vertex().y
-			for other in $RockList.get_children():
-				if not other == rock:
-					var o_l = other.leftmost_vertex().x
-					var o_r = other.rightmost_vertex().x
-					var o_t = other.topmost_vertex().y
-					var o_b = other.botmost_vertex().y
-					if r_r > o_l and o_r > r_l and r_b > o_t and o_b > r_t:
-						rock_intersects_some_other_rock = true
-			var rock_within_boundaries = true
-			if not boundaries.empty():
-				assert(len(boundaries)==2)
-				rock_within_boundaries = r_l > boundaries[0] and r_r < boundaries[1]
-			if not rock_intersects_some_other_rock and rock_within_boundaries:
-				break
-			num_positioning_attempts += 1
-			if num_positioning_attempts > 20:
-				positioning_failed = true
-				break
-		rocks.append(rock)
-		if positioning_failed:
-			for r in rocks:
-				r.queue_free()
-			yield(get_tree().create_timer(3.0),"timeout")
-			return spawn_rocks(num_rocks,spawn_box,boundaries)
-	return rocks
+# Returns the spawned rock or null if spawning failed
+func spawn_rock(spawn_box : Node) -> Rock:
+	var rock : Rock = Rock.new()
+	$RockList.add_child(rock)
+	var spawn_box_rect : Rect2 = box_to_rect2(spawn_box)
+	for _i in range(20):
+		rock.set_position(random_point_in_box(spawn_box))
+		var rock_intersects_some_other_rock = false
+		var rock_rect : Rect2 = rock.bounding_rect()
+		for other in $RockList.get_children():
+			if other == rock: continue
+			var other_rect : Rect2 = other.bounding_rect()
+			if rock_rect.intersects(other_rect):
+				rock_intersects_some_other_rock = true
+		if not rock_intersects_some_other_rock and spawn_box_rect.encloses(rock_rect):
+			return rock
+	rock.queue_free()
+	return null
 
-# returns a random point in a box, the box being a node which has a "TopLeft" child and a "BotRight" child (their coordinates should be global anyway bc of their ancestry) 
+# returns a random point in a box with coordinates relative to the box
 func random_point_in_box(box : Node):
-	assert(box.get_child_count() == 2)
-	return Vector2(rand_range(box.get_children()[0].position.x,box.get_children()[1].position.x),rand_range(box.get_children()[0].position.y,box.get_children()[1].position.y))
+	var top_left : Position2D = box.get_node("TopLeft")
+	var bot_right : Position2D = box.get_node("BotRight")
+	return Vector2(rand_range(top_left.position.x,bot_right.position.x),rand_range(top_left.position.y,bot_right.position.y))
+
+func box_to_rect2(box : Node) -> Rect2:
+	var top_left : Position2D = box.get_node("TopLeft")
+	var bot_right : Position2D = box.get_node("BotRight")
+	return Rect2(top_left.position,bot_right.position-top_left.position)
 
 # returns random point on given line, in global coords
 func random_point_on_line(line : Line2D):

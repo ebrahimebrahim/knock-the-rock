@@ -1,7 +1,11 @@
 extends "res://GameBase.gd"
 
 func _ready():
-	spawn_rocks(2,$RockSpawnBox)
+	
+	var rocks_to_spawn = 2
+	while rocks_to_spawn > 0:
+		if spawn_rock($RockSpawnBox):
+			rocks_to_spawn -= 1
 
 func _input(event):
 	if event is InputEventMouseButton and event.is_pressed():

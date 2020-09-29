@@ -8,8 +8,10 @@ var target_rock_has_been_touched : bool
 
 var total_rocks_given : int = Globals.total_rocks_given
 var throwing_rocks = [] # list of Rocks that can be thrown-- some items in list will have been deleted at times
+
+var num_reserve_throwing_rocks : int = total_rocks_given
+var num_incoming_throwing_rocks : int = 0
 var throwzone_rocks = [] # list of Rocks in ThrowZone
-var throwing_rocks_remaining : int = total_rocks_given
 
 var beuld_topmid : Vector2
 const beuld_top_area_height = 10.0 # height of boulder top detection zone for clearing top
@@ -23,16 +25,13 @@ var mistakes_made : int = 0
 
 func _ready():
 	beuld_topmid = beuld.global_transform.xform(beuld.top_mid())
-	
 	initialize_beuld_top_area()
 	
-	place_new_throwing_rocks(2)
+	consider_providing_throwing_rocks()
 	
-	
-		
 	place_new_target_rock()
 	
-	$LabelsLayer/MarginContainer/VBoxContainer/ThrowingRocksRemainingLabel.text = Strings.throwing_remaining(throwing_rocks_remaining)
+	update_throwing_rocks_remaining_label()
 	$LabelsLayer/MarginContainer/VBoxContainer/ScoreLabel.text = Strings.rocks_knocked(score)
 
 
@@ -93,19 +92,6 @@ func increment_score():
 	$LabelsLayer/MarginContainer/VBoxContainer/ScoreLabel.text = Strings.rocks_knocked(score)
 
 
-func place_new_throwing_rocks(num_rocks : int):
-	var rightwall : CollisionShape2D = $LineOfPebbles/ThrowZoneBarrier/RightWall
-	var rocks = spawn_rocks(
-		num_rocks,
-		$RockSpawnBox,
-		[ 0 , rightwall.global_position.x - rightwall.shape.extents.x ]
-	)
-	for rock in rocks:
-		rock.connect("clicked_yet_unholdable",self,"_on_clicked_yet_unholdable")
-		temporarily_grant_justspawned_collisionness(rock)
-	throwing_rocks += rocks
-	throwzone_rocks += rocks
-
 func temporarily_grant_justspawned_collisionness(rock : Rock):
 	rock.collision_mask = 0b10 # allows rock to be blocked by throwzone barrier
 	rock.collision_layer = 0b10 # other just spawned rocks should be blocked by rock
@@ -141,9 +127,12 @@ func _on_justspawned_timeout(rock : Rock, inner_circle : Area2D):
 	inner_circle.queue_free()
 
 
-func change_throwing_rocks_remaining(change : int):
-	throwing_rocks_remaining += change
-	$LabelsLayer/MarginContainer/VBoxContainer/ThrowingRocksRemainingLabel.text = Strings.throwing_remaining(throwing_rocks_remaining)
+func update_throwing_rocks_remaining_label() -> void:
+	$LabelsLayer/MarginContainer/VBoxContainer/ThrowingRocksRemainingLabel.text = Strings.throwing_remaining(throwing_rocks_remaining())
+
+
+func throwing_rocks_remaining() -> int:
+	return num_reserve_throwing_rocks + num_incoming_throwing_rocks + len(throwzone_rocks)
 
 
 func place_new_target_rock():
@@ -177,8 +166,9 @@ func _on_target_rock_contact(body):
 func _on_LineOfPebbles_rock_lost(rock : Rock):
 	if scene_shutting_down or game_has_ended:
 		return
-	change_throwing_rocks_remaining(-1)
-	if throwing_rocks_remaining <= 0:
+	throwzone_rocks.erase(rock)
+	update_throwing_rocks_remaining_label()
+	if throwing_rocks_remaining() <= 0:
 		# initiate possible endgame sequence
 		rock.monitor_stopped = true
 		game_might_end = true
@@ -187,17 +177,37 @@ func _on_LineOfPebbles_rock_lost(rock : Rock):
 		if not rock.is_connected("tree_exited",self,"_last_rock_gone"):
 			rock.connect("tree_exited",self,"_last_rock_gone",[],CONNECT_ONESHOT)
 		$EndGameFailsafe.start()
-	throwzone_rocks.erase(rock)
-	var num_throwzone_rocks_including_incoming : int = len(throwzone_rocks) + (0 if $DelayTillReplaceThrowingRocks.is_stopped() else 1)
-	if len(throwzone_rocks) < 2 and throwing_rocks_remaining > num_throwzone_rocks_including_incoming:
-		if $DelayTillReplaceThrowingRocks.is_stopped():
-			$DelayTillReplaceThrowingRocks.start()
-		else:
-			call_deferred("place_new_throwing_rocks",1)
+	consider_providing_throwing_rocks()
 
 
-func _on_DelayTillReplaceThrowingRocks_timeout():
-	place_new_throwing_rocks(1)
+func consider_providing_throwing_rocks() -> void:
+	if num_incoming_throwing_rocks + len(throwzone_rocks) == 0 and num_reserve_throwing_rocks > 0:
+		num_reserve_throwing_rocks -= 1
+		num_incoming_throwing_rocks += 1
+		order_throwing_rock(0.05)
+	if num_incoming_throwing_rocks + len(throwzone_rocks) == 1 and num_reserve_throwing_rocks > 0:
+		num_reserve_throwing_rocks -= 1
+		num_incoming_throwing_rocks += 1
+		order_throwing_rock(1.0)
+
+
+func order_throwing_rock(delay : float) -> void:
+	assert(delay > 0.0)
+	var original_delivery_timer = get_tree().create_timer(delay)
+	original_delivery_timer.connect("timeout",self,"_on_delivery_timer_timeout")
+
+
+func _on_delivery_timer_timeout() -> void:
+	var rock : Rock = spawn_rock($RockSpawnBox)
+	if not rock:
+		var retry_delivery_timer = get_tree().create_timer(0.7)
+		retry_delivery_timer.connect("timeout",self,"_on_delivery_timer_timeout")
+	else:
+		rock.connect("clicked_yet_unholdable",self,"_on_clicked_yet_unholdable")
+		temporarily_grant_justspawned_collisionness(rock)
+		throwing_rocks.append(rock)
+		throwzone_rocks.append(rock)
+		num_incoming_throwing_rocks -= 1
 
 
 func _last_rock_stopped(rock : Rock) -> void:
@@ -216,12 +226,12 @@ func special_mode_condition_met() -> bool :
 
 
 func _on_DelayTillEndGame_timeout():
-	if throwing_rocks_remaining <= 0 and not game_has_ended:
+	if throwing_rocks_remaining() <= 0 and not game_has_ended:
 		game_has_ended = true
 		$EndgameRufflePlayer.play()
 		if not special_mode_condition_met():
 			show_message(Strings.endgame_message(score,total_rocks_given),-1)
-	elif throwing_rocks_remaining > 0:
+	elif throwing_rocks_remaining() > 0:
 		game_might_end = false
 
 
@@ -233,8 +243,8 @@ func _on_EndgameRufflePlayer_finished():
 
 func _on_LineOfPebbles_rock_regained(rock : Rock):
 	if scene_shutting_down or game_has_ended: return
-	change_throwing_rocks_remaining(1)
 	throwzone_rocks.append(rock)
+	update_throwing_rocks_remaining_label()
 	if not rock in throwing_rocks:
 		throwing_rocks.append(rock)
 	$EndGameFailsafe.stop()

@@ -288,10 +288,12 @@ func rightmost_vertex() -> Vector2:
 	return rock_polygon.rightmost_vertex()
 
 
+# Returns the global coords of the vertex that is topmost in global coords
 func topmost_vertex() -> Vector2:
 	return rock_polygon.topmost_vertex()
 
 
+# Returns the global coords of the vertex that is botmost in global coords
 func botmost_vertex() -> Vector2:
 	return rock_polygon.botmost_vertex()
 
