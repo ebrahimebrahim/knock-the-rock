@@ -11,6 +11,7 @@ var local_hold_point : Vector2
 var _schwoop_deleting : bool = false
 const schwoop_delete_time : float = 3.0
 
+signal got_held
 signal became_unholdable
 signal clicked_yet_unholdable(reason)
 
@@ -113,7 +114,10 @@ func _process(delta):
 
 
 func set_held(val : bool) -> void:
-	if val : assert(_holdable)
+	if val:
+		assert(_holdable)
+		if not is_held:
+			emit_signal("got_held")
 	is_held = val
 	can_sleep = not val
 	gravity_scale = 0.0 if is_held else 1.0
