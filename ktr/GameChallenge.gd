@@ -26,7 +26,7 @@ func _ready():
 	beuld_topmid = beuld.global_transform.xform(beuld.top_mid())
 	initialize_beuld_top_area()
 	
-	consider_providing_throwing_rocks()
+	consider_providing_throwing_rocks(0.05)
 	
 	place_new_target_rock()
 	
@@ -176,10 +176,10 @@ func _on_LineOfPebbles_rock_lost(rock : Rock):
 		if not rock.is_connected("tree_exited",self,"_last_rock_gone"):
 			rock.connect("tree_exited",self,"_last_rock_gone",[],CONNECT_ONESHOT)
 		$EndGameFailsafe.start()
-	consider_providing_throwing_rocks()
+	consider_providing_throwing_rocks(1.0)
 
 
-func consider_providing_throwing_rocks() -> void:
+func consider_providing_throwing_rocks(delay_of_the_second_rock : float) -> void:
 	if num_incoming_throwing_rocks + len(throwzone_rocks) == 0 and num_reserve_throwing_rocks > 0:
 		num_reserve_throwing_rocks -= 1
 		num_incoming_throwing_rocks += 1
@@ -187,7 +187,7 @@ func consider_providing_throwing_rocks() -> void:
 	if num_incoming_throwing_rocks + len(throwzone_rocks) == 1 and num_reserve_throwing_rocks > 0:
 		num_reserve_throwing_rocks -= 1
 		num_incoming_throwing_rocks += 1
-		order_throwing_rock(1.0)
+		order_throwing_rock(delay_of_the_second_rock)
 
 
 func order_throwing_rock(delay : float) -> void:
