@@ -4,12 +4,12 @@ var lang = "en"
 
 const _rocks_knocked = {
 	"en" : "Rocks Knocked",
-	"ar" : "الحجارة المسقطة"
+	"ar" : "الأحجار المسقطة"
 }
 
 const _throwing_remaining = {
 	"en" : "Throwing Rocks Remaining",
-	"ar" : "الحجارة الباقية للرمي"
+	"ar" : "الأحجار الباقية للرمي"
 }
 
 const _endgame_messages = {
@@ -22,7 +22,7 @@ const _endgame_messages = {
 			"حسنا, لكن حظا اوفر في المرة القادمة.",
 			"أحسنت!",
 			"ممتاز!",
-			"انت بطل \"أسقط الحجرة\"!"]
+			"انت بطل \"أسقط الحجر\"!"]
 }
 
 const _score = {
@@ -55,12 +55,12 @@ const _cant_hold_target = {
 
 const _cant_hold_past_line = {
 	"en" : "No picking up rocks beyond the line of pebbles!",
-	"ar" : "لا تمسك الحجارة خلف خط الحصو!"
+	"ar" : "لا تمسك الأحجار خلف خط الحصو!"
 }
 
 const _removing_obstructions = {
 	"en" : "Removing obstructing rocks...",
-	"ar" : "نشفط الحجارة المعيقة..."
+	"ar" : "نشفط الأحجار المعيقة..."
 }
 
 const _ui_label = {
@@ -89,7 +89,7 @@ const _ui_label = {
 		"toggle corner menu lbl" : "(T)oggle this Menu",
 	},
 	"ar" : {
-		"ktr title" : "أسقط\nالحجرة",
+		"ktr title" : "أسقط\nالحجر",
 		"sandbox btn" : "لعبة حرة",
 		"challenge btn" : "إبدأ تحدي",
 		"settings btn" : "الإعدادات",
@@ -99,7 +99,7 @@ const _ui_label = {
 		"fullscreen" : "كبر النافذة",
 		"music volume" : "صوت المسيقة",
 		"gravity" : "جاذبية",
-		"challenge mode rocks" : "عدد الحجارة في وضع التحدي",
+		"challenge mode rocks" : "عدد الأحجار في وضع التحدي",
 		"corner menu hidden by default" : "إفترض إخفاء قائمة الزاوية",
 		"language" : "اللغة",
 		"apply btn" : "تطبيق",
