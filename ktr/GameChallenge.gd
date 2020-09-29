@@ -7,7 +7,6 @@ var target_rock : Rock
 var target_rock_has_been_touched : bool
 
 var total_rocks_given : int = Globals.total_rocks_given
-var throwing_rocks = [] # list of Rocks that can be thrown-- some items in list will have been deleted at times
 
 var num_reserve_throwing_rocks : int = total_rocks_given
 var num_incoming_throwing_rocks : int = 0
@@ -159,7 +158,7 @@ func place_new_target_rock():
 
 func _on_target_rock_contact(body):
 	if body is Boulder or not (body is Rock): return # We only care about non-boulder rocks
-	if body in throwing_rocks:
+	if body in $RockList.get_children():
 		target_rock_has_been_touched = true
 
 
@@ -205,7 +204,6 @@ func _on_delivery_timer_timeout() -> void:
 	else:
 		rock.connect("clicked_yet_unholdable",self,"_on_clicked_yet_unholdable")
 		temporarily_grant_justspawned_collisionness(rock)
-		throwing_rocks.append(rock)
 		throwzone_rocks.append(rock)
 		num_incoming_throwing_rocks -= 1
 
@@ -245,8 +243,6 @@ func _on_LineOfPebbles_rock_regained(rock : Rock):
 	if scene_shutting_down or game_has_ended: return
 	throwzone_rocks.append(rock)
 	update_throwing_rocks_remaining_label()
-	if not rock in throwing_rocks:
-		throwing_rocks.append(rock)
 	$EndGameFailsafe.stop()
 
 
@@ -261,8 +257,8 @@ func _on_ThrowZone_mouse_exited():
 func _on_ThrowZone_mouse_entered():
 	cursor_changeable = true
 	var some_rock_is_held = false
-	for rock in throwing_rocks:
-		if is_instance_valid(rock) and rock.is_held:
+	for rock in $RockList.get_children():
+		if rock.is_held:
 			some_rock_is_held = true
 			break
 	Input.set_custom_mouse_cursor(closed_hand if some_rock_is_held else open_hand,Input.CURSOR_ARROW,Vector2(21,27))
