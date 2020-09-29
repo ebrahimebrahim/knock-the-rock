@@ -12,6 +12,8 @@ var num_reserve_throwing_rocks : int = total_rocks_given
 var num_incoming_throwing_rocks : int = 0
 var throwzone_rocks = [] # list of Rocks in ThrowZone
 
+var rocks_with_justspawned_collisionness = []
+
 var beuld_topmid : Vector2
 const beuld_top_area_height = 10.0 # height of boulder top detection zone for clearing top
 var beuld_top_area : Area2D
@@ -92,6 +94,8 @@ func increment_score():
 
 
 func temporarily_grant_justspawned_collisionness(rock : Rock):
+	rocks_with_justspawned_collisionness.append(rock)
+	
 	rock.collision_mask = 0b10 # allows rock to be blocked by throwzone barrier
 	rock.collision_layer = 0b10 # other just spawned rocks should be blocked by rock
 #	rock.modulate = Color(1,0,0) # uncomment for debugging
@@ -108,14 +112,16 @@ func temporarily_grant_justspawned_collisionness(rock : Rock):
 	rock.add_child(a)
 	c.position = posrad[0]
 	
-	get_tree().create_timer(0.7).connect("timeout",self,"_on_justspawned_timeout",[rock,a])
+	get_tree().create_timer(2).connect("timeout",self,"end_justspawned_collisionness",[rock,a])
+	rock.connect("got_held",self,"end_justspawned_collisionness",[rock,a],CONNECT_ONESHOT)
 	
 	
-func _on_justspawned_timeout(rock : Rock, inner_circle : Area2D):
-	if not is_instance_valid(rock): return
+func end_justspawned_collisionness(rock : Rock, inner_circle : Area2D):
+	if not is_instance_valid(rock) or not rock in rocks_with_justspawned_collisionness:
+		return
 	for body in inner_circle.get_overlapping_bodies():
 		if body is Rock and body.name != rock.name:
-			get_tree().create_timer(0.2).connect("timeout",self,"_on_justspawned_timeout",[rock,inner_circle])
+			get_tree().create_timer(0.2).connect("timeout",self,"end_justspawned_collisionness",[rock,inner_circle])
 			rock.set_holdable(false,"")
 			body.raise()
 			return
@@ -124,6 +130,7 @@ func _on_justspawned_timeout(rock : Rock, inner_circle : Area2D):
 	rock.collision_layer = 0b11 # will collide with all rocks
 	rock.set_holdable(true)
 	inner_circle.queue_free()
+	rocks_with_justspawned_collisionness.erase(rock)
 
 
 func update_throwing_rocks_remaining_label() -> void:
