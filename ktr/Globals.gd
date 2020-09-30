@@ -7,10 +7,18 @@ func get_version_info():
 	if err == OK :
 		commit_hash = file.get_as_text().strip_edges()
 	file.close()
+
+	var version_number = "[version number error]"
+	err = file.open("res://version_number.txt", File.READ)
+	if err == OK :
+		version_number = file.get_as_text().strip_edges()
+	file.close()
+
+
 	
 	return {
-		"version_number" : "1.0.0", # Edit the version number here!
-		"dev_or_release" : "dev",   # Edit here for release!
+		"version_number" : version_number,
+		"dev_or_release" : "dev",	 # Edit here for release!
 		"commit_hash" : commit_hash,
 	}
 
