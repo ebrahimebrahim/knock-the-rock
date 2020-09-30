@@ -101,7 +101,7 @@ func process_settings():
 
 
 func setup_ui_labels():
-	$MarginContainer/VersionLabel.text = Globals.version
+	$MarginContainer/VersionLabel.text = Strings.version_string()
 	$LogoZone/Logo/Title.text = Strings.ui_label("ktr title")
 	$MenuZone/Menu/SdbxButton.text = Strings.ui_label("sandbox btn")
 	$MenuZone/Menu/ChlgButton.text = Strings.ui_label("challenge btn")

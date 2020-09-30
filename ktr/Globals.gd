@@ -1,6 +1,12 @@
 extends Node
 
-const version = "0.0.0dev"
+func get_version_info():
+	var commit_hash = "" # TODO: Read file containing commit hash. If it's not there, make it empty string.
+	return {
+		"version_number" : "0.0.0",
+		"dev_or_release" : "release",
+		"commit_hash" : commit_hash,
+	}
 
 var total_rocks_given : int
 var corner_menu_hidden_by_default : bool

@@ -115,6 +115,24 @@ const _ui_label = {
 }
 
 
+func version_string() -> String:
+	var version_info = Globals.get_version_info()
+	
+	# If the commit hash is an empty string, then we did not use the build script,
+	# This puts "debug" on the version string
+	if version_info["commit_hash"] == "":
+		return version_info["version_number"] + "debug"
+	
+	# Now assuming the build script was used,
+	# we display the commit hash if it's "dev" and we don't if it's "release"
+	elif version_info["dev_or_release"] == "dev":
+		return version_info["version_number"] + "dev" + version_info["commit_hash"]
+	elif version_info["dev_or_release"] == "release":
+		return version_info["version_number"]
+	else:
+		push_error("Strings.gd: Error generating version string.")
+		return "[version string error]"
+
 
 func rocks_knocked(s):
 	return _rocks_knocked[lang] + ": " + str(s)
