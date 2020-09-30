@@ -1,10 +1,16 @@
 extends Node
 
 func get_version_info():
-	var commit_hash = "" # TODO: Read file containing commit hash. If it's not there, make it empty string.
+	var commit_hash = ""
+	var file = File.new()
+	var err = file.open("res://commit_hash.txt", File.READ)
+	if err == OK :
+		commit_hash = file.get_as_text().strip_edges()
+	file.close()
+	
 	return {
-		"version_number" : "0.0.0",
-		"dev_or_release" : "release",
+		"version_number" : "0.0.0",  # Edit the version number here!
+		"dev_or_release" : "dev",	 # Edit here for release!
 		"commit_hash" : commit_hash,
 	}
 
