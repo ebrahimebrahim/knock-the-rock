@@ -324,7 +324,7 @@ func schwoop_delete():
 	_schwoop_deleting = true
 	call_deferred("awaken")
 	gravity_scale = 0.0
-	set_holdable(false,"Let this rock go, it wants to be free.")
+	set_holdable(false,Strings.cant_hold_schwoop_rock())
 	linear_velocity = Vector2(0,0)
 	add_central_force(Vector2(0,-1500.0 * mass))
 	yield(get_tree().create_timer(schwoop_delete_time), "timeout")
