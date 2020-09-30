@@ -18,7 +18,7 @@ func get_version_info():
 	
 	return {
 		"version_number" : version_number,
-		"dev_or_release" : "dev",	 # Edit here for release!
+		"dev_or_release" : "release",	 # Edit here for release!
 		"commit_hash" : commit_hash,
 	}
 
