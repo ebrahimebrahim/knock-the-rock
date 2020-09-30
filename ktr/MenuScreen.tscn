@@ -173,6 +173,7 @@ custom_constants/margin_right = 5
 custom_constants/margin_bottom = 2
 
 [node name="VersionLabel" type="Label" parent="MarginContainer"]
+modulate = Color( 0.25098, 0.301961, 0.207843, 1 )
 margin_right = 1061.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
