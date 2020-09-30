@@ -130,7 +130,6 @@ func end_justspawned_collisionness(rock : Rock, inner_circle : Area2D):
 	rock.collision_layer = 0b11 # will collide with all rocks
 	rock.set_holdable(true)
 	inner_circle.queue_free()
-	rock.sleeping = true
 	rocks_with_justspawned_collisionness.erase(rock)
 
 

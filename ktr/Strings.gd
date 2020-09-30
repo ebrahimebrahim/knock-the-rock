@@ -58,6 +58,11 @@ const _cant_hold_past_line = {
 	"ar" : "لا تمسك الأحجار خلف خط الحصو!"
 }
 
+const _cant_hold_schwoop_rock = {
+	"en" : "Let this rock go, it wants to be free.",
+	"ar" : "إترك هذا الحجر, يريد ان يكون حر"
+}
+
 const _removing_obstructions = {
 	"en" : "Removing obstructing rocks...",
 	"ar" : "نشفط الأحجار المعيقة..."
@@ -161,6 +166,9 @@ func cant_hold_target():
 	
 func cant_hold_past_line():
 	return _cant_hold_past_line[lang]
+
+func cant_hold_schwoop_rock():
+	return _cant_hold_schwoop_rock[lang]
 
 func removing_obstructions():
 	return _removing_obstructions[lang]
