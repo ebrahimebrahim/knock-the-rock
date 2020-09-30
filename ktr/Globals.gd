@@ -9,8 +9,8 @@ func get_version_info():
 	file.close()
 	
 	return {
-		"version_number" : "0.0.0",  # Edit the version number here!
-		"dev_or_release" : "dev",	 # Edit here for release!
+		"version_number" : "1.0.0", # Edit the version number here!
+		"dev_or_release" : "dev",   # Edit here for release!
 		"commit_hash" : commit_hash,
 	}
 
