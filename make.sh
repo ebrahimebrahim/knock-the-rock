@@ -20,7 +20,6 @@ RELEASE_SUBDIR=release
 
 EXEC_WIN="Knock the Rock.exe"
 EXEC_LIN="Knock the Rock.x86_64"
-EXEC_MAC="Knock the Rock.zip"
 
 # for setting the windows icon
 RCEDIT=rcedit/rcedit-x64.exe
@@ -48,7 +47,6 @@ rm -rf $BUILD_DIR
 mkdir $BUILD_DIR
 mkdir $BUILD_DIR/$BUILD_SUBDIR_WIN
 mkdir $BUILD_DIR/$BUILD_SUBDIR_LIN
-mkdir $BUILD_DIR/$BUILD_SUBDIR_MAC
 mkdir $BUILD_DIR/$RELEASE_SUBDIR
 
 
@@ -64,8 +62,7 @@ cd ..
 
 # --- Mac OS ---
 
-$GODOT --path $GODOT_PROJECT_DIR --export "Mac OSX" "$BUILD_DIR_G/$BUILD_SUBDIR_MAC/$EXEC_MAC"
-unzip "$BUILD_DIR/$BUILD_SUBDIR_MAC/$EXEC_MAC" -d $BUILD_DIR/$RELEASE_SUBDIR
+$GODOT --path $GODOT_PROJECT_DIR --export "Mac OSX" "$BUILD_DIR_G/$RELEASE_SUBDIR/$BUILD_SUBDIR_MAC.zip"
 
 
 # --- Windows ---
@@ -80,6 +77,7 @@ else
 		echo "wineconsole found, setting windows icon..."
 		wineconsole $RCEDIT "$BUILD_DIR/$BUILD_SUBDIR_WIN/$EXEC_WIN" --set-icon $ICO
 fi
+
 
 cd $BUILD_DIR
 zip -r $RELEASE_SUBDIR/$BUILD_SUBDIR_WIN.zip $BUILD_SUBDIR_WIN
