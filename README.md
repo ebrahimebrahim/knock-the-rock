@@ -6,4 +6,4 @@ To build in linux download Godot and set the environment variable `GODOT` to poi
 
 Then run the script `make.sh` in the repository.
 
-Version string and dev/release setting is done directly in `ktr/Globals.gd`.
+Version string is done in `ktr/version_number.txt` and dev/release state is set in `ktr/Globals.gd`
