@@ -24,6 +24,8 @@ func panel_knobs_to_resource():
 	settings_config.challenge_mode_rocks = challenge_mode_rocks_widget.value
 	settings_config.corner_menu_hidden_by_default = corner_menu_hidden_by_default_widget.pressed
 	settings_config.language = language_widget.get_item_text(language_widget.selected)
+	
+	settings_config.version = Globals.get_version_info()["version_number"]
 
 
 # transfer data from settings_config to settings panel controls
