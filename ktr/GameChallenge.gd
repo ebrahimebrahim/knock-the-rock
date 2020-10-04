@@ -276,18 +276,7 @@ func _on_clicked_yet_unholdable(reason):
 
 
 func show_message(msg : String, time : float = 4):
-	$LabelsLayer/MsgCenter.text = msg
-	if time > 0: # time <= 0 would cause an indefinite message
-		$LabelsLayer/MsgCenter/MsgTimer.wait_time = time
-		$LabelsLayer/MsgCenter/MsgTimer.start()
-	else:
-		$LabelsLayer/MsgCenter/MsgTimer.stop()
-	$LabelsLayer/MsgCenter.show()
-
-
-func _on_MsgTimer_timeout():
-	$LabelsLayer/MsgCenter.hide()
-
+	$LabelsLayer.add_child(Message.new(msg,time))
 	
 	
 	

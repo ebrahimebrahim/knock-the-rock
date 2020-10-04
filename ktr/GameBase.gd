@@ -2,6 +2,7 @@ extends Node2D
 
 const Boulder = preload("res://Boulder.gd")
 const Rock = preload("res://Rock.gd")
+const Message = preload("res://Message.gd")
 
 var scrolling_bg : bool = false
 var change_scene_to : String
