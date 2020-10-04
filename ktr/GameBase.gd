@@ -57,6 +57,7 @@ func spawn_rock(spawn_box : Node) -> Rock:
 				rock_intersects_some_other_rock = true
 		if not rock_intersects_some_other_rock and spawn_box_rect.encloses(rock_rect):
 			return rock
+	rock.visible = false
 	rock.queue_free()
 	return null
 
