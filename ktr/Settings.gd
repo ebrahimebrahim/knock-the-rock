@@ -73,11 +73,23 @@ func apply_settings(s : SettingsConfig):
 
 func setup_ui_labels():
 	$VBoxContainer/Body/Fullscreen/Label.text = Strings.ui_label("fullscreen")
+	$VBoxContainer/Body/Fullscreen/MarginContainer/Checkbox.hint_tooltip = Strings.tooltip("fullscreen")
+	
 	$VBoxContainer/Body/MusicVolume/Label.text = Strings.ui_label("music volume")
+	$VBoxContainer/Body/MusicVolume/MarginContainer/HSlider.hint_tooltip = Strings.tooltip("music volume")
+	
 	$VBoxContainer/Body/Gravity/Label.text = Strings.ui_label("gravity")
+	$VBoxContainer/Body/Gravity/MarginContainer/HSlider.hint_tooltip = Strings.tooltip("gravity")
+	
 	$VBoxContainer/Body/TotalRocksGiven/Label.text = Strings.ui_label("challenge mode rocks")
+	$VBoxContainer/Body/TotalRocksGiven/MarginContainer/SpinBox.hint_tooltip = Strings.tooltip("challenge mode rocks")
+	
 	$VBoxContainer/Body/CornerMenuHidden/Label.text = Strings.ui_label("corner menu hidden by default")
+	$VBoxContainer/Body/CornerMenuHidden/MarginContainer/CheckButton.hint_tooltip = Strings.tooltip("corner menu hidden by default")
+	
 	$VBoxContainer/Body/Language/Label.text = Strings.ui_label("language")
+	$VBoxContainer/Body/Language/MarginContainer/OptionButton.hint_tooltip = Strings.tooltip("language")
+	
 	$VBoxContainer/Buttons/HBoxContainer/ApplyButton.text = Strings.ui_label("apply btn")
 	$VBoxContainer/Buttons/HBoxContainer/BackButton.text = Strings.ui_label("back btn")
 	$VBoxContainer/Buttons/HBoxContainer/DefaultsButton.text = Strings.ui_label("defaults btn")

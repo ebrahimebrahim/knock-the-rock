@@ -119,6 +119,17 @@ const _ui_label = {
 	}
 }
 
+const _tooltip = {
+	"en" : {
+		"fullscreen" : "Fullscreen",
+		"music volume" : "Music volume",
+		"gravity" : "Gravity",
+		"challenge mode rocks" : "Number of throwing rocks given to you in challenge mode",
+		"corner menu hidden by default" : "Toggle default visibility of the in-game corner menu",
+		"language" : "Language"
+	}
+}
+
 
 func version_string() -> String:
 	var version_info = Globals.get_version_info()
@@ -175,3 +186,6 @@ func removing_obstructions():
 
 func ui_label(btn):
 	return _ui_label[lang][btn]
+
+func tooltip(btn):
+	return _tooltip[lang][btn]
