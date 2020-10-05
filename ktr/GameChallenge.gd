@@ -67,7 +67,7 @@ func _process(_delta):
 			mistakes_made = 0
 #			target_rock.mode=RigidBody2D.MODE_STATIC  # Uncomment this to observe the moment a rock is counted as knocked off
 		if not target_rock_has_been_touched:
-			show_message(Strings.mistake_message(mistakes_made),2)
+			show_message_near_boulder(Strings.mistake_message(mistakes_made),2)
 			mistakes_made += 1
 		
 		# Relieve old target rock of its targetty duties, if there is one
@@ -88,7 +88,7 @@ func target_rock_on_boulder() -> bool:
 
 
 func increment_score():
-	show_message(Strings.knocked(),1.2)
+	show_message_near_boulder(Strings.knocked(),0.5)
 	score += 1
 	$StatusText/VBoxContainer/ScoreLabel.text = Strings.rocks_knocked(score)
 
@@ -146,7 +146,7 @@ func place_new_target_rock():
 		$DelayTillSpawnTarget.start()
 		return
 	if not beuld_top_obstructors.empty():
-		show_message(Strings.removing_obstructions(),$DelayTillSpawnTarget.wait_time)
+		show_message_near_boulder(Strings.removing_obstructions(),$DelayTillSpawnTarget.wait_time)
 		for rock in beuld_top_obstructors:
 			rock.schwoop_delete()
 			beuld_top_obstructors.erase(rock)
@@ -282,6 +282,10 @@ func show_message(msg : String, time : float = 1, size : int = 40):
 	message.set_topleft_position(Vector2(200,200))
 	add_child(message)
 	
+func show_message_near_boulder(msg : String, time : float = 1):
+	var message = Message.new(msg,time,20)
+	add_child(message)
+	message.set_botmid_position(beuld_topmid+Vector2(0,-100))
 	
 	
 	
