@@ -159,7 +159,7 @@ func place_new_target_rock():
 	target_rock.position += beuld_topmid-target_rock.global_transform.xform(target_rock.center_of_mass())+Vector2(0,-20-target_rock.flat_bottom())
 	target_rock.set_holdable(false,Strings.cant_hold_target())
 	target_rock.connect("body_entered",self,"_on_target_rock_contact")
-	target_rock.connect("clicked_yet_unholdable",self,"_on_clicked_yet_unholdable")
+	target_rock.connect("clicked_yet_unholdable",self,"_on_clicked_yet_unholdable",[target_rock])
 	target_rock_has_been_touched = false
 
 
@@ -209,7 +209,7 @@ func _on_delivery_timer_timeout() -> void:
 		var retry_delivery_timer = get_tree().create_timer(0.7)
 		retry_delivery_timer.connect("timeout",self,"_on_delivery_timer_timeout")
 	else:
-		rock.connect("clicked_yet_unholdable",self,"_on_clicked_yet_unholdable")
+		rock.connect("clicked_yet_unholdable",self,"_on_clicked_yet_unholdable",[rock])
 		temporarily_grant_justspawned_collisionness(rock)
 		throwzone_rocks.append(rock)
 		num_incoming_throwing_rocks -= 1
@@ -270,13 +270,15 @@ func _on_ThrowZone_mouse_entered():
 			break
 	Input.set_custom_mouse_cursor(closed_hand if some_rock_is_held else open_hand,Input.CURSOR_ARROW,Vector2(21,27))
 
-func _on_clicked_yet_unholdable(reason):
+func _on_clicked_yet_unholdable(reason : String, rock : Rock):
 	if not game_has_ended and reason != "":
-		show_message(reason,2.5)
+		var message = Message.new(reason,1.5,15)
+		add_child(message)
+		message.set_botmid_position(rock.topmost_vertex())
 
 
-func show_message(msg : String, time : float = 4):
-	var message = Message.new(msg,time)
+func show_message(msg : String, time : float = 1, size : int = 40):
+	var message = Message.new(msg,time,size)
 	message.set_topleft_position(Vector2(200,200))
 	add_child(message)
 	
