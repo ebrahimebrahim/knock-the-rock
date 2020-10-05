@@ -235,7 +235,7 @@ func _on_DelayTillEndGame_timeout():
 		game_has_ended = true
 		$EndgameRufflePlayer.play()
 		if not special_mode_condition_met():
-			show_message(Strings.endgame_message(score,total_rocks_given),-1)
+			show_message_center(Strings.endgame_message(score,total_rocks_given),-1)
 	elif throwing_rocks_remaining() > 0:
 		game_might_end = false
 
@@ -277,10 +277,11 @@ func _on_clicked_yet_unholdable(reason : String, rock : Rock):
 		message.set_botmid_position(rock.topmost_vertex())
 
 
-func show_message(msg : String, time : float = 1, size : int = 40):
-	var message = Message.new(msg,time,size)
-	message.set_topleft_position(Vector2(200,200))
+func show_message_center(msg : String, time : float = 1):
+	var message = Message.new(msg,time,40)
 	add_child(message)
+	message.set_botmid_position(0.5*get_tree().get_root().get_size_override())
+	message.align=Label.ALIGN_CENTER
 	
 func show_message_near_boulder(msg : String, time : float = 1):
 	var message = Message.new(msg,time,20)
