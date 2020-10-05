@@ -3,13 +3,21 @@ extends Label
 
 var message_lifetime : float
 
-func _init(msg : String, time : float = 4):
-	set_theme(preload("message_theme.tres"))
+func _init(msg : String, time : float = 4, size : int = 40):
+	
 	# set_autowrap(true)  # If you turn this on then you need to set left and right anchors
 	set_mouse_filter(MOUSE_FILTER_IGNORE)
 	
 	text = msg
 	message_lifetime = time
+	
+	var font : DynamicFont = DynamicFont.new()
+	font.size = size
+	font.outline_size = 1
+	font.outline_color = Color(0,0,0)
+	font.font_data = preload("res://fonts/Avara.ttf")
+	add_font_override("font",font)
+	add_color_override("font_color",Color( 0.74902, 0.678431, 0.627451, 1 ))
 
 
 func _ready():
