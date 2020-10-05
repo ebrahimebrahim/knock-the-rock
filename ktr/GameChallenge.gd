@@ -276,7 +276,9 @@ func _on_clicked_yet_unholdable(reason):
 
 
 func show_message(msg : String, time : float = 4):
-	add_child(Message.new(msg,time))
+	var message = Message.new(msg,time)
+	message.set_topleft_position(Vector2(200,200))
+	add_child(message)
 	
 	
 	

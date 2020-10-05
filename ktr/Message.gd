@@ -10,9 +10,6 @@ func _init(msg : String, time : float = 4):
 	
 	text = msg
 	message_lifetime = time
-	rect_position = Vector2(200,200)
-	rect_size = Vector2(739,800)
-	print(margin_left," ",margin_right)
 
 
 func _ready():
@@ -22,3 +19,12 @@ func _ready():
 
 func start_deletion_animation():
 	queue_free()
+
+
+func set_topleft_position(pos : Vector2):
+	rect_position = pos
+
+
+func set_botmid_position(pos : Vector2):
+	var botmid_to_topleft : Vector2 = Vector2(-rect_size[0]/2,-rect_size[1])
+	rect_position = pos + botmid_to_topleft
