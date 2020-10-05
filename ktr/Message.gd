@@ -3,7 +3,12 @@ extends Label
 
 var message_lifetime : float
 
-func _init(msg : String, time : float = 4, size : int = 40):
+var deletion_animation_playing = false
+const deletion_movement_speed = 200.0
+var deletion_movement_total_distance : float
+var deletion_movement_distance : float = 0.0
+
+func _init(msg : String, time : float = 1, size : int = 40):
 	
 	# set_autowrap(true)  # If you turn this on then you need to set left and right anchors
 	set_mouse_filter(MOUSE_FILTER_IGNORE)
@@ -18,6 +23,8 @@ func _init(msg : String, time : float = 4, size : int = 40):
 	font.font_data = preload("res://fonts/Avara.ttf")
 	add_font_override("font",font)
 	add_color_override("font_color",Color( 0.74902, 0.678431, 0.627451, 1 ))
+	
+	deletion_movement_total_distance = get_line_height() * 2
 
 
 func _ready():
@@ -26,7 +33,20 @@ func _ready():
 
 
 func start_deletion_animation():
-	queue_free()
+	deletion_animation_playing = true
+
+
+func _process(delta):
+	if deletion_animation_playing:
+		var move_dist : float = deletion_movement_speed*delta
+		rect_position += move_dist*Vector2(0,-1)
+		deletion_movement_distance += move_dist
+		modulate.a -= move_dist/deletion_movement_total_distance
+		
+		if deletion_movement_distance > deletion_movement_total_distance:
+			queue_free()
+		
+		
 
 
 func set_topleft_position(pos : Vector2):
