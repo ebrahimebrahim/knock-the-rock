@@ -33,7 +33,7 @@ func _ready():
 	place_new_target_rock()
 	
 	update_throwing_rocks_remaining_label()
-	$LabelsLayer/MarginContainer/VBoxContainer/ScoreLabel.text = Strings.rocks_knocked(score)
+	$StatusText/VBoxContainer/ScoreLabel.text = Strings.rocks_knocked(score)
 
 
 func initialize_beuld_top_area():
@@ -90,7 +90,7 @@ func target_rock_on_boulder() -> bool:
 func increment_score():
 	show_message(Strings.knocked(),1.2)
 	score += 1
-	$LabelsLayer/MarginContainer/VBoxContainer/ScoreLabel.text = Strings.rocks_knocked(score)
+	$StatusText/VBoxContainer/ScoreLabel.text = Strings.rocks_knocked(score)
 
 
 func temporarily_grant_justspawned_collisionness(rock : Rock):
@@ -134,7 +134,7 @@ func end_justspawned_collisionness(rock : Rock, inner_circle : Area2D):
 
 
 func update_throwing_rocks_remaining_label() -> void:
-	$LabelsLayer/MarginContainer/VBoxContainer/ThrowingRocksRemainingLabel.text = Strings.throwing_remaining(throwing_rocks_remaining())
+	$StatusText/VBoxContainer/ThrowingRocksRemainingLabel.text = Strings.throwing_remaining(throwing_rocks_remaining())
 
 
 func throwing_rocks_remaining() -> int:
@@ -276,7 +276,7 @@ func _on_clicked_yet_unholdable(reason):
 
 
 func show_message(msg : String, time : float = 4):
-	$LabelsLayer.add_child(Message.new(msg,time))
+	add_child(Message.new(msg,time))
 	
 	
 	
