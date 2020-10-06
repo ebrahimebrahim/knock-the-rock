@@ -283,14 +283,13 @@ func show_message_center(msg : String, time : float = 1):
 	var message = Message.new(msg,time,40)
 	add_child(message)
 	message.set_botmid_position(0.5*get_tree().get_root().get_size_override())
-	message.align=Label.ALIGN_CENTER
-	
+
+
 func show_message_near_boulder(msg : String, time : float = 1):
 	var message = Message.new(msg,time,20)
 	add_child(message)
 	message.set_botmid_position(beuld_topmid+Vector2(0,-100))
 	message.force_into_rect(get_screen_rect())
-	message.align=Label.ALIGN_CENTER
 	
 	
 	

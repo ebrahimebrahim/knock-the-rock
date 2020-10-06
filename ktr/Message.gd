@@ -23,6 +23,7 @@ func _init(msg : String, time : float = 1, size : int = 40):
 	font.font_data = preload("res://fonts/Avara.ttf")
 	add_font_override("font",font)
 	add_color_override("font_color",Color( 0.74902, 0.678431, 0.627451, 1 ))
+	align = ALIGN_CENTER
 	
 	deletion_movement_total_distance = get_line_height() * 2
 
