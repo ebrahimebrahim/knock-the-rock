@@ -33,8 +33,7 @@ position = Vector2( 42.3785, 282.81 )
 position = Vector2( 228.844, 447.629 )
 
 [node name="LineOfPebbles" type="Line2D" parent="." index="5"]
-position = Vector2( -142, 0 )
-points = PoolVector2Array( 420, 600, 420, 545 )
+points = PoolVector2Array( 278, 600, 278, 545 )
 width = 5.0
 default_color = Color( 0.909804, 0.0666667, 0.956863, 1 )
 script = ExtResource( 5 )
@@ -43,7 +42,7 @@ __meta__ = {
 }
 
 [node name="ThrowZone" type="Area2D" parent="LineOfPebbles" index="0"]
-position = Vector2( 275, 300 )
+position = Vector2( 133, 300 )
 collision_layer = 3
 collision_mask = 3
 __meta__ = {
@@ -55,7 +54,7 @@ __meta__ = {
 shape = SubResource( 1 )
 
 [node name="ThrowZoneFloor" type="Area2D" parent="LineOfPebbles" index="1"]
-position = Vector2( 279.811, 583.232 )
+position = Vector2( 137.811, 583.232 )
 collision_layer = 3
 collision_mask = 3
 __meta__ = {
@@ -66,7 +65,7 @@ __meta__ = {
 shape = SubResource( 2 )
 
 [node name="ThrowZoneBarrier" type="StaticBody2D" parent="LineOfPebbles" index="2"]
-position = Vector2( 279.74, 348.324 )
+position = Vector2( 137.74, 348.324 )
 collision_layer = 2
 collision_mask = 2147483648
 __meta__ = {
