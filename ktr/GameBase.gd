@@ -119,3 +119,8 @@ func setup_ui_labels():
 	$MenuZone/RestartButton.text = Strings.ui_label("restart btn")
 	$MenuZone/HelpButton.text = Strings.ui_label("help btn corner menu")
 	$MenuZone/Panel/ToggleMenuLabel.text = Strings.ui_label("toggle corner menu lbl")
+
+
+# Get game screen rect
+func get_screen_rect() -> Rect2:
+	return Rect2(Vector2(0,0),get_tree().get_root().get_size_override())

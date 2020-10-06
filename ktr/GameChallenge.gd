@@ -270,11 +270,13 @@ func _on_ThrowZone_mouse_entered():
 			break
 	Input.set_custom_mouse_cursor(closed_hand if some_rock_is_held else open_hand,Input.CURSOR_ARROW,Vector2(21,27))
 
+
 func _on_clicked_yet_unholdable(reason : String, rock : Rock):
 	if not game_has_ended and reason != "":
 		var message = Message.new(reason,1.5,15)
 		add_child(message)
 		message.set_botmid_position(rock.topmost_vertex())
+		message.force_into_rect(get_screen_rect())
 
 
 func show_message_center(msg : String, time : float = 1):
@@ -287,6 +289,7 @@ func show_message_near_boulder(msg : String, time : float = 1):
 	var message = Message.new(msg,time,20)
 	add_child(message)
 	message.set_botmid_position(beuld_topmid+Vector2(0,-100))
+	message.force_into_rect(get_screen_rect())
 	
 	
 	

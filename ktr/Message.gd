@@ -49,13 +49,29 @@ func _process(delta):
 		
 
 # Sets the position of the top-left of the label rect to pos
-func set_topleft_position(pos : Vector2):
+func set_topleft_position(pos : Vector2) -> void:
 	rect_position = pos
 
 
 # Sets the position of the bottom-middle of the label rect to pos
 # This will not work if the Message is not in the tree yet, since its
 # rect gets set once it is in the tree
-func set_botmid_position(pos : Vector2):
+func set_botmid_position(pos : Vector2) -> void:
 	var botmid_to_topleft : Vector2 = Vector2(-rect_size[0]/2,-rect_size[1])
 	rect_position = pos + botmid_to_topleft
+
+
+# Forces the label rect to be inside the given rect
+# - Does nothing if the label rect is already inside
+# - Otherwise, repositions to put label rect inside
+# The Message should be in the scene tree before calling this,
+# so that the label rect can be used.
+# If the label rect doesn't fit inside the given rect, then we prioritize
+# positioning in the top left corner so that it is inside, allowing the
+# bottom right corner to overflow.
+func force_into_rect(rect : Rect2) -> void:
+	if rect.encloses(get_rect()):
+		return
+	for i in range(2):
+		rect_position[i] = min( rect_position[i] , rect.end[i]-rect_size[i] )
+		rect_position[i] = max(rect_position[i] , rect.position[i])
