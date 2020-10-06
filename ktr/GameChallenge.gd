@@ -3,6 +3,8 @@ extends "res://GameBase.gd"
 var game_has_ended = false # true when game is for sure over
 var game_might_end = false # true when last rock was thrown and we are waiting to see if player somehow gets it back or something
 
+var extra_messages = true
+
 var target_rock : Rock
 var target_rock_has_been_touched : bool
 
@@ -260,6 +262,14 @@ func _on_ThrowZone_mouse_exited():
 	for rock in throwzone_rocks:
 		if rock.is_held:
 			rock.set_held(false)
+			if extra_messages:
+				var message = Message.new("Dropped!",0.5,15)
+				add_child(message)
+				message.set_botmid_position(Vector2(
+					($LineOfPebbles.transform*$LineOfPebbles.points[0])[0],
+					get_local_mouse_position()[1]
+				))
+				message.force_into_rect(get_screen_rect())
 
 
 func _on_ThrowZone_mouse_entered():
