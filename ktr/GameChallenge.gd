@@ -290,6 +290,7 @@ func show_message_near_boulder(msg : String, time : float = 1):
 	add_child(message)
 	message.set_botmid_position(beuld_topmid+Vector2(0,-100))
 	message.force_into_rect(get_screen_rect())
+	message.align=Label.ALIGN_CENTER
 	
 	
 	
