@@ -18,6 +18,7 @@ var beuld_topmid : Vector2
 const beuld_top_area_height = 10.0 # height of boulder top detection zone for clearing top
 var beuld_top_area : Area2D
 var beuld_top_obstructors = []
+var last_message_near_boulder : Message
 
 var score : int = 0
 
@@ -286,10 +287,13 @@ func show_message_center(msg : String, time : float = 1):
 
 
 func show_message_near_boulder(msg : String, time : float = 1):
+	if is_instance_valid(last_message_near_boulder):
+		last_message_near_boulder.deletion_animation_playing = true
 	var message = Message.new(msg,time,20)
 	add_child(message)
 	message.set_botmid_position(beuld_topmid+Vector2(0,-100))
 	message.force_into_rect(get_screen_rect())
+	last_message_near_boulder = message
 	
 	
 	
