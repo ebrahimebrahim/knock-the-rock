@@ -48,6 +48,11 @@ const _knocked = {
 	"ar" : "سقطت!"
 }
 
+const _dropped = {
+	"en" : "Dropped!",
+	"ar" : "تركت!"
+}
+
 const _cant_hold_target = {
 	"en" : "No picking up the target rock!",
 	"ar" : "لا تمسك الهدف!"
@@ -171,6 +176,9 @@ func mistake_message(mistakes_made):
 
 func knocked():
 	return _knocked[lang]
+
+func dropped():
+	return _dropped[lang]
 
 func cant_hold_target():
 	return _cant_hold_target[lang]

@@ -263,7 +263,7 @@ func _on_ThrowZone_mouse_exited():
 		if rock.is_held:
 			rock.set_held(false)
 			if extra_messages:
-				var message = Message.new("Dropped!",0.5,15)
+				var message = Message.new(Strings.dropped(),0.5,15)
 				add_child(message)
 				message.set_botmid_position(Vector2(
 					($LineOfPebbles.transform*$LineOfPebbles.points[0])[0],
