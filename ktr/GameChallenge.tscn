@@ -1,8 +1,7 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://GameBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://GameChallenge.gd" type="Script" id=2]
-[ext_resource path="res://fonts/Avara.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://theme.tres" type="Theme" id=4]
 [ext_resource path="res://LineOfPebbles.gd" type="Script" id=5]
 [ext_resource path="res://sounds/endgame_ruffle.wav" type="AudioStream" id=6]
@@ -18,12 +17,6 @@ extents = Vector2( 10, 252.688 )
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 10, 485.214 )
-
-[sub_resource type="DynamicFont" id=5]
-size = 40
-outline_size = 1
-outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 3 )
 
 [node name="GameChallenge" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
@@ -89,30 +82,52 @@ shape = SubResource( 3 )
 position = Vector2( 149.919, 236.155 )
 shape = SubResource( 4 )
 
-[node name="LabelsLayer" type="Node2D" parent="." index="7"]
-position = Vector2( 1066.5, 600 )
-z_index = 1
+[node name="DelayTillSpawnTarget" type="Timer" parent="." index="7"]
+one_shot = true
+__meta__ = {
+"_editor_description_": "How long to wait after target rock is knocked off before spawning a new target rock"
+}
 
-[node name="MarginContainer" type="MarginContainer" parent="LabelsLayer" index="0"]
+[node name="DelayTillEndGame" type="Timer" parent="." index="8"]
+wait_time = 0.5
+one_shot = true
+__meta__ = {
+"_editor_description_": "How long to wait after player is out of rocks before actually ending the game-- we wait to give the last target rock a chance to finish falling."
+}
+
+[node name="EndGameFailsafe" type="Timer" parent="." index="9"]
+wait_time = 6.0
+one_shot = true
+__meta__ = {
+"_editor_description_": "A longer timer that triggers after the number of remaining rocks is 0 for long enough. This is just in case the \"DelayTillEndGame\" one isn't triggered for some reason (e.g. in low gravity when rocks float straight up for too long)"
+}
+
+[node name="EndgameRufflePlayer" type="AudioStreamPlayer" parent="." index="10"]
+stream = ExtResource( 6 )
+volume_db = -4.0
+
+[node name="StatusText" type="MarginContainer" parent="." index="12"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -279.0
-margin_top = -59.0
-custom_constants/margin_right = 15
-custom_constants/margin_bottom = 15
+margin_left = 776.0
+margin_top = 548.0
+margin_right = 1055.0
+margin_bottom = 600.0
+custom_constants/margin_right = 8
+custom_constants/margin_bottom = 8
 __meta__ = {
-"_edit_group_": true,
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="LabelsLayer/MarginContainer" index="0"]
-margin_right = 264.0
+[node name="VBoxContainer" type="VBoxContainer" parent="StatusText" index="0"]
+margin_right = 271.0
 margin_bottom = 44.0
 
-[node name="ThrowingRocksRemainingLabel" type="Label" parent="LabelsLayer/MarginContainer/VBoxContainer" index="0"]
-margin_right = 264.0
+[node name="ThrowingRocksRemainingLabel" type="Label" parent="StatusText/VBoxContainer" index="0"]
+margin_right = 271.0
 margin_bottom = 20.0
 theme = ExtResource( 4 )
 text = "Throwing Rocks Remaining: 0/0"
@@ -121,9 +136,9 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="ScoreLabel" type="Label" parent="LabelsLayer/MarginContainer/VBoxContainer" index="1"]
+[node name="ScoreLabel" type="Label" parent="StatusText/VBoxContainer" index="1"]
 margin_top = 24.0
-margin_right = 264.0
+margin_right = 271.0
 margin_bottom = 44.0
 theme = ExtResource( 4 )
 text = "Rocks Knocked: 0"
@@ -131,50 +146,6 @@ align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="MsgCenter" type="Label" parent="LabelsLayer" index="1"]
-margin_left = -899.812
-margin_top = -450.871
-margin_right = -160.812
-margin_bottom = -275.871
-theme = ExtResource( 4 )
-custom_fonts/font = SubResource( 5 )
-custom_colors/font_color = Color( 0.74902, 0.678431, 0.627451, 1 )
-align = 1
-valign = 1
-autowrap = true
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="MsgTimer" type="Timer" parent="LabelsLayer/MsgCenter" index="0"]
-wait_time = 4.0
-one_shot = true
-
-[node name="DelayTillSpawnTarget" type="Timer" parent="." index="8"]
-one_shot = true
-__meta__ = {
-"_editor_description_": "How long to wait after target rock is knocked off before spawning a new target rock"
-}
-
-[node name="DelayTillEndGame" type="Timer" parent="." index="9"]
-wait_time = 0.5
-one_shot = true
-__meta__ = {
-"_editor_description_": "How long to wait after player is out of rocks before actually ending the game-- we wait to give the last target rock a chance to finish falling."
-}
-
-[node name="EndGameFailsafe" type="Timer" parent="." index="10"]
-wait_time = 6.0
-one_shot = true
-__meta__ = {
-"_editor_description_": "A longer timer that triggers after the number of remaining rocks is 0 for long enough. This is just in case the \"DelayTillEndGame\" one isn't triggered for some reason (e.g. in low gravity when rocks float straight up for too long)"
-}
-
-[node name="EndgameRufflePlayer" type="AudioStreamPlayer" parent="." index="11"]
-stream = ExtResource( 6 )
-volume_db = -4.0
 [connection signal="rock_lost" from="LineOfPebbles" to="." method="_on_LineOfPebbles_rock_lost"]
 [connection signal="rock_regained" from="LineOfPebbles" to="." method="_on_LineOfPebbles_rock_regained"]
 [connection signal="body_entered" from="LineOfPebbles/ThrowZone" to="LineOfPebbles" method="_on_ThrowZone_body_entered"]
@@ -183,7 +154,6 @@ volume_db = -4.0
 [connection signal="mouse_exited" from="LineOfPebbles/ThrowZone" to="." method="_on_ThrowZone_mouse_exited"]
 [connection signal="body_entered" from="LineOfPebbles/ThrowZoneFloor" to="LineOfPebbles" method="_on_ThrowZoneFloor_body_entered"]
 [connection signal="body_exited" from="LineOfPebbles/ThrowZoneFloor" to="LineOfPebbles" method="_on_ThrowZoneFloor_body_exited"]
-[connection signal="timeout" from="LabelsLayer/MsgCenter/MsgTimer" to="." method="_on_MsgTimer_timeout"]
 [connection signal="timeout" from="DelayTillSpawnTarget" to="." method="place_new_target_rock"]
 [connection signal="timeout" from="DelayTillEndGame" to="." method="_on_DelayTillEndGame_timeout"]
 [connection signal="timeout" from="EndGameFailsafe" to="." method="_on_DelayTillEndGame_timeout"]

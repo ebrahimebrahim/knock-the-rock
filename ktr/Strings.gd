@@ -32,10 +32,10 @@ const _score = {
 
 const _mistake_messages = {
 	"en" : ["Oops, replacing target",
-			"We are experiencing technical difficulties",
+			"We are experiencing\ntechnical difficulties",
 			"Whoops, I got this this time",
 			"Ok ok, this time for sure",
-			"LOL sorry let me try one more time"],
+			"LOL sorry let me try\none more time"],
 	"ar" : ["لحظة! نحن نبدل الهدف",
 			"عفوا, سنصحح الخطأ",
 			"حسنا, هذه اخر مرة",
@@ -54,12 +54,12 @@ const _cant_hold_target = {
 }
 
 const _cant_hold_past_line = {
-	"en" : "No picking up rocks beyond the line of pebbles!",
+	"en" : "No picking up rocks\nbeyond the line of pebbles!",
 	"ar" : "لا تمسك الأحجار خلف خط الحصو!"
 }
 
 const _cant_hold_schwoop_rock = {
-	"en" : "Let this rock go, it wants to be free.",
+	"en" : "Let this rock go,\nit wants to be free.",
 	"ar" : "إترك هذا الحجر, يريد ان يكون حر"
 }
 
