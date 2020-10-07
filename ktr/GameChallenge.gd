@@ -7,6 +7,7 @@ var target_rock : Rock
 var target_rock_has_been_touched : bool
 
 var total_rocks_given : int = Globals.total_rocks_given
+var extra_annotations : bool = Globals.extra_annotations
 
 var num_reserve_throwing_rocks : int = total_rocks_given
 var num_incoming_throwing_rocks : int = 0
@@ -18,6 +19,7 @@ var beuld_topmid : Vector2
 const beuld_top_area_height = 10.0 # height of boulder top detection zone for clearing top
 var beuld_top_area : Area2D
 var beuld_top_obstructors = []
+var last_message_near_boulder : Message
 
 var score : int = 0
 
@@ -25,6 +27,8 @@ var mistakes_made : int = 0
 
 
 func _ready():
+	$LineOfPebbles/DottedLine.visible = extra_annotations
+	
 	beuld_topmid = beuld.global_transform.xform(beuld.top_mid())
 	initialize_beuld_top_area()
 	
@@ -33,7 +37,7 @@ func _ready():
 	place_new_target_rock()
 	
 	update_throwing_rocks_remaining_label()
-	$LabelsLayer/MarginContainer/VBoxContainer/ScoreLabel.text = Strings.rocks_knocked(score)
+	$StatusText/VBoxContainer/ScoreLabel.text = Strings.rocks_knocked(score)
 
 
 func initialize_beuld_top_area():
@@ -67,7 +71,7 @@ func _process(_delta):
 			mistakes_made = 0
 #			target_rock.mode=RigidBody2D.MODE_STATIC  # Uncomment this to observe the moment a rock is counted as knocked off
 		if not target_rock_has_been_touched:
-			show_message(Strings.mistake_message(mistakes_made),2)
+			show_message_near_boulder(Strings.mistake_message(mistakes_made),2)
 			mistakes_made += 1
 		
 		# Relieve old target rock of its targetty duties, if there is one
@@ -88,9 +92,9 @@ func target_rock_on_boulder() -> bool:
 
 
 func increment_score():
-	show_message(Strings.knocked(),1.2)
+	show_message_near_boulder(Strings.knocked(),0.5)
 	score += 1
-	$LabelsLayer/MarginContainer/VBoxContainer/ScoreLabel.text = Strings.rocks_knocked(score)
+	$StatusText/VBoxContainer/ScoreLabel.text = Strings.rocks_knocked(score)
 
 
 func temporarily_grant_justspawned_collisionness(rock : Rock):
@@ -134,7 +138,7 @@ func end_justspawned_collisionness(rock : Rock, inner_circle : Area2D):
 
 
 func update_throwing_rocks_remaining_label() -> void:
-	$LabelsLayer/MarginContainer/VBoxContainer/ThrowingRocksRemainingLabel.text = Strings.throwing_remaining(throwing_rocks_remaining())
+	$StatusText/VBoxContainer/ThrowingRocksRemainingLabel.text = Strings.throwing_remaining(throwing_rocks_remaining())
 
 
 func throwing_rocks_remaining() -> int:
@@ -146,7 +150,7 @@ func place_new_target_rock():
 		$DelayTillSpawnTarget.start()
 		return
 	if not beuld_top_obstructors.empty():
-		show_message(Strings.removing_obstructions(),$DelayTillSpawnTarget.wait_time)
+		show_message_near_boulder(Strings.removing_obstructions(),$DelayTillSpawnTarget.wait_time)
 		for rock in beuld_top_obstructors:
 			rock.schwoop_delete()
 			beuld_top_obstructors.erase(rock)
@@ -159,7 +163,7 @@ func place_new_target_rock():
 	target_rock.position += beuld_topmid-target_rock.global_transform.xform(target_rock.center_of_mass())+Vector2(0,-20-target_rock.flat_bottom())
 	target_rock.set_holdable(false,Strings.cant_hold_target())
 	target_rock.connect("body_entered",self,"_on_target_rock_contact")
-	target_rock.connect("clicked_yet_unholdable",self,"_on_clicked_yet_unholdable")
+	target_rock.connect("clicked_yet_unholdable",self,"_on_clicked_yet_unholdable",[target_rock])
 	target_rock_has_been_touched = false
 
 
@@ -209,7 +213,7 @@ func _on_delivery_timer_timeout() -> void:
 		var retry_delivery_timer = get_tree().create_timer(0.7)
 		retry_delivery_timer.connect("timeout",self,"_on_delivery_timer_timeout")
 	else:
-		rock.connect("clicked_yet_unholdable",self,"_on_clicked_yet_unholdable")
+		rock.connect("clicked_yet_unholdable",self,"_on_clicked_yet_unholdable",[rock])
 		temporarily_grant_justspawned_collisionness(rock)
 		throwzone_rocks.append(rock)
 		num_incoming_throwing_rocks -= 1
@@ -235,7 +239,7 @@ func _on_DelayTillEndGame_timeout():
 		game_has_ended = true
 		$EndgameRufflePlayer.play()
 		if not special_mode_condition_met():
-			show_message(Strings.endgame_message(score,total_rocks_given),-1)
+			show_message_center(Strings.endgame_message(score,total_rocks_given),-1)
 	elif throwing_rocks_remaining() > 0:
 		game_might_end = false
 
@@ -259,6 +263,14 @@ func _on_ThrowZone_mouse_exited():
 	for rock in throwzone_rocks:
 		if rock.is_held:
 			rock.set_held(false)
+			if extra_annotations:
+				var message = Message.new(Strings.dropped(),0.5,15)
+				add_child(message)
+				message.set_botmid_position(Vector2(
+					($LineOfPebbles.transform*$LineOfPebbles.points[0])[0],
+					get_local_mouse_position()[1]
+				))
+				message.force_into_rect(get_screen_rect())
 
 
 func _on_ThrowZone_mouse_entered():
@@ -270,25 +282,29 @@ func _on_ThrowZone_mouse_entered():
 			break
 	Input.set_custom_mouse_cursor(closed_hand if some_rock_is_held else open_hand,Input.CURSOR_ARROW,Vector2(21,27))
 
-func _on_clicked_yet_unholdable(reason):
+
+func _on_clicked_yet_unholdable(reason : String, rock : Rock):
 	if not game_has_ended and reason != "":
-		show_message(reason,2.5)
+		var message = Message.new(reason,1.5,15)
+		add_child(message)
+		message.set_botmid_position(rock.topmost_vertex())
+		message.force_into_rect(get_screen_rect())
 
 
-func show_message(msg : String, time : float = 4):
-	$LabelsLayer/MsgCenter.text = msg
-	if time > 0: # time <= 0 would cause an indefinite message
-		$LabelsLayer/MsgCenter/MsgTimer.wait_time = time
-		$LabelsLayer/MsgCenter/MsgTimer.start()
-	else:
-		$LabelsLayer/MsgCenter/MsgTimer.stop()
-	$LabelsLayer/MsgCenter.show()
+func show_message_center(msg : String, time : float = 1):
+	var message = Message.new(msg,time,40)
+	add_child(message)
+	message.set_botmid_position(0.5*get_tree().get_root().get_size_override())
 
 
-func _on_MsgTimer_timeout():
-	$LabelsLayer/MsgCenter.hide()
-
-	
+func show_message_near_boulder(msg : String, time : float = 1):
+	if is_instance_valid(last_message_near_boulder):
+		last_message_near_boulder.deletion_animation_playing = true
+	var message = Message.new(msg,time,20)
+	add_child(message)
+	message.set_botmid_position(beuld_topmid+Vector2(0,-100))
+	message.force_into_rect(get_screen_rect())
+	last_message_near_boulder = message
 	
 	
 	

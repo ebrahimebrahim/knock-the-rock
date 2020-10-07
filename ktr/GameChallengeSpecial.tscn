@@ -29,7 +29,7 @@ animations = [ {
 script = ExtResource( 3 )
 
 [node name="bg" parent="." index="0"]
-self_modulate = Color( 0.0588235, 0.0627451, 0.0941176, 1 )
+self_modulate = Color( 0.1134, 0.11784, 0.18, 1 )
 
 [node name="Fireflies" type="AnimatedSprite" parent="bg" index="0"]
 frames = SubResource( 1 )

@@ -1,6 +1,6 @@
 extends "res://GameChallenge.gd"
 
-const rock_modulate = Color(0.4,0.48,0.72)
+const rock_modulate = Color(0.495, 0.59625, 0.9)
 
 func _ready():
 	var x_min : float  = $bg/FirefliesRectTopLeft.position.x

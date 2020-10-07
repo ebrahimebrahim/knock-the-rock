@@ -2,7 +2,11 @@ extends Resource
 
 class_name SettingsConfig
 
+
+export var version : String
+
 export var fullscreen : bool
+export var extra_annotations : bool
 export var music_vol : float
 export var gravity : float
 export var challenge_mode_rocks : int

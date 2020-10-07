@@ -4,7 +4,9 @@
 
 [resource]
 script = ExtResource( 1 )
+version = "[MISSING VERSION STRING]"
 fullscreen = true
+extra_annotations = true
 music_vol = -5.0
 gravity = 1470.0
 challenge_mode_rocks = 15

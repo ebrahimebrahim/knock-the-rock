@@ -24,8 +24,19 @@ func get_version_info():
 
 var total_rocks_given : int
 var corner_menu_hidden_by_default : bool
+var extra_annotations : bool
 
 func load_settings_config() -> Resource:
+	
+	# If no settings.tres, then return default settings
 	if not ResourceLoader.exists("user://settings.tres"):
 		return ResourceLoader.load("default_settings.tres")
-	return ResourceLoader.load("user://settings.tres","",true) # no_cache = true
+		
+	var settings_cfg = ResourceLoader.load("user://settings.tres","",true) # no_cache = true
+	
+	# If version mismatch in settings.tres, then also return default settings
+	if not "version" in settings_cfg or settings_cfg.version != get_version_info()["version_number"]:
+		return ResourceLoader.load("default_settings.tres")
+	
+	# If all good, return loaded settings.tres 
+	return settings_cfg

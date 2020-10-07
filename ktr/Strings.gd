@@ -32,10 +32,10 @@ const _score = {
 
 const _mistake_messages = {
 	"en" : ["Oops, replacing target",
-			"We are experiencing technical difficulties",
-			"Whoops, I got this this time",
+			"We are experiencing\ntechnical difficulties",
+			"Whoops, I got it this time",
 			"Ok ok, this time for sure",
-			"LOL sorry let me try one more time"],
+			"LOL sorry let me try\none more time"],
 	"ar" : ["لحظة! نحن نبدل الهدف",
 			"عفوا, سنصحح الخطأ",
 			"حسنا, هذه اخر مرة",
@@ -48,18 +48,23 @@ const _knocked = {
 	"ar" : "سقطت!"
 }
 
+const _dropped = {
+	"en" : "Dropped!",
+	"ar" : "تركت!"
+}
+
 const _cant_hold_target = {
 	"en" : "No picking up the target rock!",
 	"ar" : "لا تمسك الهدف!"
 }
 
 const _cant_hold_past_line = {
-	"en" : "No picking up rocks beyond the line of pebbles!",
+	"en" : "No picking up rocks\npast the line of pebbles!",
 	"ar" : "لا تمسك الأحجار خلف خط الحصو!"
 }
 
 const _cant_hold_schwoop_rock = {
-	"en" : "Let this rock go, it wants to be free.",
+	"en" : "Let this rock go,\nit wants to be free.",
 	"ar" : "إترك هذا الحجر, يريد ان يكون حر"
 }
 
@@ -78,6 +83,7 @@ const _ui_label = {
 		"exit btn" : "Exit",
 		"settings title" : "Settings",
 		"fullscreen" : "fullscreen",
+		"extra annotations" : "challenge mode extra annotations",
 		"music volume" : "music volume",
 		"gravity" : "gravity",
 		"challenge mode rocks" : "challenge mode rocks",
@@ -102,6 +108,7 @@ const _ui_label = {
 		"exit btn" : "خروج",
 		"settings title" : "الإعدادات",
 		"fullscreen" : "كبر النافذة",
+		"extra annotations" : "[MISSING TRANSLATION]",
 		"music volume" : "صوت المسيقة",
 		"gravity" : "جاذبية",
 		"challenge mode rocks" : "عدد الأحجار في وضع التحدي",
@@ -116,6 +123,18 @@ const _ui_label = {
 		"restart btn" : "إبدأ من جديد (R)",
 		"help btn corner menu" : "مساعدة (H)",
 		"toggle corner menu lbl" : "خبء هذه القائمة (T)",
+	}
+}
+
+const _tooltip = {
+	"en" : {
+		"fullscreen" : "Fullscreen",
+		"extra annotations" : "Show dotted line and \"Dropped!\" warning in challenge mode",
+		"music volume" : "Music volume",
+		"gravity" : "Gravity",
+		"challenge mode rocks" : "Number of throwing rocks given to you in challenge mode",
+		"corner menu hidden by default" : "Toggle default visibility of the in-game corner menu",
+		"language" : "Language"
 	}
 }
 
@@ -161,6 +180,9 @@ func mistake_message(mistakes_made):
 func knocked():
 	return _knocked[lang]
 
+func dropped():
+	return _dropped[lang]
+
 func cant_hold_target():
 	return _cant_hold_target[lang]
 	
@@ -175,3 +197,6 @@ func removing_obstructions():
 
 func ui_label(btn):
 	return _ui_label[lang][btn]
+
+func tooltip(btn):
+	return _tooltip[lang][btn]
