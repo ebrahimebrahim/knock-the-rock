@@ -2,7 +2,6 @@
 
 Get the latest release on itch: https://seedstone.itch.io/knock-the-rock
 
----
 
 ## Building
 
@@ -14,7 +13,6 @@ Then run the script `make.sh` in the repository.
 
 Version string is done in `ktr/version_number.txt` and dev/release state is set in `ktr/Globals.gd`
 
----
 
 ## Development
 
