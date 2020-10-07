@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://GameBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://GameChallenge.gd" type="Script" id=2]
+[ext_resource path="res://DottedLine.gd" type="Script" id=3]
 [ext_resource path="res://theme.tres" type="Theme" id=4]
 [ext_resource path="res://LineOfPebbles.gd" type="Script" id=5]
 [ext_resource path="res://sounds/endgame_ruffle.wav" type="AudioStream" id=6]
@@ -80,6 +81,15 @@ shape = SubResource( 3 )
 [node name="RightWall" type="CollisionShape2D" parent="LineOfPebbles/ThrowZoneBarrier" index="1"]
 position = Vector2( 149.919, 236.155 )
 shape = SubResource( 4 )
+
+[node name="DottedLine" type="Position2D" parent="LineOfPebbles" index="3"]
+position = Vector2( 278.149, 535.951 )
+script = ExtResource( 3 )
+line_width = 3
+line_color = Color( 1, 1, 1, 1 )
+dash_length = 10
+gap_length = 15
+line_num_dashes = 25
 
 [node name="DelayTillSpawnTarget" type="Timer" parent="." index="7"]
 one_shot = true
