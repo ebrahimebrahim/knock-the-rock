@@ -129,7 +129,7 @@ const _ui_label = {
 const _tooltip = {
 	"en" : {
 		"fullscreen" : "Fullscreen",
-		"extra annotations" : "Turn this off once you get the idea",
+		"extra annotations" : "Show dotted line and drop warning in challenge mode",
 		"music volume" : "Music volume",
 		"gravity" : "Gravity",
 		"challenge mode rocks" : "Number of throwing rocks given to you in challenge mode",
