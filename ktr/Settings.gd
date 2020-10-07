@@ -63,8 +63,10 @@ func _on_ApplyButton_pressed():
 
 
 func _on_DefaultsButton_pressed():
-	apply_settings(load("default_settings.tres"))
-
+	var default_settings_cfg : SettingsConfig = load("default_settings.tres")
+	default_settings_cfg.version = Globals.get_version_info()["version_number"]
+	apply_settings(default_settings_cfg)
+	
 
 func apply_settings(s : SettingsConfig):
 	var error : int = ResourceSaver.save("user://settings.tres",s)
