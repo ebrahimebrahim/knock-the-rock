@@ -16,3 +16,4 @@ Here is the process for adding a setting to the game:
 - set a default value for it in the resource `default_settings.tres`
 - update the methods `panel_knobs_to_resource` and `resource_to_panel_knobs` in `Settings.gd`
 - add tooltip and label strings to `Strings.gd` and then update `setup_ui_labels` in `Settings.gd`
+- finally, do stuff with the setting via `Globals.load_settings_config()`, or via `$Overlays/Settings.settings_config` if working from `MenuScreen.tscn`
