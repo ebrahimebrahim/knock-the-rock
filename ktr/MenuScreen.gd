@@ -97,6 +97,9 @@ func process_settings():
 	# corner menu hidden by default
 	Globals.corner_menu_hidden_by_default = cfg.corner_menu_hidden_by_default
 	
+	# whether to display extra annotations in challenge mode
+	Globals.extra_annotations = cfg.extra_annotations
+	
 	# language needs to be set earlier-- see _init
 
 

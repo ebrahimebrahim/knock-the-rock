@@ -24,6 +24,7 @@ func get_version_info():
 
 var total_rocks_given : int
 var corner_menu_hidden_by_default : bool
+var extra_annotations : bool
 
 func load_settings_config() -> Resource:
 	

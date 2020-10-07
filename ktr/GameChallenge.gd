@@ -3,12 +3,11 @@ extends "res://GameBase.gd"
 var game_has_ended = false # true when game is for sure over
 var game_might_end = false # true when last rock was thrown and we are waiting to see if player somehow gets it back or something
 
-var extra_annotations = true
-
 var target_rock : Rock
 var target_rock_has_been_touched : bool
 
 var total_rocks_given : int = Globals.total_rocks_given
+var extra_annotations : bool = Globals.extra_annotations
 
 var num_reserve_throwing_rocks : int = total_rocks_given
 var num_incoming_throwing_rocks : int = 0

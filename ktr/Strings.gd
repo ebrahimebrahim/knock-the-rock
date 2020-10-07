@@ -83,6 +83,7 @@ const _ui_label = {
 		"exit btn" : "Exit",
 		"settings title" : "Settings",
 		"fullscreen" : "fullscreen",
+		"extra annotations" : "challenge mode extra annotations",
 		"music volume" : "music volume",
 		"gravity" : "gravity",
 		"challenge mode rocks" : "challenge mode rocks",
@@ -107,6 +108,7 @@ const _ui_label = {
 		"exit btn" : "خروج",
 		"settings title" : "الإعدادات",
 		"fullscreen" : "كبر النافذة",
+		"extra annotations" : "[MISSING TRANSLATION]",
 		"music volume" : "صوت المسيقة",
 		"gravity" : "جاذبية",
 		"challenge mode rocks" : "عدد الأحجار في وضع التحدي",
@@ -127,6 +129,7 @@ const _ui_label = {
 const _tooltip = {
 	"en" : {
 		"fullscreen" : "Fullscreen",
+		"extra annotations" : "Turn this off once you get the idea",
 		"music volume" : "Music volume",
 		"gravity" : "Gravity",
 		"challenge mode rocks" : "Number of throwing rocks given to you in challenge mode",

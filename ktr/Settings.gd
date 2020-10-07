@@ -10,6 +10,7 @@ var music_vol_min : float
 
 
 onready var fullscreen_widget = $VBoxContainer/Body/Fullscreen/MarginContainer/Checkbox
+onready var extra_annotations_widget = $VBoxContainer/Body/ExtraAnnotations/MarginContainer/Checkbox
 onready var music_vol_widget = $VBoxContainer/Body/MusicVolume/MarginContainer/HSlider
 onready var gravity_widget = $VBoxContainer/Body/Gravity/MarginContainer/HSlider
 onready var challenge_mode_rocks_widget = $VBoxContainer/Body/TotalRocksGiven/MarginContainer/SpinBox
@@ -19,6 +20,7 @@ onready var language_widget = $VBoxContainer/Body/Language/MarginContainer/Optio
 # transfer data from settings panel controls to settings_config
 func panel_knobs_to_resource():
 	settings_config.fullscreen = fullscreen_widget.pressed
+	settings_config.extra_annotations = extra_annotations_widget.pressed
 	settings_config.music_vol = music_vol_widget.value
 	settings_config.gravity = gravity_widget.value
 	settings_config.challenge_mode_rocks = challenge_mode_rocks_widget.value
@@ -31,6 +33,7 @@ func panel_knobs_to_resource():
 # transfer data from settings_config to settings panel controls
 func resource_to_panel_knobs():
 	fullscreen_widget.pressed = settings_config.fullscreen
+	extra_annotations_widget.pressed = settings_config.extra_annotations
 	music_vol_widget.value = settings_config.music_vol
 	gravity_widget.value = settings_config.gravity
 	challenge_mode_rocks_widget.value = settings_config.challenge_mode_rocks
@@ -78,6 +81,9 @@ func apply_settings(s : SettingsConfig):
 func setup_ui_labels():
 	$VBoxContainer/Body/Fullscreen/Label.text = Strings.ui_label("fullscreen")
 	$VBoxContainer/Body/Fullscreen/MarginContainer/Checkbox.hint_tooltip = Strings.tooltip("fullscreen")
+	
+	$VBoxContainer/Body/ExtraAnnotations/Label.text = Strings.ui_label("extra annotations")
+	$VBoxContainer/Body/ExtraAnnotations/MarginContainer/Checkbox.hint_tooltip = Strings.tooltip("extra annotations")
 	
 	$VBoxContainer/Body/MusicVolume/Label.text = Strings.ui_label("music volume")
 	$VBoxContainer/Body/MusicVolume/MarginContainer/HSlider.hint_tooltip = Strings.tooltip("music volume")

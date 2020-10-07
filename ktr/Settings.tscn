@@ -46,7 +46,7 @@ __meta__ = {
 [node name="Body" type="VBoxContainer" parent="VBoxContainer"]
 margin_top = 98.0
 margin_right = 533.0
-margin_bottom = 284.0
+margin_bottom = 330.0
 size_flags_vertical = 3
 custom_constants/separation = 6
 __meta__ = {
@@ -84,10 +84,42 @@ margin_bottom = 40.0
 size_flags_horizontal = 2
 size_flags_vertical = 4
 
-[node name="MusicVolume" type="HBoxContainer" parent="VBoxContainer/Body"]
+[node name="ExtraAnnotations" type="HBoxContainer" parent="VBoxContainer/Body"]
 margin_top = 46.0
 margin_right = 533.0
-margin_bottom = 62.0
+margin_bottom = 86.0
+
+[node name="Label" type="Label" parent="VBoxContainer/Body/ExtraAnnotations"]
+margin_left = 153.0
+margin_top = 13.0
+margin_right = 264.0
+margin_bottom = 27.0
+size_flags_horizontal = 14
+text = "extra annotations"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Body/ExtraAnnotations"]
+margin_left = 268.0
+margin_right = 533.0
+margin_bottom = 40.0
+size_flags_horizontal = 7
+size_flags_vertical = 4
+custom_constants/margin_right = 20
+custom_constants/margin_left = 20
+
+[node name="Checkbox" type="CheckButton" parent="VBoxContainer/Body/ExtraAnnotations/MarginContainer"]
+margin_left = 20.0
+margin_right = 96.0
+margin_bottom = 40.0
+size_flags_horizontal = 2
+size_flags_vertical = 4
+
+[node name="MusicVolume" type="HBoxContainer" parent="VBoxContainer/Body"]
+margin_top = 92.0
+margin_right = 533.0
+margin_bottom = 108.0
 
 [node name="Label" type="Label" parent="VBoxContainer/Body/MusicVolume"]
 margin_left = 173.0
@@ -119,9 +151,9 @@ max_value = 10.0
 value = -40.0
 
 [node name="Gravity" type="HBoxContainer" parent="VBoxContainer/Body"]
-margin_top = 68.0
+margin_top = 114.0
 margin_right = 533.0
-margin_bottom = 84.0
+margin_bottom = 130.0
 
 [node name="Label" type="Label" parent="VBoxContainer/Body/Gravity"]
 margin_left = 222.0
@@ -151,9 +183,9 @@ size_flags_vertical = 1
 max_value = 2940.0
 
 [node name="TotalRocksGiven" type="HBoxContainer" parent="VBoxContainer/Body"]
-margin_top = 90.0
+margin_top = 136.0
 margin_right = 533.0
-margin_bottom = 114.0
+margin_bottom = 160.0
 
 [node name="Label" type="Label" parent="VBoxContainer/Body/TotalRocksGiven"]
 margin_left = 124.0
@@ -185,9 +217,9 @@ value = 2.0
 allow_greater = true
 
 [node name="CornerMenuHidden" type="HBoxContainer" parent="VBoxContainer/Body"]
-margin_top = 120.0
+margin_top = 166.0
 margin_right = 533.0
-margin_bottom = 160.0
+margin_bottom = 206.0
 
 [node name="Label" type="Label" parent="VBoxContainer/Body/CornerMenuHidden"]
 margin_left = 67.0
@@ -217,9 +249,9 @@ size_flags_horizontal = 2
 size_flags_vertical = 4
 
 [node name="Language" type="HBoxContainer" parent="VBoxContainer/Body"]
-margin_top = 166.0
+margin_top = 212.0
 margin_right = 533.0
-margin_bottom = 186.0
+margin_bottom = 232.0
 
 [node name="Label" type="Label" parent="VBoxContainer/Body/Language"]
 margin_left = 208.0
@@ -252,7 +284,7 @@ items = [ "en", null, false, 0, null, "ar", null, true, 1, null, "zh", null, tru
 selected = 0
 
 [node name="Buttons" type="MarginContainer" parent="VBoxContainer"]
-margin_top = 288.0
+margin_top = 334.0
 margin_right = 533.0
 margin_bottom = 461.0
 size_flags_vertical = 3
@@ -265,16 +297,16 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Buttons"]
 margin_left = 20.0
 margin_right = 513.0
-margin_bottom = 173.0
+margin_bottom = 127.0
 size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ApplyButton" type="Button" parent="VBoxContainer/Buttons/HBoxContainer"]
-margin_top = 73.0
+margin_top = 50.0
 margin_right = 161.0
-margin_bottom = 99.0
+margin_bottom = 76.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme = ExtResource( 1 )
@@ -285,9 +317,9 @@ __meta__ = {
 
 [node name="BackButton" type="Button" parent="VBoxContainer/Buttons/HBoxContainer"]
 margin_left = 165.0
-margin_top = 73.0
+margin_top = 50.0
 margin_right = 326.0
-margin_bottom = 99.0
+margin_bottom = 76.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme = ExtResource( 1 )
@@ -298,9 +330,9 @@ __meta__ = {
 
 [node name="DefaultsButton" type="Button" parent="VBoxContainer/Buttons/HBoxContainer"]
 margin_left = 330.0
-margin_top = 73.0
+margin_top = 50.0
 margin_right = 493.0
-margin_bottom = 99.0
+margin_bottom = 76.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme = ExtResource( 1 )
