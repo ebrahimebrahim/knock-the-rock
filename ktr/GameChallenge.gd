@@ -3,7 +3,7 @@ extends "res://GameBase.gd"
 var game_has_ended = false # true when game is for sure over
 var game_might_end = false # true when last rock was thrown and we are waiting to see if player somehow gets it back or something
 
-var extra_messages = true
+var extra_annotations = true
 
 var target_rock : Rock
 var target_rock_has_been_touched : bool
@@ -28,6 +28,8 @@ var mistakes_made : int = 0
 
 
 func _ready():
+	$LineOfPebbles/DottedLine.visible = extra_annotations
+	
 	beuld_topmid = beuld.global_transform.xform(beuld.top_mid())
 	initialize_beuld_top_area()
 	
@@ -262,7 +264,7 @@ func _on_ThrowZone_mouse_exited():
 	for rock in throwzone_rocks:
 		if rock.is_held:
 			rock.set_held(false)
-			if extra_messages:
+			if extra_annotations:
 				var message = Message.new(Strings.dropped(),0.5,15)
 				add_child(message)
 				message.set_botmid_position(Vector2(
