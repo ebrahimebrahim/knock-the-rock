@@ -11,7 +11,7 @@ Version string is done in `ktr/version_number.txt` and dev/release state is set 
 ---
 
 Here is the process for adding a setting to the game:
-- add widget for it in Settings.tscn
+- add widget for it in `Settings.tscn`
 - add exported variable in `SettingsConfig.gd`
 - set a default value for it in the resource `default_settings.tres`
 - update the methods `panel_knobs_to_resource` and `resource_to_panel_knobs` in `Settings.gd`
