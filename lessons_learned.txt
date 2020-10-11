@@ -1,0 +1,58 @@
+write down lessons learned ideas as you go, not all at the end
+
+use abstract base classes where it makes sense
+our pitfall:
+  RockPolygon was both its own useful class and also had derived classes.
+  RockPolygon's _init suited instances of RockPolygon, but sometimes not instances of derived classes.
+  This resulted in peupy ways of overriding things a parent's _init does.
+  When you make a class that will be a base class of any kind, make sure you only put into _init and _ready etc. what all children should be doing.
+  If there is a conflict then maybe an abstract base class is needed.
+
+We made LineOfPebbles.gd with the intention of not having GameChallenge.gd do so much.
+But it was not well thought through. GameChallenge.gd should be doing those things.
+LineOfPebbles.gd is weird. It pretty much always confused me when something was in it because I would expect it to be in GameChallenge.gd.
+
+GameChallenge.gd was in fact doing too much though.
+We should be more continuously thinking about refactoring.
+GameChallenge does a lot of things that really a "rock manager" ought to do.
+We didn't think about this until GameChallenge was too big and scary for us to want to change it.
+
+Game logic:
+  We initially set up the logic in challenge mode to be based on the stats that are printed in the UI.
+  But actually we should really think about internal game states separately, in terms of what is fundamental to the game logic.
+  (Does this jog memory?: num_throwing_rocks_remaining_including_incoming)
+
+We scattered the cursor code all over the place. It's a huge mess.
+GameBase and MenuScreen just need to tell some kind of cursor object (global autoloaded or local to them)
+the relevant info, and the cursor object can then change cursor accordingly.
+At the moment we don't even have a way of representing cursor state except in terms of what image resource is used as the image...
+Lesson:
+  If you notice code for the same thing getting scattered, then take a moment to refactor and resist the temptation to
+  incremenetally worsen the problem as we did.
+
+Scrolling background for menu-game transition is cool, but we didn't manage game state very elegantly.
+Same goes for knowing whether the scene is currently shutting down, or whether a challenge mode game has ended.
+These game state data should be represented in one state object (perhaps an enum or a dict of enums or w/e) or a clear family of state objects
+Lesson: write code that forces us to cover all cases rather than scattering state data and catching bugs later
+
+Lesson for Yusuf: No more magic numbers
+
+(*)
+There should have been a Settings singleton that holds the SettingsConfig that is loaded from disk.
+The Settings singleton can be told to reload its SettingsConfig when user says "apply" or "restore defaults"
+Then all scenes like MenuScreen and GameChallenge and Settings.tscn (the settings panel) can query the global Settings object
+The mistake was that we put the SettingsConfig object at a local level in the settings panel, and then that info has to get passed up the chain of command
+before it can awkwardly come down again. Instead it should start higher up.
+
+GameChallenge is doing too much work:
+Sometimes underscores should be dots. We could have had a derived class of Boulder which is ChallengeBoulder, and it could have created its top area2d and passed on signals
+
+Scenes should work on their own even when not loaded in via the main scene of the project.
+We had this not working due to (*)
+
+Strings table should be a table file that can be edited easily, rather than having hardcoded strings in Strings.gd
+i.e. do interantionalization properly
+
+
+
+
