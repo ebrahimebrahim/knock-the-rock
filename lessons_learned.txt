@@ -51,8 +51,20 @@ Scenes should work on their own even when not loaded in via the main scene of th
 We had this not working due to (*)
 
 Strings table should be a table file that can be edited easily, rather than having hardcoded strings in Strings.gd
-i.e. do interantionalization properly
+i.e. do internationalization properly
 
 
+---
+
+
+workflow
+
+
+assign ourselves to big issues when we start working on them
+
+non-tiny issues development probably should be in branches so that we can work on other stuff at the same time and collaborate sometimes on a branch
+
+Should every commit be tied to an issue?
+No, but we should have a fairly low threshold for opening issues and we should mention issues in commits to the extent that there are issues.
 
 
