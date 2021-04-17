@@ -2,7 +2,7 @@
 
 Get the latest release on itch: https://seedstone.itch.io/knock-the-rock
 
-![screenshot]{screenshot.png}
+![screenshot](screenshot.png)
 
 ## Building
 
